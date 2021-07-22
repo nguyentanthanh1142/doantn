@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.stereotype.Service;
 
 import com.khoaluantotnghiep.entity.ProductEntity;
+import com.khoaluantotnghiep.entity.UserEntity;
 
 @Service
 public interface IProductService {
@@ -48,13 +49,13 @@ public interface IProductService {
 
 	public void updateProduct(ProductEntity product);
 
-	public void onOffProduct(int product_id);
+	public void onOffProduct(int product_id,UserEntity loginInfo);
 
 	public List<ProductEntity> findTrashProduct();
 
-	public void delTrash(int product_id);
+	public void delTrash(int product_id,UserEntity loginInfo);
 
-	public void reTrash(int product_id);
+	public void reTrash(int product_id,UserEntity loginInfo);
 
 	public Map<Integer, String> mapProd();
 

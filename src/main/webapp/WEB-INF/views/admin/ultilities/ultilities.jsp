@@ -57,7 +57,7 @@
 								<th style="width: 40px;" class="text-center">ID</th>
 								<th style="width: 200px;">Tên sản phẩm</th>
 								<th>Tiện ích</th>
-								<th style="width: 300px;">Chức năng</th>
+								<th style="width: 10rem;">Chức năng</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -93,7 +93,7 @@
 								<th style="width: 40px;" class="text-center">ID</th>
 								<th style="width: 200px;">Tên sản phẩm</th>
 								<th>Tiện ích</th>
-								<th style="width: 300px;">Chức năng</th>
+								<th style="width: 10rem;">Chức năng</th>
 							</tr>
 						</tfoot>
 					</table>

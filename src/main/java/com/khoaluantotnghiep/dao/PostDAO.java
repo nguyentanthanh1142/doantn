@@ -1,12 +1,14 @@
 package com.khoaluantotnghiep.dao;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.khoaluantotnghiep.entity.PostEntity;
+import com.khoaluantotnghiep.entity.UserEntity;
 import com.khoaluantotnghiep.mapper.PostMapper;
 
 @Repository
@@ -115,9 +117,10 @@ public class PostDAO extends BaseDAO {
 		return result.isEmpty() ? null : result.get(0);
 	}
 
-	public void onOffTPost(int post_id) {
-		String sql = "UPDATE post SET post_status = case when  post_status =1 then 2 when  post_status =2 then 1 end where  post_id ="
-				+ post_id;
+	public void onOffTPost(int post_id, UserEntity loginInfo) {
+		String sql = "UPDATE post SET post_status = case when post_status =1 then 2 when post_status =2 then 1 end,updated_by = "
+				+ loginInfo.getUser_id() + ", updated_at = NOW() where post_id =" + post_id;
+		System.out.println(sql);
 		jdbcTemplate.update(sql);
 	}
 
@@ -127,15 +130,18 @@ public class PostDAO extends BaseDAO {
 		return list;
 	}
 
-	public void delTrash(int post_id) {
-		String sql = "UPDATE post SET post_status = 0  where  post_id =" + post_id;
+	public void delTrash(int post_id, UserEntity loginInfo) {
+		String sql = "UPDATE post SET post_status = 0, updated_by =" + +loginInfo.getUser_id()
+				+ ", updated_at = NOW() where  post_id =" + post_id;
 		jdbcTemplate.update(sql);
 	}
 
-	public void reTrash(int post_id) {
-		String sql = "UPDATE post SET post_status = 2  where  post_id =" + post_id;
+	public void reTrash(int post_id, UserEntity loginInfo) {
+		String sql = "UPDATE post SET post_status = 2, updated_by = " + +loginInfo.getUser_id()
+				+ ", updated_at = NOW()  where  post_id =" + post_id;
 		jdbcTemplate.update(sql);
 	}
+
 	public boolean isTitledExists(String title) {
 		int count = 0;
 		String sql = "SELECT count(*) FROM post WHERE post_title = ?";
@@ -143,13 +149,15 @@ public class PostDAO extends BaseDAO {
 
 		return count > 0;
 	}
-	public boolean isTitledExists(String title,int id) {
+
+	public boolean isTitledExists(String title, int id) {
 		int count = 0;
 		String sql = "SELECT count(*) FROM post WHERE post_title = ? and post_id <> ?";
-		count = jdbcTemplate.queryForObject(sql, new Object[] { title,id }, Integer.class);
+		count = jdbcTemplate.queryForObject(sql, new Object[] { title, id }, Integer.class);
 
 		return count > 0;
 	}
+
 	public boolean isSlugExists(String slug) {
 		int count = 0;
 		String sql = "SELECT count(*) FROM post WHERE post_slug = ?";
@@ -157,20 +165,24 @@ public class PostDAO extends BaseDAO {
 
 		return count > 0;
 	}
-	public boolean isSlugExists(String slug,int id) {
+
+	public boolean isSlugExists(String slug, int id) {
 		int count = 0;
 		String sql = "SELECT count(*) FROM post WHERE post_slug = ? and post_id <> ?";
-		count = jdbcTemplate.queryForObject(sql, new Object[] { slug,id }, Integer.class);
+		count = jdbcTemplate.queryForObject(sql, new Object[] { slug, id }, Integer.class);
 
 		return count > 0;
 	}
+
 	public List<PostEntity> findAllPostByTopic(int post_topicid) {
 		String sql = "SELECT * FROM post where post_status = 1 and post_topicid = " + post_topicid;
 		List<PostEntity> list = jdbcTemplate.query(sql, new PostMapper());
 		return list;
 	}
-	public List<PostEntity> findAllPostRelated(int topic_id, int id){
-		String sql = "SELECT * FROM post where post_status = 1 and post_topicid = " + topic_id + " and post_id <> " + id;
+
+	public List<PostEntity> findAllPostRelated(int topic_id, int id) {
+		String sql = "SELECT * FROM post where post_status = 1 and post_topicid = " + topic_id + " and post_id <> "
+				+ id;
 		List<PostEntity> list = jdbcTemplate.query(sql, new PostMapper());
 		return list;
 	}

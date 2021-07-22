@@ -10,11 +10,11 @@
 <body>
 	<div class="content-wrapper pt-3">
 		<!-- Content Header (Page header) -->
-		<c:url var="add" value="/quan-tri/ma-khuyen-mai/add" />
-		<c:url var="get" value="/quan-tri/ma-khuyen-mai/edit" />
-		<c:url var="deltrash" value="/quan-tri/ma-khuyen-mai/trash" />
-		<c:url var="trash" value="/quan-tri/ma-khuyen-mai/thung-rac" />
-		<c:url var="onoff" value="/quan-tri/ma-khuyen-mai/status" />
+		<c:url var="add" value="/quan-tri/web/ma-khuyen-mai/add" />
+		<c:url var="get" value="/quan-tri/web/ma-khuyen-mai/edit" />
+		<c:url var="deltrash" value="/quan-tri/web/ma-khuyen-mai/trash" />
+		<c:url var="trash" value="/quan-tri/web/ma-khuyen-mai/thung-rac" />
+		<c:url var="onoff" value="/quan-tri/web/ma-khuyen-mai/status" />
 		<!-- Main content -->
 		<section class="content">
 
@@ -59,7 +59,7 @@
 								<th>Giá giảm</th>
 								<th>Bắt đầu khuyến mãi</th>
 								<th>Hết hạn khuyến mãi</th>
-								<th>Chức năng</th>
+								<th style="width: 10rem;">Chức năng</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -97,7 +97,7 @@
 								<th>Giá giảm</th>
 								<th>Bắt đầu khuyến mãi</th>
 								<th>Hết hạn khuyến mãi</th>
-								<th>Chức năng</th>
+								<th style="width: 10rem;">Chức năng</th>
 							</tr>
 						</tfoot>
 					</table>
@@ -108,11 +108,11 @@
 							varStatus="loop">
 							<c:if test="${(loop.index)==paginateInfo.currentPage}">
 								<li class="page-item active"><a class="page-link"
-									href="<c:url value="/quan-tri/ma-khuyen-mai/${loop.index}"/>">${loop.index}</a></li>
+									href="<c:url value="/quan-tri/web/ma-khuyen-mai/${loop.index}"/>">${loop.index}</a></li>
 							</c:if>
 							<c:if test="${(loop.index) != paginateInfo.currentPage}">
 								<li class="page-item "><a class="page-link"
-									href="<c:url value="/quan-tri/ma-khuyen-mai/${loop.index}"/>">${loop.index}</a></li>
+									href="<c:url value="/quan-tri/web/ma-khuyen-mai/${loop.index}"/>">${loop.index}</a></li>
 							</c:if>
 						</c:forEach>
 					</ul>

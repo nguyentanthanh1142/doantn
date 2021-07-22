@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.khoaluantotnghiep.entity.MenuEntity;
+import com.khoaluantotnghiep.entity.UserEntity;
 import com.khoaluantotnghiep.mapper.MenuMapper;
 
 @Transactional
@@ -126,9 +127,9 @@ public class MenuDAO extends BaseDAO {
 
 	}
 
-	public void onOffTPost(int post_id) {
-		String sql = "UPDATE menu SET menu_status = case when  menu_status =1 then 2 when  menu_status =2 then 1 end where  menu_id ="
-				+ post_id;
+	public void onOffTPost(int post_id,UserEntity loginInfo) {
+		String sql = "UPDATE menu SET menu_status = case when  menu_status =1 then 2 when  menu_status =2 then 1 end,updated_by ="
+				+ loginInfo.getUser_id() + ", updated_at = NOW() where  menu_id =" + post_id;
 		jdbcTemplate.update(sql);
 	}
 
@@ -138,13 +139,15 @@ public class MenuDAO extends BaseDAO {
 		return list;
 	}
 
-	public void delTrash(int menu_id) {
-		String sql = "UPDATE menu SET menu_status = 0  where  menu_id =" + menu_id;
+	public void delTrash(int menu_id,UserEntity loginInfo) {
+		String sql = "UPDATE menu SET menu_status = 0,updated_by =" + loginInfo.getUser_id()
+				+ ", updated_at = NOW()  where  menu_id =" + menu_id;
 		jdbcTemplate.update(sql);
 	}
 
-	public void reTrash(int menu_id) {
-		String sql = "UPDATE menu SET menu_status = 2  where  menu_id =" + menu_id;
+	public void reTrash(int menu_id,UserEntity loginInfo) {
+		String sql = "UPDATE menu SET menu_status = 2,updated_by =" + loginInfo.getUser_id()
+				+ ", updated_at = NOW()  where  menu_id =" + menu_id;
 		jdbcTemplate.update(sql);
 	}
 
@@ -154,7 +157,7 @@ public class MenuDAO extends BaseDAO {
 	}
 
 	public List<MenuEntity> listMenuByParent(int parent_id) {
-		String sql = "SELECT * FROM menu where parent_id = " + parent_id+" and menu_status = 1"; 
+		String sql = "SELECT * FROM menu where parent_id = " + parent_id + " and menu_status = 1";
 		List<MenuEntity> result = jdbcTemplate.query(sql, new MenuMapper());
 		return result;
 	}

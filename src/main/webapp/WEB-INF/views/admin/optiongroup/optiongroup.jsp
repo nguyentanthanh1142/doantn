@@ -53,8 +53,8 @@
 						<thead>
 							<tr>
 								<th style="width: 40px;" class="text-center">ID</th>
-								<th style="width: 200px;">Tên nhóm</th>
-								<th style="width: 300px;">Chức năng</th>
+								<th >Tên nhóm</th>
+								<th style="width: 10rem;">Chức năng</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -87,8 +87,8 @@
 						<tfoot>
 							<tr>
 								<th style="width: 40px;" class="text-center">ID</th>
-								<th style="width: 200px;">Tên sản phẩm</th>
-								<th style="width: 300px;">Chức năng</th>
+								<th>Tên sản phẩm</th>
+								<th style="width: 10rem;">Chức năng</th>
 							</tr>
 						</tfoot>
 					</table>

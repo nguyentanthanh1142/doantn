@@ -88,8 +88,8 @@
 								<td>${product.productshortdesc}</td>
 							</tr>
 							<tr>
-								<th>Mô tả sản phẩm:</th>
-								<td>${product.productdetail}</td>
+								<th >Mô tả sản phẩm:</th>
+								<td class="detail-prodetail">${product.productdetail}</td>
 							</tr>
 							<tr>
 								<th>Tiện ích <a

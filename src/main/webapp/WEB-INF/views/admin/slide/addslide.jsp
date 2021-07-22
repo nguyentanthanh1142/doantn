@@ -9,8 +9,8 @@
 </head>
 <body>
 <body>
-	<c:url var="save" value="/quan-tri/trinh-chieu/save" />
-	<c:url var="list" value="/quan-tri/trinh-chieu" />
+	<c:url var="save" value="/quan-tri/web/trinh-chieu/save" />
+	<c:url var="list" value="/quan-tri/web/trinh-chieu" />
 	<form:form modelAttribute="slide" action="${save}"
 		enctype="multipart/form-data" method="POST">
 		<div class="content-wrapper pt-3">

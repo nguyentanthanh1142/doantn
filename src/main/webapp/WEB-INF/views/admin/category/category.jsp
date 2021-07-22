@@ -56,7 +56,7 @@
 								<th style="width: 20px;" class="text-center">ID</th>
 								<th>Tiêu đề bài viết</th>
 								<th>Slug(url)</th>
-								<th>Chức năng</th>
+								<th style="width: 10rem;">Chức năng</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -91,7 +91,7 @@
 								<th style="width: 20px;" class="text-center">ID</th>
 								<th>Tiêu đề bài viết</th>
 								<th>Slug(url)</th>
-								<th>Chức năng</th>
+								<th style="width: 10rem;">Chức năng</th>
 							</tr>
 						</tfoot>
 					</table>

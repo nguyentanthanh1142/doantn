@@ -19,8 +19,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.khoaluantotnghiep.dto.PaginateDTO;
 import com.khoaluantotnghiep.entity.ManufacturerEntity;
+import com.khoaluantotnghiep.entity.NoteEntity;
 import com.khoaluantotnghiep.entity.UserEntity;
 import com.khoaluantotnghiep.service.impl.ManufacturerServiceImpl;
+import com.khoaluantotnghiep.service.impl.NoteServiceImpl;
 import com.khoaluantotnghiep.service.impl.PaginatesServiceImpl;
 
 @Controller(value = "manufacturerControllerOfAdmin")
@@ -29,6 +31,8 @@ public class ManufacturerController extends BaseController {
 	ManufacturerServiceImpl manufacturerService;
 	@Autowired
 	PaginatesServiceImpl paginateService;
+	@Autowired
+	NoteServiceImpl noteService;
 	private int totalDataPage = 5;
 
 	@RequestMapping(value = "/quan-tri/hang", method = RequestMethod.GET)
@@ -94,6 +98,12 @@ public class ManufacturerController extends BaseController {
 			manufacturer.setUpdated_at(new Date());
 			manufacturerService.addManufacturer(manufacturer);
 			redirectAttributes.addFlashAttribute("msg", "Thêm thành công");
+			// them note để quản lý
+			NoteEntity noteEntity = new NoteEntity();
+			noteEntity.setContent("Admin đã thêm hãng " + manufacturer.getManufacturer_name());
+			noteEntity.setCreated_at(new Date());
+			noteEntity.setCreated_by(loginInfo.getUser_id());
+			noteService.addNote(noteEntity);
 		} catch (Exception e) {
 			redirectAttributes.addFlashAttribute("msgfail", "Thêm không thành công");
 		}
@@ -135,6 +145,12 @@ public class ManufacturerController extends BaseController {
 			manufacturer.setUpdated_by(loginInfo.getUser_id());
 			manufacturerService.updateManufacturer(manufacturer);
 			redirectAttributes.addFlashAttribute("msg", "Cập nhật thành công");
+			// them note để quản lý
+			NoteEntity noteEntity = new NoteEntity();
+			noteEntity.setContent("Admin đã chỉnh sửa hãng " + manufacturer.getManufacturer_id());
+			noteEntity.setCreated_at(new Date());
+			noteEntity.setCreated_by(loginInfo.getUser_id());
+			noteService.addNote(noteEntity);
 		} catch (Exception e) {
 			redirectAttributes.addFlashAttribute("msgfail", "Cập nhật Không thành công");
 		}
@@ -143,11 +159,17 @@ public class ManufacturerController extends BaseController {
 
 	@RequestMapping(value = "/quan-tri/hang/status/{manufacturer_id}", method = RequestMethod.GET)
 	public String onOffPage(@PathVariable int manufacturer_id, final RedirectAttributes redirectAttributes,
-			HttpServletRequest request) {
+			HttpServletRequest request, HttpSession session) {
 		try {
-			manufacturerService.onOffManufacturer(manufacturer_id);
+			UserEntity loginInfo = (UserEntity) session.getAttribute("LoginInfo");
+			manufacturerService.onOffManufacturer(manufacturer_id, loginInfo);
 			redirectAttributes.addFlashAttribute("msg", "Thao tác thành công");
-
+			// them note để quản lý
+			NoteEntity noteEntity = new NoteEntity();
+			noteEntity.setContent("Admin đã thay đổi trạng thái " + manufacturer_id);
+			noteEntity.setCreated_at(new Date());
+			noteEntity.setCreated_by(loginInfo.getUser_id());
+			noteService.addNote(noteEntity);
 		} catch (Exception e) {
 			redirectAttributes.addFlashAttribute("msgfail", "Không thành công");
 		}
@@ -157,12 +179,17 @@ public class ManufacturerController extends BaseController {
 
 	@RequestMapping(value = "/quan-tri/hang/trash/{manufacturer_id}", method = RequestMethod.GET)
 	public String delTrashPage(@PathVariable int manufacturer_id, final RedirectAttributes redirectAttributes,
-			HttpServletRequest request) {
-		manufacturerService.deltrash(manufacturer_id);
+			HttpServletRequest request, HttpSession session) {
+		UserEntity loginInfo = (UserEntity) session.getAttribute("LoginInfo");
 		try {
-			manufacturerService.deltrash(manufacturer_id);
+			manufacturerService.deltrash(manufacturer_id, loginInfo);
 			redirectAttributes.addFlashAttribute("msg", "Xóa thành công");
-
+			// them note để quản lý
+			NoteEntity noteEntity = new NoteEntity();
+			noteEntity.setContent("Admin đã xóa tạm thời hãng " + manufacturer_id);
+			noteEntity.setCreated_at(new Date());
+			noteEntity.setCreated_by(loginInfo.getUser_id());
+			noteService.addNote(noteEntity);
 		} catch (Exception e) {
 			redirectAttributes.addFlashAttribute("msgfail", "Không thành công");
 		}
@@ -202,11 +229,17 @@ public class ManufacturerController extends BaseController {
 
 	@RequestMapping(value = "/quan-tri/hang/retrash/{manufacturer_id}", method = RequestMethod.GET)
 	public String reTrash(@PathVariable int manufacturer_id, final RedirectAttributes redirectAttributes,
-			HttpServletRequest request) {
+			HttpServletRequest request, HttpSession session) {
 		try {
-			manufacturerService.retrash(manufacturer_id);
+			UserEntity loginInfo = (UserEntity) session.getAttribute("LoginInfo");
+			manufacturerService.retrash(manufacturer_id, loginInfo);
 			redirectAttributes.addFlashAttribute("msg", "Thao tác thành công");
-
+			// them note để quản lý
+			NoteEntity noteEntity = new NoteEntity();
+			noteEntity.setContent("Admin đã bỏ xóa tạm thời hãng " + manufacturer_id);
+			noteEntity.setCreated_at(new Date());
+			noteEntity.setCreated_by(loginInfo.getUser_id());
+			noteService.addNote(noteEntity);
 		} catch (Exception e) {
 			redirectAttributes.addFlashAttribute("msgfail", "Không thành công");
 		}
@@ -216,11 +249,17 @@ public class ManufacturerController extends BaseController {
 
 	@RequestMapping(value = "/quan-tri/hang/delete/{manufacturer_id}", method = RequestMethod.GET)
 	public String deletaPage(@PathVariable int manufacturer_id, final RedirectAttributes redirectAttributes,
-			HttpServletRequest request) {
+			HttpServletRequest request, HttpSession session) {
 		try {
+			UserEntity loginInfo = (UserEntity) session.getAttribute("LoginInfo");
 			manufacturerService.deleteManufacturer(manufacturer_id);
 			redirectAttributes.addFlashAttribute("msg", "Thao tác thành công");
-
+			// them note để quản lý
+			NoteEntity noteEntity = new NoteEntity();
+			noteEntity.setContent("Admin đã xóa vĩnh viễn hãng " + manufacturer_id);
+			noteEntity.setCreated_at(new Date());
+			noteEntity.setCreated_by(loginInfo.getUser_id());
+			noteService.addNote(noteEntity);
 		} catch (Exception e) {
 			redirectAttributes.addFlashAttribute("msgfail", "Không thành công");
 		}

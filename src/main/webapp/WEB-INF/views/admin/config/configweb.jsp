@@ -11,6 +11,7 @@
 	<div class="content-wrapper pt-3">
 		<!-- Content Header (Page header) -->
 		<c:url var="edit" value="/quan-tri/web/cau-hinh-web/edit" />
+		<c:url var="onoff" value="/quan-tri/web/cau-hinh-web/status" />
 		<!-- Main content -->
 		<section class="content">
 			<!-- Default box -->
@@ -21,11 +22,23 @@
 							website</strong>
 					</h3>
 					<div class="card-tools">
+						<c:choose>
+							<c:when test="${config.status == 0}">
+								<a class="btn btn-sm btn-danger" href="${onoff}/${config.id}">
+									Tắt bảo trì</a>
+							</c:when>
+							<c:when test="${config.status == 1}">
+								<a class="btn btn-sm btn-success" href="${onoff}/${config.id}">
+									Bật bảo trì</a>
+							</c:when>
+
+						</c:choose>
 						<a class="btn btn-sm btn-info" href="${edit}/${config.id}"><i
 							class="fas fa-plus"></i> Chỉnh sửa</a>
 					</div>
 				</div>
 				<div class="card-body">
+
 					<c:if test="${not empty msg}">
 						<div class="alert alert-success alert-dismissible" role="alert">
 							<button type="button" class="close" data-dismiss="alert"

@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.khoaluantotnghiep.entity.BilldetailEntity;
 import com.khoaluantotnghiep.entity.BillsEntity;
 import com.khoaluantotnghiep.entity.ReportColumn;
+import com.khoaluantotnghiep.entity.UserEntity;
 import com.khoaluantotnghiep.mapper.BilldetailMapper;
 import com.khoaluantotnghiep.mapper.BillsMapper;
 
@@ -104,9 +105,11 @@ public class BillsDAO extends BaseDAO {
 		jdbcTemplate.update(sql);
 	}
 
-	public void changeStatus(int id) {
-		String sql = "UPDATE bills SET status = case when  status =1 then 0 when  status =0 then 1 end where  id ="
-				+ id;
+	public void changeStatus(int id, UserEntity loginInfo) {
+		String sql = "UPDATE bills set status = status + 1,updated_by =" + loginInfo.getUser_id()
+				+ ", updated_at = NOW() where status < 4 and id = " + id;
+//		String sql = "UPDATE bills SET status = case when  status =1 then 0 when  status =0 then 1 end where  id ="
+//				+ id;
 		jdbcTemplate.update(sql);
 	}
 
@@ -260,5 +263,16 @@ public class BillsDAO extends BaseDAO {
 		String sql = SqlCustomer().toString();
 		List<BillsEntity> list = jdbcTemplate.query(sql, new BillsMapper());
 		return list;
+	}
+
+	public void cancelBill(int id, UserEntity loginInfo) {
+		String sql = "UPDATE bills set status = -1,updated_by ="
+				+ loginInfo.getUser_id() + ", updated_at = NOW() where  id = " + id;
+		jdbcTemplate.update(sql);
+	}
+	public void cancelBillforUser(int id, UserEntity loginInfo) {
+		String sql = "UPDATE bills set status = -1,updated_by ="
+				+ loginInfo.getUser_id() + ", updated_at = NOW() where  id = " + id + " and status = 0"; 
+		jdbcTemplate.update(sql);
 	}
 }

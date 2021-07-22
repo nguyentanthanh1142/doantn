@@ -9,4 +9,6 @@ public interface IConfigwebService {
 	public ConfigwebEntity findConfigweb();
 
 	public void update(ConfigwebEntity config);
+
+	public void changeStatus(int id);
 }

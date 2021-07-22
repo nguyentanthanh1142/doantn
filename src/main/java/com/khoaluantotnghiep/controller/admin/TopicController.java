@@ -16,8 +16,10 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.khoaluantotnghiep.dto.PaginateDTO;
+import com.khoaluantotnghiep.entity.NoteEntity;
 import com.khoaluantotnghiep.entity.TopicEntity;
 import com.khoaluantotnghiep.entity.UserEntity;
+import com.khoaluantotnghiep.service.impl.NoteServiceImpl;
 import com.khoaluantotnghiep.service.impl.PaginatesServiceImpl;
 import com.khoaluantotnghiep.service.impl.TopicServiceImpl;
 
@@ -27,6 +29,8 @@ public class TopicController extends BaseController {
 	TopicServiceImpl topicSevice;
 	@Autowired
 	PaginatesServiceImpl paginateService;
+	@Autowired
+	NoteServiceImpl noteService;
 
 	private int totalDataPage = 5;
 
@@ -109,6 +113,12 @@ public class TopicController extends BaseController {
 			topic.setCreated_by(loginInfo.getUser_id());
 			topicSevice.addTopic(topic);
 			redirectAttributes.addFlashAttribute("msg", "Thêm thành công!");
+			// them note de quan ly
+			NoteEntity noteEntity = new NoteEntity();
+			noteEntity.setContent("Admin đã thêm chủ đề " + topic.getTopic_name());
+			noteEntity.setCreated_at(new Date());
+			noteEntity.setCreated_by(loginInfo.getUser_id());
+			noteService.addNote(noteEntity);
 		} catch (Exception e) {
 			redirectAttributes.addFlashAttribute("msgfail", "Thêm không thành công");
 		}
@@ -150,6 +160,12 @@ public class TopicController extends BaseController {
 			topic.setShowfooter(0);
 			topicSevice.updateTopic(topic);
 			redirectAttributes.addFlashAttribute("msg", "Cập nhật thành công");
+			// them note de quan ly
+			NoteEntity noteEntity = new NoteEntity();
+			noteEntity.setContent("Admin đã chỉnh sửa chủ đề " + topic.getTopic_id());
+			noteEntity.setCreated_at(new Date());
+			noteEntity.setCreated_by(loginInfo.getUser_id());
+			noteService.addNote(noteEntity);
 		} catch (Exception e) {
 			redirectAttributes.addFlashAttribute("msgfail", "Cập nhật không thành công");
 		}
@@ -158,11 +174,17 @@ public class TopicController extends BaseController {
 
 	@RequestMapping(value = "/quan-tri/chu-de/deletetopic/{topic_id}", method = RequestMethod.GET)
 	public String deleteTopic(@PathVariable int topic_id, ModelMap modelMap,
-			final RedirectAttributes redirectAttributes,
-			HttpServletRequest request) {
+			final RedirectAttributes redirectAttributes, HttpServletRequest request, HttpSession session) {
 		try {
+			UserEntity loginInfo = (UserEntity) session.getAttribute("LoginInfo");
 			topicSevice.deleteTopic(topic_id);
 			redirectAttributes.addFlashAttribute("msg", "Xóa thành công!");
+			// them note de quan ly
+			NoteEntity noteEntity = new NoteEntity();
+			noteEntity.setContent("Admin đã xóa vĩnh viễn chủ đề " + topic_id);
+			noteEntity.setCreated_at(new Date());
+			noteEntity.setCreated_by(loginInfo.getUser_id());
+			noteService.addNote(noteEntity);
 		} catch (Exception e) {
 			redirectAttributes.addFlashAttribute("msgfail", "Thao tác không thành công!");
 		}
@@ -172,10 +194,17 @@ public class TopicController extends BaseController {
 
 	@RequestMapping(value = "/quan-tri/chu-de/trash/{topic_id}", method = RequestMethod.GET)
 	public String delTopic(@PathVariable int topic_id, ModelMap modelMap, final RedirectAttributes redirectAttributes,
-			HttpServletRequest request) {
+			HttpServletRequest request, HttpSession session) {
 		try {
-			topicSevice.deltrash(topic_id);
+			UserEntity loginInfo = (UserEntity) session.getAttribute("LoginInfo");
+			topicSevice.deltrash(topic_id, loginInfo);
 			redirectAttributes.addFlashAttribute("msg", "Thao tác thành công!");
+			// them note de quan ly
+			NoteEntity noteEntity = new NoteEntity();
+			noteEntity.setContent("Admin đã xóa tạm thời chủ đề " + topic_id);
+			noteEntity.setCreated_at(new Date());
+			noteEntity.setCreated_by(loginInfo.getUser_id());
+			noteService.addNote(noteEntity);
 		} catch (Exception e) {
 			redirectAttributes.addFlashAttribute("msgfail", "Thao tác không thành công!");
 		}
@@ -186,11 +215,17 @@ public class TopicController extends BaseController {
 
 	@RequestMapping(value = "/quan-tri/chu-de/retrash/{topic_id}", method = RequestMethod.GET)
 	public String retrashTopic(@PathVariable int topic_id, ModelMap modelMap,
-			final RedirectAttributes redirectAttributes,
-			HttpServletRequest request) {
+			final RedirectAttributes redirectAttributes, HttpServletRequest request, HttpSession session) {
 		try {
-			topicSevice.retrash(topic_id);
+			UserEntity loginInfo = (UserEntity) session.getAttribute("LoginInfo");
+			topicSevice.retrash(topic_id, loginInfo);
 			redirectAttributes.addFlashAttribute("msg", "Thao tác thành công!");
+			// them note de quan ly
+			NoteEntity noteEntity = new NoteEntity();
+			noteEntity.setContent("Admin đã bỏ xóa tạm thời chủ đề " + topic_id);
+			noteEntity.setCreated_at(new Date());
+			noteEntity.setCreated_by(loginInfo.getUser_id());
+			noteService.addNote(noteEntity);
 		} catch (Exception e) {
 			redirectAttributes.addFlashAttribute("msgfail", "Thao tác không thành công!");
 		}
@@ -199,12 +234,18 @@ public class TopicController extends BaseController {
 	}
 
 	@RequestMapping(value = "/quan-tri/chu-de/status/{topic_id}", method = RequestMethod.GET)
-	public String onOffTopic(@PathVariable int topic_id, ModelMap modelMap,
-			final RedirectAttributes redirectAttributes,
-			HttpServletRequest request) {
+	public String onOffTopic(@PathVariable int topic_id, ModelMap modelMap, final RedirectAttributes redirectAttributes,
+			HttpServletRequest request, HttpSession session) {
 		try {
-			topicSevice.onOffTopic(topic_id);
+			UserEntity loginInfo = (UserEntity) session.getAttribute("LoginInfo");
+			topicSevice.onOffTopic(topic_id, loginInfo);
 			redirectAttributes.addFlashAttribute("msg", "Thao tác thành công!");
+			// them note de quan ly
+			NoteEntity noteEntity = new NoteEntity();
+			noteEntity.setContent("Admin đã thay đổi trạng thái chủ đề " + topic_id);
+			noteEntity.setCreated_at(new Date());
+			noteEntity.setCreated_by(loginInfo.getUser_id());
+			noteService.addNote(noteEntity);
 		} catch (Exception e) {
 			redirectAttributes.addFlashAttribute("msgfail", "Thao tác không thành công!");
 		}

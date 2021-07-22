@@ -11,7 +11,9 @@ public class ContactEntity {
 	private String subject;
 	private String content;
 	private int status;
+	private int updated_by;
 	private Date created_at;
+	private Date updated_at;
 
 	public int getStatus() {
 		return status;
@@ -83,6 +85,22 @@ public class ContactEntity {
 
 	public void setContent(String content) {
 		this.content = content;
+	}
+
+	public int getUpdated_by() {
+		return updated_by;
+	}
+
+	public void setUpdated_by(int updated_by) {
+		this.updated_by = updated_by;
+	}
+
+	public Date getUpdated_at() {
+		return updated_at;
+	}
+
+	public void setUpdated_at(Date updated_at) {
+		this.updated_at = updated_at;
 	}
 
 }

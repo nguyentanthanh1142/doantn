@@ -21,8 +21,10 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.khoaluantotnghiep.dto.PaginateDTO;
+import com.khoaluantotnghiep.entity.NoteEntity;
 import com.khoaluantotnghiep.entity.PostEntity;
 import com.khoaluantotnghiep.entity.UserEntity;
+import com.khoaluantotnghiep.service.impl.NoteServiceImpl;
 import com.khoaluantotnghiep.service.impl.PaginatesServiceImpl;
 import com.khoaluantotnghiep.service.impl.PostServiceImpl;
 import com.khoaluantotnghiep.service.impl.TopicServiceImpl;
@@ -35,6 +37,8 @@ public class PostController extends BaseController {
 	TopicServiceImpl topicSevice;
 	@Autowired
 	PaginatesServiceImpl paginateService;
+	@Autowired
+	NoteServiceImpl noteService;
 
 	private int totalDataPage = 5;
 
@@ -114,6 +118,12 @@ public class PostController extends BaseController {
 			post.setUpdated_at(new Date());
 			postService.addPage(post);
 			redirectAttributes.addFlashAttribute("msg", "Thêm thành công");
+			// them note de quan ly
+			NoteEntity noteEntity = new NoteEntity();
+			noteEntity.setContent("Admin đã thêm bài viết " + post.getPost_id());
+			noteEntity.setCreated_at(new Date());
+			noteEntity.setCreated_by(loginInfo.getUser_id());
+			noteService.addNote(noteEntity);
 		} catch (Exception e) {
 			redirectAttributes.addFlashAttribute("msgfail", "Thêm không thành công");
 		}
@@ -122,10 +132,17 @@ public class PostController extends BaseController {
 
 	@RequestMapping(value = "/quan-tri/bai-viet/status/{post_id}", method = RequestMethod.GET)
 	public String onOffPage(@PathVariable int post_id, final RedirectAttributes redirectAttributes,
-			HttpServletRequest request) {
+			HttpServletRequest request, HttpSession session) {
 		try {
-			postService.onOffPost(post_id);
+			UserEntity loginInfo = (UserEntity) session.getAttribute("LoginInfo");
+			postService.onOffPost(post_id, loginInfo);
 			redirectAttributes.addFlashAttribute("msg", "Thao tác thành công");
+			// them note de quan ly
+			NoteEntity noteEntity = new NoteEntity();
+			noteEntity.setContent("Admin đã thay đổi trạng thái bài viết " + post_id);
+			noteEntity.setCreated_at(new Date());
+			noteEntity.setCreated_by(loginInfo.getUser_id());
+			noteService.addNote(noteEntity);
 		} catch (Exception e) {
 			redirectAttributes.addFlashAttribute("msgfail", "Thao tác không thành công");
 		}
@@ -166,10 +183,17 @@ public class PostController extends BaseController {
 
 	@RequestMapping(value = "/quan-tri/bai-viet/trash/{post_id}", method = RequestMethod.GET)
 	public String delTrashPage(@PathVariable int post_id, final RedirectAttributes redirectAttributes,
-			HttpServletRequest request) {
+			HttpServletRequest request, HttpSession session) {
 		try {
-			postService.delTrash(post_id);
+			UserEntity loginInfo = (UserEntity) session.getAttribute("LoginInfo");
+			postService.delTrash(post_id, loginInfo);
 			redirectAttributes.addFlashAttribute("msg", "Thao tác thành công");
+			// them note de quan ly
+			NoteEntity noteEntity = new NoteEntity();
+			noteEntity.setContent("Admin đã xóa tạm thời bài viết " + post_id);
+			noteEntity.setCreated_at(new Date());
+			noteEntity.setCreated_by(loginInfo.getUser_id());
+			noteService.addNote(noteEntity);
 		} catch (Exception e) {
 			redirectAttributes.addFlashAttribute("msgfail", "Thao tác không thành công");
 		}
@@ -179,10 +203,17 @@ public class PostController extends BaseController {
 
 	@RequestMapping(value = "/quan-tri/bai-viet/retrash/{post_id}", method = RequestMethod.GET)
 	public String reTrash(@PathVariable int post_id, final RedirectAttributes redirectAttributes,
-			HttpServletRequest request) {
+			HttpServletRequest request, HttpSession session) {
 		try {
-			postService.reTrash(post_id);
+			UserEntity loginInfo = (UserEntity) session.getAttribute("LoginInfo");
+			postService.reTrash(post_id, loginInfo);
 			redirectAttributes.addFlashAttribute("msg", "Thao tác thành công");
+			// them note de quan ly
+			NoteEntity noteEntity = new NoteEntity();
+			noteEntity.setContent("Admin đã bỏ xóa tạm thời bài viết " + post_id);
+			noteEntity.setCreated_at(new Date());
+			noteEntity.setCreated_by(loginInfo.getUser_id());
+			noteService.addNote(noteEntity);
 		} catch (Exception e) {
 			redirectAttributes.addFlashAttribute("msgfail", "Thao tác không thành công");
 		}
@@ -192,10 +223,17 @@ public class PostController extends BaseController {
 
 	@RequestMapping(value = "/quan-tri/bai-viet/deletepage/{post_id}", method = RequestMethod.GET)
 	public String deletaPage(@PathVariable int post_id, final RedirectAttributes redirectAttributes,
-			HttpServletRequest request) {
+			HttpServletRequest request, HttpSession session) {
 		try {
+			UserEntity loginInfo = (UserEntity) session.getAttribute("LoginInfo");
 			postService.deletePage(post_id);
 			redirectAttributes.addFlashAttribute("msg", "Xóa thành công");
+			// them note de quan ly
+			NoteEntity noteEntity = new NoteEntity();
+			noteEntity.setContent("Admin đã vĩnh viễn bài viết " + post_id);
+			noteEntity.setCreated_at(new Date());
+			noteEntity.setCreated_by(loginInfo.getUser_id());
+			noteService.addNote(noteEntity);
 		} catch (Exception e) {
 			redirectAttributes.addFlashAttribute("msgfail", "Xóa không thành công");
 		}
@@ -239,6 +277,12 @@ public class PostController extends BaseController {
 			post.setPost_detail(request.getParameter("post_detail"));
 			postService.updatePage(post);
 			redirectAttributes.addFlashAttribute("msg", "Cập nhật thành công");
+			// them note de quan ly
+			NoteEntity noteEntity = new NoteEntity();
+			noteEntity.setContent("Admin đã chỉnh sửa bài viết " + post.getPost_id());
+			noteEntity.setCreated_at(new Date());
+			noteEntity.setCreated_by(loginInfo.getUser_id());
+			noteService.addNote(noteEntity);
 		} catch (Exception e) {
 			redirectAttributes.addFlashAttribute("msgfail", "Cập nhật Không thành công");
 			throw e;

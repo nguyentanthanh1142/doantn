@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.khoaluantotnghiep.entity.SocialNetWorkEntity;
+import com.khoaluantotnghiep.entity.UserEntity;
 import com.khoaluantotnghiep.mapper.SocialNetWorkMapper;
 
 @Repository
@@ -85,13 +86,15 @@ public class SocialNetWorkDAO extends BaseDAO {
 		return list;
 	}
 
-	public void deltrashSocialNetWork(int id) {
-		String sql = "UPDATE socialnetwork SET status = 0 WHERE id = " + id;
+	public void deltrashSocialNetWork(int id,UserEntity loginInfo) {
+		String sql = "UPDATE socialnetwork SET status = 0,updated_by =" + loginInfo.getUser_id()
+				+ ", updated_at = NOW() WHERE id = " + id;
 		jdbcTemplate.update(sql);
 	}
 
-	public void retrashSocialNetWork(int id) {
-		String sql = "UPDATE socialnetwork SET status = 2 WHERE id = " + id;
+	public void retrashSocialNetWork(int id,UserEntity loginInfo) {
+		String sql = "UPDATE socialnetwork SET status = 2,updated_by =" + loginInfo.getUser_id()
+				+ ", updated_at = NOW() WHERE id = " + id;
 		jdbcTemplate.update(sql);
 	}
 
@@ -123,9 +126,9 @@ public class SocialNetWorkDAO extends BaseDAO {
 		jdbcTemplate.update(sql);
 	}
 
-	public void onOffSocialNetWork(int id) {
-		String sql = "UPDATE socialnetwork SET status = case WHEN status =1 then 2 when status=2 then 1 end where id = "
-				+ id;
+	public void onOffSocialNetWork(int id,UserEntity loginInfo) {
+		String sql = "UPDATE socialnetwork SET status = case WHEN status =1 then 2 when status=2 then 1 end,updated_by ="
+				+ loginInfo.getUser_id() + ", updated_at = NOW() where id = " + id;
 		jdbcTemplate.update(sql);
 	}
 

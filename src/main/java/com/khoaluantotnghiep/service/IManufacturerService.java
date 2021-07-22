@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.stereotype.Service;
 
 import com.khoaluantotnghiep.entity.ManufacturerEntity;
+import com.khoaluantotnghiep.entity.UserEntity;
 
 @Service
 public interface IManufacturerService {
@@ -25,11 +26,11 @@ public interface IManufacturerService {
 
 	public List<ManufacturerEntity> findTrashManufacturer();
 
-	public void deltrash(int manufacturer_id);
+	public void deltrash(int manufacturer_id,UserEntity loginInfo);
 
-	public void retrash(int manufacturer_id);
+	public void retrash(int manufacturer_id,UserEntity loginInfo);
 
-	public void onOffManufacturer(int manufacturer_id);
+	public void onOffManufacturer(int manufacturer_id,UserEntity loginInfo);
 
 	public List<ManufacturerEntity> GetDataManufacturerPaginate(int start, int totalPage);
 

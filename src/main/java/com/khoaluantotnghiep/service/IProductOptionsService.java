@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.khoaluantotnghiep.entity.ProductOptionsEntity;
+import com.khoaluantotnghiep.entity.UserEntity;
 
 @Service
 public interface IProductOptionsService {
@@ -26,9 +27,9 @@ public interface IProductOptionsService {
 
 	public void deleteProdOption(int productoptions_id);
 
-	public void deltrash(int productoptions_id);
+	public void deltrash(int productoptions_id,UserEntity loginInfo);
 
-	public void retrash(int productoptions_id);
+	public void retrash(int productoptions_id,UserEntity loginInfo);
 
-	public void onOffProdOption(int productoptions_id);
+	public void onOffProdOption(int productoptions_id,UserEntity loginInfo);
 }

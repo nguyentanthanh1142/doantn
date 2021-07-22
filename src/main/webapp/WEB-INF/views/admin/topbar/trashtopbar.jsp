@@ -8,9 +8,9 @@
 <title>Thùng rác banner quảng cáo (topbar)</title>
 </head>
 <body>
-	<c:url var="delete" value="/quan-tri/thanh-tren/deleteslide" />
-	<c:url var="retrash" value="/quan-tri/thanh-tren/retrash" />
-	<c:url var="list" value="/quan-tri/thanh-tren" />
+	<c:url var="delete" value="/quan-tri/web/thanh-tren/deleteslide" />
+	<c:url var="retrash" value="/quan-tri/web/thanh-tren/retrash" />
+	<c:url var="list" value="/quan-tri/web/thanh-tren" />
 	<div class="content-wrapper pt-3">
 		<!-- Content Header (Page header) -->
 		<!-- Main content -->
@@ -91,11 +91,11 @@
 							varStatus="loop">
 							<c:if test="${(loop.index)==paginateInfo.currentPage}">
 								<li class="page-item active"><a class="page-link"
-									href="<c:url value="/quan-tri/thanh-tren/thung-rac/${loop.index}"/>">${loop.index}</a></li>
+									href="<c:url value="/quan-tri/web/thanh-tren/thung-rac/${loop.index}"/>">${loop.index}</a></li>
 							</c:if>
 							<c:if test="${(loop.index) != paginateInfo.currentPage}">
 								<li class="page-item "><a class="page-link"
-									href="<c:url value="/quan-tri/thanh-tren/thung-rac/${loop.index}"/>">${loop.index}</a></li>
+									href="<c:url value="/quan-tri/web/thanh-tren/thung-rac/${loop.index}"/>">${loop.index}</a></li>
 							</c:if>
 						</c:forEach>
 					</ul>

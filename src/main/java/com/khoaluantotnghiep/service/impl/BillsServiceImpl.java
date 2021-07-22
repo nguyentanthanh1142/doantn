@@ -15,6 +15,7 @@ import com.khoaluantotnghiep.dto.CartDTO;
 import com.khoaluantotnghiep.entity.BilldetailEntity;
 import com.khoaluantotnghiep.entity.BillsEntity;
 import com.khoaluantotnghiep.entity.ProductEntity;
+import com.khoaluantotnghiep.entity.UserEntity;
 import com.khoaluantotnghiep.service.IBillsService;
 
 @Service
@@ -75,8 +76,8 @@ public class BillsServiceImpl implements IBillsService {
 	}
 
 	@Override
-	public void changeStatus(int id) {
-		billsDAO.changeStatus(id);
+	public void changeStatus(int id, UserEntity loginInfo) {
+		billsDAO.changeStatus(id,  loginInfo);
 	}
 
 	@Override
@@ -117,6 +118,16 @@ public class BillsServiceImpl implements IBillsService {
 	@Override
 	public BillsEntity findBillsConfirm(String code) {
 		return billsDAO.findBillsConfirm(code);
+	}
+	@Override
+	public void cancelBill(int id,UserEntity loginInfo) {
+		billsDAO.cancelBill(id, loginInfo);
+		
+	}
+
+	@Override
+	public void cancelBillforUser(int id, UserEntity loginInfo) {
+		billsDAO.cancelBillforUser(id, loginInfo);
 	}
 
 }

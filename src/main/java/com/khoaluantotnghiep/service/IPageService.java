@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.khoaluantotnghiep.entity.PageEntity;
+import com.khoaluantotnghiep.entity.UserEntity;
 
 @Service
 public interface IPageService {
@@ -18,11 +19,11 @@ public interface IPageService {
 
 	public void updatePage(PageEntity page);
 
-	public void onOffPage(int page_id);
+	public void onOffPage(int page_id, UserEntity loginInfo);
 
-	public void delTrash(int page_id);
+	public void delTrash(int page_id, UserEntity loginInfo);
 
-	public void reTrash(int page_id);
+	public void reTrash(int page_id, UserEntity loginInfo);
 
 	public List<PageEntity> findTrashPage();
 

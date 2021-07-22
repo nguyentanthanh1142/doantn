@@ -57,7 +57,7 @@
 								<th style="width: 200px;">Tên sản phẩm</th>
 								<th>Nhóm tùy chọn</th>
 								<th>Tùy chọn</th>
-								<th style="width: 300px;">Chức năng</th>
+								<th style="width: 10rem;">Chức năng</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -95,7 +95,7 @@
 								<th style="width: 200px;">Tên sản phẩm</th>
 								<th>Nhóm tùy chọn</th>
 								<th>Tùy chọn</th>
-								<th style="width: 300px;">Chức năng</th>
+								<th style="width: 10rem;">Chức năng</th>
 							</tr>
 						</tfoot>
 					</table>

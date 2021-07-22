@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.khoaluantotnghiep.dao.TopicDAO;
 import com.khoaluantotnghiep.entity.TopicEntity;
+import com.khoaluantotnghiep.entity.UserEntity;
 import com.khoaluantotnghiep.service.ITopicService;
 
 @Service
@@ -43,13 +44,13 @@ public class TopicServiceImpl implements ITopicService {
 	}
 
 	@Override
-	public void deltrash(int topic_id) {
-		topicDAO.deltrash(topic_id);
+	public void deltrash(int topic_id ,UserEntity loginInfo) {
+		topicDAO.deltrash(topic_id,  loginInfo);
 	}
 
 	@Override
-	public void retrash(int topic_id) {
-		topicDAO.retrash(topic_id);
+	public void retrash(int topic_id ,UserEntity loginInfo) {
+		topicDAO.retrash(topic_id,  loginInfo);
 	}
 
 	@Override
@@ -63,8 +64,8 @@ public class TopicServiceImpl implements ITopicService {
 	}
 
 	@Override
-	public void onOffTopic(int topic_id) {
-		topicDAO.onOffTopic(topic_id);
+	public void onOffTopic(int topic_id ,UserEntity loginInfo) {
+		topicDAO.onOffTopic(topic_id, loginInfo);
 	}
 
 	@Override

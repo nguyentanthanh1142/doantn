@@ -7,8 +7,8 @@
 <title>Chỉnh sửa chủ đề</title>
 </head>
 <body>
-	<c:url var="editsave" value="/quan-tri/ma-khuyen-mai/editsave" />
-	<c:url var="list" value="/quan-tri/ma-khuyen-mai" />
+	<c:url var="editsave" value="/quan-tri/web/ma-khuyen-mai/editsave" />
+	<c:url var="list" value="/quan-tri/web/ma-khuyen-mai" />
 	<form:form modelAttribute="coupon" action="${save}" method="POST">
 		<div class="content-wrapper pt-3">
 			<!-- Content Header (Page header) -->

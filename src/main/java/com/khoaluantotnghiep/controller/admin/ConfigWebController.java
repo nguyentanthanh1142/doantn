@@ -1,6 +1,7 @@
 package com.khoaluantotnghiep.controller.admin;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,6 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -52,5 +55,18 @@ public class ConfigWebController extends BaseController {
 			redirectAttributes.addFlashAttribute("msgfail", "Cập nhật không thành công");
 		}
 		return "redirect:/quan-tri/web/cau-hinh-web";
+	}
+	
+	@RequestMapping(value = "/quan-tri/web/cau-hinh-web/status/{id}", method = RequestMethod.GET)
+	public String changeStatus(@PathVariable int id, final RedirectAttributes redirectAttributes,
+			HttpServletRequest request, HttpSession session) {
+		try {
+			configwebService.changeStatus(id);
+			redirectAttributes.addFlashAttribute("msg", "Thao tác thành công");
+		} catch (Exception e) {
+			redirectAttributes.addFlashAttribute("msg", "Không thành công");
+		}
+		String referer = request.getHeader("Referer");
+		return "redirect:" + referer;
 	}
 }

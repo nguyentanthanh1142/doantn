@@ -8,8 +8,8 @@
 <title>Chỉnh sửa mạng xã hội</title>
 </head>
 <body>
-	<c:url var="editsave" value="/quan-tri/mang-xa-hoi/editsave" />
-	<c:url var="list" value="/quan-tri/mang-xa-hoi" />
+	<c:url var="editsave" value="/quan-tri/web/mang-xa-hoi/editsave" />
+	<c:url var="list" value="/quan-tri/web/mang-xa-hoi" />
 	<form:form modelAttribute="socialnetwork" action="${editsave}"
 		enctype="multipart/form-data" method="POST">
 		<div class="content-wrapper pt-3">

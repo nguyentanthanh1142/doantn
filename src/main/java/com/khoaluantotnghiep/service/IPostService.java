@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.khoaluantotnghiep.entity.PostEntity;
+import com.khoaluantotnghiep.entity.UserEntity;
 
 @Service
 public interface IPostService {
@@ -18,13 +19,13 @@ public interface IPostService {
 
 	public void updatePage(PostEntity post);
 
-	public void onOffPost(int post_id);
+	public void onOffPost(int post_id,UserEntity loginInfo);
 
 	public List<PostEntity> findTrashPost();
 
-	public void delTrash(int post_id);
+	public void delTrash(int post_id,UserEntity loginInfo);
 
-	public void reTrash(int post_id);
+	public void reTrash(int post_id,UserEntity loginInfo);
 
 	public List<PostEntity> GetDataPostPaginate(int start, int totalPage);
 

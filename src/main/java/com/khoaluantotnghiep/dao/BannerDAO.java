@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.khoaluantotnghiep.entity.BannerEntity;
+import com.khoaluantotnghiep.entity.UserEntity;
 import com.khoaluantotnghiep.mapper.BannerMapper;
 
 @Transactional
@@ -82,13 +83,15 @@ public class BannerDAO extends BaseDAO {
 		return list;
 	}
 
-	public void deltrashBanner(int id) {
-		String sql = "UPDATE banner SET banner_status = 0 WHERE id = " + id;
+	public void deltrashBanner(int id,UserEntity loginInfo) {
+		String sql = "UPDATE banner SET banner_status = 0,updated_by =" + loginInfo.getUser_id()
+				+ ", updated_at = NOW() WHERE id = " + id;
 		jdbcTemplate.update(sql);
 	}
 
-	public void retrashBanner(int id) {
-		String sql = "UPDATE banner SET banner_status = 2 WHERE id = " + id;
+	public void retrashBanner(int id,UserEntity loginInfo) {
+		String sql = "UPDATE banner SET banner_status = 2,updated_by =" + loginInfo.getUser_id()
+				+ ", updated_at = NOW() WHERE id = " + id;
 		jdbcTemplate.update(sql);
 	}
 
@@ -117,11 +120,12 @@ public class BannerDAO extends BaseDAO {
 		jdbcTemplate.update(sql);
 	}
 
-	public void onOffBanner(int id) {
-		String sql = "UPDATE banner SET banner_status = case WHEN banner_status =1 then 2 when banner_status=2 then 1 end where id = "
-				+ id;
+	public void onOffBanner(int id,UserEntity loginInfo) {
+		String sql = "UPDATE banner SET banner_status = case WHEN banner_status =1 then 2 when banner_status=2 then 1 end,updated_by ="
+				+ loginInfo.getUser_id() + ", updated_at = NOW() where id = " + id;
 		jdbcTemplate.update(sql);
 	}
+
 	public boolean isNameExists(String name) {
 		int count = 0;
 		String sql = "SELECT count(*) FROM banner WHERE banner_name = ?";
@@ -129,12 +133,13 @@ public class BannerDAO extends BaseDAO {
 
 		return count > 0;
 	}
-	public boolean isNameExists(String name,int id) {
+
+	public boolean isNameExists(String name, int id) {
 		int count = 0;
 		String sql = "SELECT count(*) FROM banner WHERE banner_name = ? and id <> ?";
-		count = jdbcTemplate.queryForObject(sql, new Object[] { name,id }, Integer.class);
+		count = jdbcTemplate.queryForObject(sql, new Object[] { name, id }, Integer.class);
 
 		return count > 0;
 	}
-	
+
 }

@@ -17,14 +17,35 @@ public class ReportServiceImpl implements ReportService {
 	private BillsDAO billsDAO;
 	@Autowired
 	private ReportDAO rpDAO;
-    @Override
-    public List<ReportColumn> reportReceiptDay(Date date, int limit) {
-    	
-        return billsDAO.reportReceiptDay(date, limit);
-    }
+
+	@Override
+	public List<ReportColumn> reportReceiptDay(Date date, int limit) {
+
+		return billsDAO.reportReceiptDay(date, limit);
+	}
 
 	@Override
 	public List<ReportColumn> reportReceiptMonth(Date date, int limit) {
 		return rpDAO.reportReceiptMonth(date, limit);
+	}
+
+	@Override
+	public int getNumberAccounts() {
+		return rpDAO.getNumberAccounts();
+	}
+
+	@Override
+	public double getTotalInMonth() {
+		return rpDAO.getTotalInMonth();
+	}
+
+	@Override
+	public double getTotalLastMonth() {
+		return rpDAO.getTotalLastMonth();
+	}
+
+	@Override
+	public int getNumberOfCancledBillsinMonth() {
+		return rpDAO.getNumberOfCancledBillsinMonth();
 	}
 }

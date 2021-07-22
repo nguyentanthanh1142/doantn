@@ -10,11 +10,11 @@
 <body>
 	<div class="content-wrapper pt-3">
 		<!-- Content Header (Page header) -->
-		<c:url var="add" value="/quan-tri/menu/add" />
-		<c:url var="edit" value="/quan-tri/menu/edit" />
-		<c:url var="onoff" value="/quan-tri/menu/status" />
-		<c:url var="deltrash" value="/quan-tri/menu/trash" />
-		<c:url var="trash" value="/quan-tri/menu/thung-rac" />
+		<c:url var="add" value="/quan-tri/web/menu/add" />
+		<c:url var="edit" value="/quan-tri/web/menu/edit" />
+		<c:url var="onoff" value="/quan-tri/web/menu/status" />
+		<c:url var="deltrash" value="/quan-tri/web/menu/trash" />
+		<c:url var="trash" value="/quan-tri/web/menu/thung-rac" />
 		<!-- Main content -->
 		<section class="content">
 			<!-- Default box -->
@@ -55,7 +55,7 @@
 								<th style="width: 200px;">Tên menu</th>
 								<th style="width: 200px;">Slug</th>
 								<th style="width: 200px;">Cấp cha</th>
-								<th style="width: 300px;">Chức năng</th>
+								<th style="width: 10rem;">Chức năng</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -92,7 +92,7 @@
 								<th style="width: 40px;" class="text-center">ID</th>
 								<th style="width: 200px;">Tên nhóm</th>
 								<th style="width: 200px;">Tên tùy chọn</th>
-								<th style="width: 300px;">Chức năng</th>
+								<th style="width: 10rem;">Chức năng</th>
 							</tr>
 						</tfoot>
 					</table>
@@ -103,11 +103,11 @@
 							varStatus="loop">
 							<c:if test="${(loop.index)==paginateInfo.currentPage}">
 								<li class="page-item active"><a class="page-link"
-									href="<c:url value="/quan-tri/menu/${loop.index}"/>">${loop.index}</a></li>
+									href="<c:url value="/quan-tri/web/menu/${loop.index}"/>">${loop.index}</a></li>
 							</c:if>
 							<c:if test="${(loop.index) != paginateInfo.currentPage}">
 								<li class="page-item "><a class="page-link"
-									href="<c:url value="/quan-tri/menu/${loop.index}"/>">${loop.index}</a></li>
+									href="<c:url value="/quan-tri/web/menu/${loop.index}"/>">${loop.index}</a></li>
 							</c:if>
 						</c:forEach>
 					</ul>

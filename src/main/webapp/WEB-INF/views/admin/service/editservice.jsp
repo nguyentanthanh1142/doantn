@@ -8,8 +8,8 @@
 <title>Chỉnh sửa dịch vụ</title>
 </head>
 <body>
-	<c:url var="editsave" value="/quan-tri/dich-vu/editsave" />
-	<c:url var="list" value="/quan-tri/dich-vu" />
+	<c:url var="editsave" value="/quan-tri/web/dich-vu/editsave" />
+	<c:url var="list" value="/quan-tri/web/dich-vu" />
 	<form:form modelAttribute="service" action="${editsave}"
 		enctype="multipart/form-data" method="POST">
 		<div class="content-wrapper pt-3">

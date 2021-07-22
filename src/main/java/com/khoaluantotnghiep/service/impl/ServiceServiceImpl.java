@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.khoaluantotnghiep.dao.ServiceDAO;
 import com.khoaluantotnghiep.entity.ServiceEntity;
+import com.khoaluantotnghiep.entity.UserEntity;
 import com.khoaluantotnghiep.service.IServiceService;
 
 @Service
@@ -46,18 +47,18 @@ public class ServiceServiceImpl implements IServiceService {
 	}
 
 	@Override
-	public void onOff(int id) {
-		serviceDAO.onOff(id);
+	public void onOff(int id,UserEntity loginInfo) {
+		serviceDAO.onOff(id, loginInfo);
 	}
 
 	@Override
-	public void delTrash(int id) {
-		serviceDAO.delTrash(id);
+	public void delTrash(int id,UserEntity loginInfo) {
+		serviceDAO.delTrash(id, loginInfo);
 	}
 
 	@Override
-	public void reTrash(int id) {
-		serviceDAO.reTrash(id);
+	public void reTrash(int id,UserEntity loginInfo) {
+		serviceDAO.reTrash(id, loginInfo);
 	}
 
 	@Override

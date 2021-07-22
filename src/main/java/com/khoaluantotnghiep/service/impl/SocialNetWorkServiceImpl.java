@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.khoaluantotnghiep.dao.SocialNetWorkDAO;
 import com.khoaluantotnghiep.entity.SocialNetWorkEntity;
+import com.khoaluantotnghiep.entity.UserEntity;
 import com.khoaluantotnghiep.service.ISocialNetWorkService;
 
 @Service
@@ -46,8 +47,8 @@ public class SocialNetWorkServiceImpl implements ISocialNetWorkService {
 	}
 
 	@Override
-	public void deltrashSocialNetWork(int id) {
-		socialNetWorkDAO.deltrashSocialNetWork(id);
+	public void deltrashSocialNetWork(int id,UserEntity loginInfo) {
+		socialNetWorkDAO.deltrashSocialNetWork(id, loginInfo);
 	}
 
 	@Override
@@ -61,8 +62,8 @@ public class SocialNetWorkServiceImpl implements ISocialNetWorkService {
 	}
 
 	@Override
-	public void retrashSocialNetWork(int id) {
-		socialNetWorkDAO.retrashSocialNetWork(id);
+	public void retrashSocialNetWork(int id,UserEntity loginInfo) {
+		socialNetWorkDAO.retrashSocialNetWork(id, loginInfo);
 	}
 
 	@Override
@@ -71,8 +72,8 @@ public class SocialNetWorkServiceImpl implements ISocialNetWorkService {
 	}
 
 	@Override
-	public void onOffSocialNetWork(int id) {
-		socialNetWorkDAO.onOffSocialNetWork(id);
+	public void onOffSocialNetWork(int id,UserEntity loginInfo) {
+		socialNetWorkDAO.onOffSocialNetWork(id, loginInfo);
 	}
 
 	@Override

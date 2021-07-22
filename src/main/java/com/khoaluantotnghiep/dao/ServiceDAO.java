@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.khoaluantotnghiep.entity.ServiceEntity;
+import com.khoaluantotnghiep.entity.UserEntity;
 import com.khoaluantotnghiep.mapper.ServiceMapper;
 
 @Repository
@@ -82,19 +83,21 @@ public class ServiceDAO extends BaseDAO {
 		return result.isEmpty() ? null : result.get(0);
 	}
 
-	public void onOff(int id) {
-		String sql = "UPDATE service SET status = case when  status =1 then 2 when  status =2 then 1 end where  id ="
-				+ id;
+	public void onOff(int id,UserEntity loginInfo) {
+		String sql = "UPDATE service SET status = case when  status =1 then 2 when  status =2 then 1 end,updated_by ="
+				+ loginInfo.getUser_id() + ", updated_at = NOW() where  id =" + id;
 		jdbcTemplate.update(sql);
 	}
 
-	public void delTrash(int id) {
-		String sql = "UPDATE service SET status = 0  where id =" + id;
+	public void delTrash(int id,UserEntity loginInfo) {
+		String sql = "UPDATE service SET status = 0,updated_by =" + loginInfo.getUser_id()
+				+ ", updated_at = NOW()  where id =" + id;
 		jdbcTemplate.update(sql);
 	}
 
-	public void reTrash(int id) {
-		String sql = "UPDATE service SET status = 2  where  id =" + id;
+	public void reTrash(int id,UserEntity loginInfo) {
+		String sql = "UPDATE service SET status = 2,updated_by =" + loginInfo.getUser_id()
+				+ ", updated_at = NOW()  where  id =" + id;
 		jdbcTemplate.update(sql);
 	}
 
@@ -125,6 +128,7 @@ public class ServiceDAO extends BaseDAO {
 				service.getStatus(), service.getCreated_at(), service.getCreated_by(), service.getUpdated_at(),
 				service.getUpdated_by());
 	}
+
 	public boolean isNameExists(String name) {
 		int count = 0;
 		String sql = "SELECT count(*) FROM service WHERE name = ?";

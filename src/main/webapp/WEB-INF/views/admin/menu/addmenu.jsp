@@ -8,8 +8,8 @@
 <title>Thêm tùy chọn</title>
 </head>
 <body>
-	<c:url var="save" value="/quan-tri/menu/save" />
-	<c:url var="list" value="/quan-tri/menu" />
+	<c:url var="save" value="/quan-tri/web/menu/save" />
+	<c:url var="list" value="/quan-tri/web/menu" />
 	<form:form modelAttribute="menu" action="${save}"
 		enctype="multipart/form-data" method="POST">
 		<div class="content-wrapper pt-3">
@@ -88,7 +88,7 @@
 	$(document).ready(function () {
 		$select = $('#orders');
 		$.ajax({
-		 	url: "http://localhost:8080/spring-web/quan-tri/menu/parent/0" ,
+		 	url: "http://localhost:8080/spring-web/quan-tri/web/menu/parent/0" ,
 
  	        method: "GET",
  	        dataType: 'json',
@@ -113,7 +113,7 @@
 				var pi = $("#parent_id").val();
 		    	 if($("#parent_id").val()!=""){
 		 	    	$.ajax({
-		    		 	url: "http://localhost:8080/spring-web/quan-tri/menu/parent/" + pi,
+		    		 	url: "http://localhost:8080/spring-web/quan-tri/web/menu/parent/" + pi,
 			
 			 	        method: "GET",
 			 	        dataType: 'json',

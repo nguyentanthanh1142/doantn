@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.khoaluantotnghiep.dao.TopbarDAO;
 import com.khoaluantotnghiep.entity.TopbarEntity;
+import com.khoaluantotnghiep.entity.UserEntity;
 import com.khoaluantotnghiep.service.ITopbarService;
 
 @Service
@@ -61,18 +62,18 @@ public class TopbarServiceImpl implements ITopbarService {
 	}
 
 	@Override
-	public void deltrash(int id) {
-		topbarDAO.deltrash(id);
+	public void deltrash(int id,UserEntity loginInfo) {
+		topbarDAO.deltrash(id, loginInfo);
 	}
 
 	@Override
-	public void retrash(int id) {
-		topbarDAO.retrash(id);
+	public void retrash(int id,UserEntity loginInfo) {
+		topbarDAO.retrash(id, loginInfo);
 	}
 
 	@Override
-	public void onOffTopbar(int id) {
-		topbarDAO.onOffTopbar(id);
+	public void onOffTopbar(int id,UserEntity loginInfo) {
+		topbarDAO.onOffTopbar(id, loginInfo);
 	}
 
 	@Override

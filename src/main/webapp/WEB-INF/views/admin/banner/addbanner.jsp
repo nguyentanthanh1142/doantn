@@ -8,8 +8,8 @@
 <title>Thêm ảnh bìa</title>
 </head>
 <body>
-	<c:url var="save" value="/quan-tri/anh-bia/save" />
-	<c:url var="list" value="/quan-tri/anh-bia" />
+	<c:url var="save" value="/quan-tri/web/anh-bia/save" />
+	<c:url var="list" value="/quan-tri/web/anh-bia" />
 	<form:form modelAttribute="banner" action="${save}"
 		enctype="multipart/form-data" method="POST">
 		<div class="content-wrapper pt-3">

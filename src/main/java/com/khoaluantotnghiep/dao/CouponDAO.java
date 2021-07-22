@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.khoaluantotnghiep.entity.CouponEntity;
+import com.khoaluantotnghiep.entity.UserEntity;
 import com.khoaluantotnghiep.mapper.CouponMapper;
 
 @Repository
@@ -77,18 +78,21 @@ public class CouponDAO extends BaseDAO {
 		return list;
 	}
 
-	public void deltrash(int id) {
-		String sql = "UPDATE coupon SET status = 0 WHERE id = " + id;
+	public void deltrash(int id, UserEntity loginInfo) {
+		String sql = "UPDATE coupon SET status = 0,updated_by =" + loginInfo.getUser_id()
+				+ ", updated_at = NOW() WHERE id = " + id;
 		jdbcTemplate.update(sql);
 	}
 
-	public void retrash(int id) {
-		String sql = "UPDATE coupon SET status = 2 WHERE id = " + id;
+	public void retrash(int id, UserEntity loginInfo) {
+		String sql = "UPDATE coupon SET status = 2,updated_by =" + loginInfo.getUser_id() + 
+", updated_at = NOW() WHERE id = " + id;
 		jdbcTemplate.update(sql);
 	}
 
-	public void onOffCoupon(int id) {
-		String sql = "UPDATE coupon SET status = case WHEN status =1 then 2 when status=2 then 1 end WHERE id = " + id;
+	public void onOffCoupon(int id, UserEntity loginInfo) {
+		String sql = "UPDATE coupon SET status = case WHEN status =1 then 2 when status=2 then 1 end,updated_by ="
+				+ loginInfo.getUser_id() + ", updated_at = NOW() WHERE id = " + id;
 		jdbcTemplate.update(sql);
 	}
 

@@ -18,6 +18,8 @@ import com.khoaluantotnghiep.entity.UserEntity;
 @WebFilter(urlPatterns = { "/quan-tri/bai-viet*", "/quan-tri/bai-viet/*", "/quan-tri/chu-de*", "/quan-tri/chu-de/*",
 		"/quan-tri/trang-don*", "/quan-tri/trang-don/*" })
 public class AdminPageFilter implements Filter {
+	
+
 
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {

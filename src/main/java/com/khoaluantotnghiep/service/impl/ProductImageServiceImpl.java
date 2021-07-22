@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.khoaluantotnghiep.dao.ProductImageDAO;
 import com.khoaluantotnghiep.entity.ProductImageEntity;
+import com.khoaluantotnghiep.entity.UserEntity;
 import com.khoaluantotnghiep.service.IProductImageService;
 
 @Service
@@ -46,13 +47,13 @@ public class ProductImageServiceImpl implements IProductImageService {
 	}
 
 	@Override
-	public void deltrashProductImage(int id) {
-		prodimgDao.deltrashProductImage(id);
+	public void deltrashProductImage(int id,UserEntity loginInfo) {
+		prodimgDao.deltrashProductImage(id, loginInfo);
 	}
 
 	@Override
-	public void retrashProductImage(int id) {
-		prodimgDao.retrashProductImage(id);
+	public void retrashProductImage(int id,UserEntity loginInfo) {
+		prodimgDao.retrashProductImage(id, loginInfo);
 	}
 
 	@Override
@@ -61,8 +62,8 @@ public class ProductImageServiceImpl implements IProductImageService {
 	}
 
 	@Override
-	public void onOffProductImage(int id) {
-		prodimgDao.onOffProductImage(id);
+	public void onOffProductImage(int id,UserEntity loginInfo) {
+		prodimgDao.onOffProductImage(id, loginInfo);
 	}
 
 	@Override

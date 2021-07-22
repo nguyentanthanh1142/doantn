@@ -1,5 +1,6 @@
 package com.khoaluantotnghiep.controller.web;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.mail.internet.MimeMessage;
@@ -28,6 +29,7 @@ import com.khoaluantotnghiep.dto.PaginateDTO;
 import com.khoaluantotnghiep.entity.BilldetailEntity;
 import com.khoaluantotnghiep.entity.BillsEntity;
 import com.khoaluantotnghiep.entity.CouponEntity;
+import com.khoaluantotnghiep.entity.NoteEntity;
 import com.khoaluantotnghiep.entity.UserEntity;
 import com.khoaluantotnghiep.service.impl.AccountServiceImpl;
 import com.khoaluantotnghiep.service.impl.BillsServiceImpl;
@@ -262,7 +264,7 @@ public class UserController extends BaseController {
 			_mvShare.addObject("error3", "Bạn chưa đăng nhập!");
 			return _mvShare;
 		}
-		
+
 		int totalData = billsService.findBillsByEmail(loginInfo.getUser_email()).size();
 		PaginateDTO paginateInfo = paginateService.GetInfoPaginates(totalData, totalProductPage, 1);
 		_mvShare.addObject("paginateInfo", paginateInfo);
@@ -356,5 +358,18 @@ public class UserController extends BaseController {
 		_mvShare.addObject("total", total);
 		_mvShare.setViewName("web/user/userorderdetail");
 		return _mvShare;
+	}
+
+	@GetMapping("/tai-khoan/don-hang/cancel/{id}")
+	public String cancellBill(@PathVariable int id, HttpSession session,
+			final RedirectAttributes redirectAttributes) {
+		try {
+			UserEntity loginInfo = (UserEntity) session.getAttribute("LoginInfo");
+			billsService.cancelBillforUser(id, loginInfo);
+			redirectAttributes.addFlashAttribute("msg", "Thao tác thành công");
+		} catch (Exception e) {
+			redirectAttributes.addFlashAttribute("msg", "Không thành công");
+		}
+		return "redirect:/tai-khoan/don-hang/chi-tiet-don-hang/" +  id;
 	}
 }

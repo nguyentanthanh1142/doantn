@@ -58,7 +58,7 @@
 								<th style="width: 200px;">Hình ảnh</th>
 								<th>Tên bài viết</th>
 								<th>Chủ đề bài viết</th>
-								<th style="width: 300px;">Chức năng</th>
+								<th style="width: 10rem;">Chức năng</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -97,7 +97,7 @@
 								<th style="width: 200px;">Hình ảnh</th>
 								<th>Tên bài viết</th>
 								<th>Chủ đề bài viết</th>
-								<th style="width: 300px;">Chức năng</th>
+								<th style="width: 10rem;">Chức năng</th>
 							</tr>
 						</tfoot>
 					</table>

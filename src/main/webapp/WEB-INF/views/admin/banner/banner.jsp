@@ -10,11 +10,11 @@
 <body>
 	<div class="content-wrapper pt-3">
 		<!-- Content Header (Page header) -->
-		<c:url var="add" value="/quan-tri/anh-bia/add" />
-		<c:url var="get" value="/quan-tri/anh-bia/edit" />
-		<c:url var="deltrash" value="/quan-tri/anh-bia/trash" />
-		<c:url var="trash" value="/quan-tri/anh-bia/thung-rac" />
-		<c:url var="onoff" value="/quan-tri/anh-bia/status" />
+		<c:url var="add" value="/quan-tri/web/anh-bia/add" />
+		<c:url var="get" value="/quan-tri/web/anh-bia/edit" />
+		<c:url var="deltrash" value="/quan-tri/web/anh-bia/trash" />
+		<c:url var="trash" value="/quan-tri/web/anh-bia/thung-rac" />
+		<c:url var="onoff" value="/quan-tri/web/anh-bia/status" />
 		<!-- Main content -->
 		<section class="content">
 
@@ -58,7 +58,7 @@
 								<th style="width: 20px;" class="text-center">ID</th>
 								<th style="width: 200px;">Hình ảnh</th>
 								<th>Tên ảnh bìa</th>
-								<th>Chức năng</th>
+								<th style="width: 10rem;">Chức năng</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -96,7 +96,7 @@
 								<th style="width: 20px;" class="text-center">ID</th>
 								<th style="width: 200px;">Hình ảnh</th>
 								<th>Tên ảnh bìa</th>
-								<th>Chức năng</th>
+								<th style="width: 10rem;">Chức năng</th>
 							</tr>
 						</tfoot>
 					</table>
@@ -107,11 +107,11 @@
 							varStatus="loop">
 							<c:if test="${(loop.index)==paginateInfo.currentPage}">
 								<li class="page-item active"><a class="page-link"
-									href="<c:url value="/quan-tri/anh-bia/${loop.index}"/>">${loop.index}</a></li>
+									href="<c:url value="/quan-tri/web/anh-bia/${loop.index}"/>">${loop.index}</a></li>
 							</c:if>
 							<c:if test="${(loop.index) != paginateInfo.currentPage}">
 								<li class="page-item "><a class="page-link"
-									href="<c:url value="/quan-tri/anh-bia/${loop.index}"/>">${loop.index}</a></li>
+									href="<c:url value="/quan-tri/web/anh-bia/${loop.index}"/>">${loop.index}</a></li>
 							</c:if>
 						</c:forEach>
 					</ul>

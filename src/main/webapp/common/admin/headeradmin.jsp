@@ -2,16 +2,16 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="/common/taglib.jsp"%>
 <c:url var="topic" value="/quan-tri/chu-de" />
-<c:url var="banner" value="/quan-tri/anh-bia" />
-<c:url var="topbar" value="/quan-tri/thanh-tren" />
-<c:url var="slide" value="/quan-tri/trinh-chieu" />
+<c:url var="banner" value="/quan-tri/web/anh-bia" />
+<c:url var="topbar" value="/quan-tri/web/thanh-tren" />
+<c:url var="slide" value="/quan-tri/web/trinh-chieu" />
 <c:url var="post" value="/quan-tri/bai-viet" />
 <c:url var="page" value="/quan-tri/trang-don" />
-<c:url var="service" value="/quan-tri/dich-vu" />
-<c:url var="menu" value="/quan-tri/menu" />
+<c:url var="service" value="/quan-tri/web/dich-vu" />
+<c:url var="menu" value="/quan-tri/web/menu" />
 <c:url var="account" value="/quan-tri/web/tai-khoan/" />
 <c:url var="customer" value="/quan-tri/khach-hang/" />
-<c:url var="coupon" value="/quan-tri/ma-khuyen-mai/" />
+<c:url var="coupon" value="/quan-tri/web/ma-khuyen-mai/" />
 <c:url var="configweb" value="/quan-tri/web/cau-hinh-web" />
 <c:url var="home" value="/quan-tri" />
 <c:url var="manufacturer" value="/quan-tri/hang" />
@@ -26,8 +26,9 @@
 <c:url var="prodoption" value="/quan-tri/tuy-chon-san-pham" />
 <c:url var="accountinfo" value="/quan-tri/thong-tin-tai-khoan" />
 <c:url var="productimg" value="/quan-tri/hinh-anh-san-pham" />
-<c:url var="smartpay" value="/quan-tri/nha-thanh-toan" />
-<c:url var="socialnetwork" value="/quan-tri/mang-xa-hoi" />
+<c:url var="smartpay" value="/quan-tri/web/nha-thanh-toan" />
+<c:url var="socialnetwork" value="/quan-tri/web/mang-xa-hoi" />
+<c:url var="note" value="/quan-tri/web/nhat-ky" />
 <c:url var="logout" value="/dang-xuat" />
 <div class="wrapper">
 	<!-- Navbar -->
@@ -162,22 +163,7 @@
 							<i class="far fa-circle nav-icon text-danger"></i>
 							<p>Liên hệ</p>
 					</a></li>
-					<li class="nav-item"><a href="${service}" class="nav-link">
-							<i class="far fa-circle nav-icon text-danger"></i>
-							<p>Dịch vụ</p>
-					</a></li>
-					<li class="nav-item"><a href="${coupon}" class="nav-link">
-							<i class="far fa-circle nav-icon text-danger"></i>
-							<p>Mã khuyến mãi</p>
-					</a></li>
-					<li class="nav-item"><a href="${smartpay}" class="nav-link">
-							<i class="far fa-circle nav-icon text-danger"></i>
-							<p>Nhà thanh toán</p>
-					</a></li>
-					<li class="nav-item"><a href="${socialnetwork}" class="nav-link">
-							<i class="far fa-circle nav-icon text-danger"></i>
-							<p>Mạng xã hội</p>
-					</a></li>
+
 					<li class="nav-item has-treeview"><a href="#" class="nav-link">
 							<i class="nav-icon fas fa-chart-pie"></i>
 							<p>
@@ -185,24 +171,44 @@
 							</p>
 					</a>
 						<ul class="nav nav-treeview">
+							<li class="nav-item ml-2"><a href="${service}"
+								class="nav-link"> <i
+									class="far fa-circle nav-icon text-primary"></i>
+									<p>Dịch vụ</p>
+							</a></li>
+							<li class="nav-item ml-2"><a href="${coupon}"
+								class="nav-link"> <i
+									class="far fa-circle nav-icon text-secondary"></i>
+									<p>Mã khuyến mãi</p>
+							</a></li>
+							<li class="nav-item ml-2"><a href="${smartpay}"
+								class="nav-link"> <i
+									class="far fa-circle nav-icon text-success"></i>
+									<p>Nhà thanh toán</p>
+							</a></li>
+							<li class="nav-item ml-2"><a href="${socialnetwork}"
+								class="nav-link"> <i
+									class="far fa-circle nav-icon text-warning"></i>
+									<p>Mạng xã hội</p>
+							</a></li>
 							<li class="nav-item ml-2"><a href="${menu }"
 								class="nav-link"> <i
-									class="far fa-circle nav-icon text-danger"></i>
+									class="far fa-circle nav-icon text-info"></i>
 									<p>Menu</p>
 							</a></li>
 							<li class="nav-item ml-2"><a href="${slide}"
 								class="nav-link"> <i
-									class="far fa-circle nav-icon text-danger"></i>
+									class="far fa-circle nav-icon text-primary"></i>
 									<p>Slider</p>
 							</a></li>
 							<li class="nav-item ml-2"><a href="${banner}"
 								class="nav-link"> <i
-									class="far fa-circle nav-icon text-danger"></i>
+									class="far fa-circle nav-icon text-secondary"></i>
 									<p>Banner</p>
 							</a></li>
 							<li class="nav-item ml-2"><a href="${topbar}"
 								class="nav-link"> <i
-									class="far fa-circle nav-icon text-danger"></i>
+									class="far fa-circle nav-icon text-success"></i>
 									<p>Topbar</p>
 							</a></li>
 						</ul></li>
@@ -223,7 +229,11 @@
 									class="far fa-circle nav-icon text-danger"></i>
 									<p>Cấu hình website</p>
 							</a></li>
-
+							<li class="nav-item ml-2"><a href="${note }"
+								class="nav-link"> <i
+									class="far fa-circle nav-icon text-danger"></i>
+									<p>Nhật ký quản trị</p>
+							</a></li>
 						</ul></li>
 					<li class="nav-header">THÔNG TIN</li>
 					<li class="nav-item ml-2"><a href="${logout}" class="nav-link">

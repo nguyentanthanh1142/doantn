@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.stereotype.Service;
 
 import com.khoaluantotnghiep.entity.CategoryEntity;
+import com.khoaluantotnghiep.entity.UserEntity;
 
 @Service
 public interface ICategoryService {
@@ -25,11 +26,11 @@ public interface ICategoryService {
 
 	public List<CategoryEntity> findTrashCategory();
 
-	public void deltrash(int id);
+	public void deltrash(int id,UserEntity loginInfo);
 
-	public void retrash(int id);
+	public void retrash(int id,UserEntity loginInfo);
 
-	public void onOffCategory(int id);
+	public void onOffCategory(int id,UserEntity loginInfo);
 
 	public List<CategoryEntity> GetDataCategoryPaginate(int start, int totalPage);
 

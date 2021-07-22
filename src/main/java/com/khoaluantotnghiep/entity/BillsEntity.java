@@ -15,6 +15,7 @@ public class BillsEntity {
 	private int status;
 	private String created_at;
 	private String updated_at;
+	private int updated_by;
 	private boolean coupon;
 	private int coupon_id;
 	private String code;
@@ -157,5 +158,13 @@ public class BillsEntity {
 
 	public void setCode(String code) {
 		this.code = code;
+	}
+
+	public int getUpdated_by() {
+		return updated_by;
+	}
+
+	public void setUpdated_by(int updated_by) {
+		this.updated_by = updated_by;
 	}
 }

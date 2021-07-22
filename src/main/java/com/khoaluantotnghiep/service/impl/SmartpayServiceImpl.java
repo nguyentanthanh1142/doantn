@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.khoaluantotnghiep.dao.SmartpayDAO;
 import com.khoaluantotnghiep.entity.SmartpayEntity;
+import com.khoaluantotnghiep.entity.UserEntity;
 import com.khoaluantotnghiep.service.ISmartpayService;
 
 @Service
@@ -46,8 +47,8 @@ public class SmartpayServiceImpl implements ISmartpayService {
 	}
 
 	@Override
-	public void deltrashSmartpay(int id) {
-		smartpayDAO.deltrashSmartpay(id);
+	public void deltrashSmartpay(int id,UserEntity loginInfo) {
+		smartpayDAO.deltrashSmartpay(id, loginInfo);
 	}
 
 	@Override
@@ -61,8 +62,8 @@ public class SmartpayServiceImpl implements ISmartpayService {
 	}
 
 	@Override
-	public void retrashSmartpay(int id) {
-		smartpayDAO.retrashSmartpay(id);
+	public void retrashSmartpay(int id,UserEntity loginInfo) {
+		smartpayDAO.retrashSmartpay(id, loginInfo);
 	}
 
 	@Override
@@ -71,8 +72,8 @@ public class SmartpayServiceImpl implements ISmartpayService {
 	}
 
 	@Override
-	public void onOffSmartpay(int id) {
-		smartpayDAO.onOffSmartpay(id);
+	public void onOffSmartpay(int id,UserEntity loginInfo) {
+		smartpayDAO.onOffSmartpay(id, loginInfo);
 	}
 
 	@Override

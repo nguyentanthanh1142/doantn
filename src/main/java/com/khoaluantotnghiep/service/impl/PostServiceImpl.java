@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.khoaluantotnghiep.dao.PostDAO;
 import com.khoaluantotnghiep.entity.PostEntity;
+import com.khoaluantotnghiep.entity.UserEntity;
 import com.khoaluantotnghiep.service.IPostService;
 
 @Service
@@ -41,8 +42,8 @@ public class PostServiceImpl implements IPostService {
 	}
 
 	@Override
-	public void onOffPost(int post_id) {
-		postDAO.onOffTPost(post_id);
+	public void onOffPost(int post_id,UserEntity loginInfo) {
+		postDAO.onOffTPost(post_id, loginInfo);
 	}
 
 	@Override
@@ -51,13 +52,13 @@ public class PostServiceImpl implements IPostService {
 	}
 
 	@Override
-	public void delTrash(int post_id) {
-		postDAO.delTrash(post_id);
+	public void delTrash(int post_id,UserEntity loginInfo) {
+		postDAO.delTrash(post_id, loginInfo);
 	}
 
 	@Override
-	public void reTrash(int post_id) {
-		postDAO.reTrash(post_id);
+	public void reTrash(int post_id,UserEntity loginInfo) {
+		postDAO.reTrash(post_id, loginInfo);
 
 	}
 

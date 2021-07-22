@@ -10,9 +10,9 @@
 <body>
 	<div class="content-wrapper pt-3">
 		<!-- Content Header (Page header) -->
-		<c:url var="delete" value="/quan-tri/menu/delete" />
-		<c:url var="retrash" value="/quan-tri/menu/retrash" />
-		<c:url var="list" value="/quan-tri/menu" />
+		<c:url var="delete" value="/quan-tri/web/menu/delete" />
+		<c:url var="retrash" value="/quan-tri/web/menu/retrash" />
+		<c:url var="list" value="/quan-tri/web/menu" />
 		<!-- Main content -->
 		<section class="content">
 			<!-- Default box -->
@@ -88,11 +88,11 @@
 							varStatus="loop">
 							<c:if test="${(loop.index)==paginateInfo.currentPage}">
 								<li class="page-item active"><a class="page-link"
-									href="<c:url value="/quan-tri/menu/${loop.index}"/>">${loop.index}</a></li>
+									href="<c:url value="/quan-tri/web/menu/${loop.index}"/>">${loop.index}</a></li>
 							</c:if>
 							<c:if test="${(loop.index) != paginateInfo.currentPage}">
 								<li class="page-item "><a class="page-link"
-									href="<c:url value="/quan-tri/menu/${loop.index}"/>">${loop.index}</a></li>
+									href="<c:url value="/quan-tri/web/menu/${loop.index}"/>">${loop.index}</a></li>
 							</c:if>
 						</c:forEach>
 					</ul>

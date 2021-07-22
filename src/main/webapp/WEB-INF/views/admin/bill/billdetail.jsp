@@ -10,6 +10,8 @@
 <body>
 	<div class="content-wrapper pt-3">
 		<c:url var="list" value="/quan-tri/hoa-don" />
+		<c:url var="status" value="/quan-tri/hoa-don/status" />
+		<c:url var="cancel" value="/quan-tri/hoa-don/cancel" />
 		<!-- Main content -->
 		<section class="content">
 
@@ -21,6 +23,16 @@
 							hàng</strong>
 					</h3>
 					<div class="card-tools">
+						<c:if test="${bill.status != -1 && bill.status != 4}">
+							<a class="btn btn-sm btn-danger" href="${cancel }/${bill.id}"
+								onclick="return confirm('Bạn có chắc chắn muốn hủy đơn hàng?');">Hủy
+								đơn hàng</a>
+						</c:if>
+						<c:if test="${bill.status != -1 && bill.status != 4}">
+							<a class="btn btn-sm btn-info" href="${status }/${bill.id}"
+								onclick="return confirm('Bạn có chắc chắn muốn chuyển trạng thái đơn hàng?');">Chuyển
+								trạng thái đơn hàng</a>
+						</c:if>
 						<a class="btn btn-sm btn-danger" href="${list }"><i
 							class="fas fa-backward"></i> Quay lại</a>
 					</div>
@@ -30,6 +42,56 @@
 						<thead>
 							<h3>Thông tin người nhận hàng</h3>
 						</thead>
+						<c:if test="${bill.status == -1 }">
+							<div class="alert alert-danger" role="alert">Đơn hàng đã
+								hủy</div>
+						</c:if>
+						<c:if test="${bill.status != -1 }">
+							<div class="mb-3">
+								<ul class="steps">
+									<li
+										class="step ${bill.status > 0 ? 'step-success': (bill.status == 0 ? 'step-active':'' ) }">
+										<div class="step-content">
+											<span class="step-circle" style="z-index: 4;"><i
+												class="fas fa-clipboard"></i></span> <span class="step-text">Đơn
+												hàng đã đặt</span>
+										</div>
+									</li>
+									<li
+										class="step ${bill.status > 1 ? 'step-success': (bill.status == 1 ? 'step-active':'' ) }">
+										<div class="step-content">
+											<span class="step-circle" style="z-index: 3;"><i
+												class="fas fa-clipboard-check"></i></span> <span class="step-text">Đã
+												xác nhận đơn hàng</span>
+										</div>
+									</li>
+									<li
+										class="step ${bill.status > 2 ? 'step-success': (bill.status == 2 ? 'step-active':'' ) }">
+										<div class="step-content">
+											<span class="step-circle" style="z-index: 2;"><i
+												class="fas fa-truck"></i></span> <span class="step-text">Đã
+												giao cho ĐVVC</span>
+										</div>
+									</li>
+									<li
+										class="step ${bill.status > 3 ? 'step-success': (bill.status == 3 ? 'step-active':'' ) }">
+										<div class="step-content">
+											<span class="step-circle" style="z-index: 1;"><i
+												class="fas fa-hourglass-half"></i></span> <span class="step-text">Đơn
+												hàng đang giao</span>
+										</div>
+									</li>
+									<li
+										class="step ${bill.status > 4 ? 'step-success': (bill.status == 4 ? 'step-active':'' ) }">
+										<div class="step-content">
+											<span class="step-circle" style="z-index: 0;"><i
+												class="far fa-star"></i></span> <span class="step-text">Đơn
+												hàng đã giao</span>
+										</div>
+									</li>
+								</ul>
+							</div>
+						</c:if>
 						<tbody>
 							<tr>
 								<th>Tên:</th>

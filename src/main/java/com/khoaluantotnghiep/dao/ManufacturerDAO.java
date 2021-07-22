@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.khoaluantotnghiep.entity.ManufacturerEntity;
+import com.khoaluantotnghiep.entity.UserEntity;
 import com.khoaluantotnghiep.mapper.ManufacturerMapper;
 
 @Repository
@@ -83,18 +84,21 @@ public class ManufacturerDAO extends BaseDAO {
 		return list;
 	}
 
-	public void deltrash(int manufacturer_id) {
-		String sql = "UPDATE manufacturer SET status = 0 WHERE manufacturer_id = " + manufacturer_id;
+	public void deltrash(int manufacturer_id,UserEntity loginInfo) {
+		String sql = "UPDATE manufacturer SET status = 0,updated_by = " + loginInfo.getUser_id()
+				+ ", updated_at = NOW() WHERE manufacturer_id = " + manufacturer_id;
 		jdbcTemplate.update(sql);
 	}
 
-	public void retrash(int manufacturer_id) {
-		String sql = "UPDATE manufacturer SET status = 2 WHERE manufacturer_id = " + manufacturer_id;
+	public void retrash(int manufacturer_id,UserEntity loginInfo) {
+		String sql = "UPDATE manufacturer SET status = 2,updated_by = " + loginInfo.getUser_id()
+				+ ", updated_at = NOW() WHERE manufacturer_id = " + manufacturer_id;
 		jdbcTemplate.update(sql);
 	}
 
-	public void onOffManufacturer(int manufacturer_id) {
-		String sql = "UPDATE manufacturer SET status = case WHEN status =1 then 2 when status=2 then 1 end WHERE manufacturer_id = "
+	public void onOffManufacturer(int manufacturer_id,UserEntity loginInfo) {
+		String sql = "UPDATE manufacturer SET status = case WHEN status =1 then 2 when status=2 then 1 end,updated_by = "
+					+ loginInfo.getUser_id() + ", updated_at = NOW() WHERE manufacturer_id = "
 				+ manufacturer_id;
 		jdbcTemplate.update(sql);
 	}
@@ -133,6 +137,7 @@ public class ManufacturerDAO extends BaseDAO {
 		}
 		return listManufacturerTrashs;
 	}
+
 	public boolean isNameExists(String title) {
 		int count = 0;
 		String sql = "SELECT count(*) FROM manufacturer WHERE manufacturer_name = ?";
@@ -140,13 +145,15 @@ public class ManufacturerDAO extends BaseDAO {
 
 		return count > 0;
 	}
-	public boolean isNameExists(String title,int id) {
+
+	public boolean isNameExists(String title, int id) {
 		int count = 0;
 		String sql = "SELECT count(*) FROM manufacturer WHERE manufacturer_name = ? and manufacturer_id <> ?";
-		count = jdbcTemplate.queryForObject(sql, new Object[] { title,id }, Integer.class);
+		count = jdbcTemplate.queryForObject(sql, new Object[] { title, id }, Integer.class);
 
 		return count > 0;
 	}
+
 	public boolean isSlugExists(String slug) {
 		int count = 0;
 		String sql = "SELECT count(*) FROM manufacturer WHERE manufacturer_slug = ?";
@@ -154,10 +161,11 @@ public class ManufacturerDAO extends BaseDAO {
 
 		return count > 0;
 	}
-	public boolean isSlugExists(String slug,int id) {
+
+	public boolean isSlugExists(String slug, int id) {
 		int count = 0;
 		String sql = "SELECT count(*) FROM manufacturer WHERE manufacturer_slug = ? and manufacturer_id <> ?";
-		count = jdbcTemplate.queryForObject(sql, new Object[] { slug,id }, Integer.class);
+		count = jdbcTemplate.queryForObject(sql, new Object[] { slug, id }, Integer.class);
 
 		return count > 0;
 	}

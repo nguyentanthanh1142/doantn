@@ -59,7 +59,7 @@
 								<th>Tên sản phẩm</th>
 								<th>Loại sản phẩm</th>
 								<th>Số lượng tồn</th>
-								<th style="width: 300px;">Chức năng</th>
+								<th style="width: 10rem;">Chức năng</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -102,7 +102,7 @@
 								<th>Tên sản phẩm</th>
 								<th>Loại sản phẩm</th>
 								<th>Số lượng tồn</th>
-								<th style="width: 300px;">Chức năng</th>
+								<th style="width: 10rem;">Chức năng</th>
 							</tr>
 						</tfoot>
 					</table>

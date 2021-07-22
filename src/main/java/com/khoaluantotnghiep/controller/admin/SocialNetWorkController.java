@@ -19,8 +19,10 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.khoaluantotnghiep.dto.PaginateDTO;
+import com.khoaluantotnghiep.entity.NoteEntity;
 import com.khoaluantotnghiep.entity.SocialNetWorkEntity;
 import com.khoaluantotnghiep.entity.UserEntity;
+import com.khoaluantotnghiep.service.impl.NoteServiceImpl;
 import com.khoaluantotnghiep.service.impl.PaginatesServiceImpl;
 import com.khoaluantotnghiep.service.impl.SocialNetWorkServiceImpl;
 
@@ -30,9 +32,11 @@ public class SocialNetWorkController extends BaseController {
 	PaginatesServiceImpl paginateService;
 	@Autowired
 	SocialNetWorkServiceImpl socialNetWorkService;
+	@Autowired
+	NoteServiceImpl noteService;
 	private int totalDataPage = 5;
 
-	@RequestMapping(value = "/quan-tri/mang-xa-hoi", method = RequestMethod.GET)
+	@RequestMapping(value = "/quan-tri/web/mang-xa-hoi", method = RequestMethod.GET)
 	public ModelAndView Smarpay(ModelMap modelMap) {
 		int totalData = socialNetWorkService.findAllSocialNetWork().size();
 		PaginateDTO paginateInfo = paginateService.GetInfoPaginates(totalData, totalDataPage, 1);
@@ -44,7 +48,7 @@ public class SocialNetWorkController extends BaseController {
 		return _mvShare;
 	}
 
-	@GetMapping("/quan-tri/mang-xa-hoi/{currentPage}")
+	@GetMapping("/quan-tri/web/mang-xa-hoi/{currentPage}")
 	public ModelAndView Smarpay(@PathVariable String currentPage) {
 		int totalData = socialNetWorkService.findAllSocialNetWork().size();
 		PaginateDTO paginateInfo = paginateService.GetInfoPaginates(totalData, totalDataPage,
@@ -57,13 +61,13 @@ public class SocialNetWorkController extends BaseController {
 		return _mvShare;
 	}
 
-	@RequestMapping(value = "/quan-tri/mang-xa-hoi/add", method = RequestMethod.GET)
+	@RequestMapping(value = "/quan-tri/web/mang-xa-hoi/add", method = RequestMethod.GET)
 	public ModelAndView add(@ModelAttribute("socialnetwork") SocialNetWorkEntity socialnetwork) {
 		_mvShare.setViewName("admin/socialnetwork/addsocialnetwork");
 		return _mvShare;
 	}
 
-	@RequestMapping(value = "/quan-tri/mang-xa-hoi/save", method = RequestMethod.POST, produces = "application/x-www-form-urlencoded;charset=UTF-8")
+	@RequestMapping(value = "/quan-tri/web/mang-xa-hoi/save", method = RequestMethod.POST, produces = "application/x-www-form-urlencoded;charset=UTF-8")
 	public String save(@ModelAttribute("socialnetwork") SocialNetWorkEntity socialnetwork, HttpSession session,
 			ModelMap modelMap, @RequestParam(value = "image", required = false) MultipartFile photo,
 			final RedirectAttributes redirectAttributes) {
@@ -75,7 +79,7 @@ public class SocialNetWorkController extends BaseController {
 		}
 		if (!check) {
 			redirectAttributes.addFlashAttribute("oldvalue", socialnetwork);
-			return "redirect:/quan-tri/mang-xa-hoi/add";
+			return "redirect:/quan-tri/web/mang-xa-hoi/add";
 		}
 		try {
 			socialnetwork.setImg(saveFile(photo));
@@ -85,13 +89,19 @@ public class SocialNetWorkController extends BaseController {
 			socialnetwork.setUpdated_by(loginInfo.getUser_id());
 			socialNetWorkService.addSocialNetWork(socialnetwork);
 			redirectAttributes.addFlashAttribute("msg", "Thêm thành công!");
+			// them note để quản lý
+			NoteEntity noteEntity = new NoteEntity();
+			noteEntity.setContent("Admin đã thêm mạng xã hội mới: " + socialnetwork.getName());
+			noteEntity.setCreated_at(new Date());
+			noteEntity.setCreated_by(loginInfo.getUser_id());
+			noteService.addNote(noteEntity);
 		} catch (Exception e) {
 			redirectAttributes.addFlashAttribute("msgfail", "Thêm không thành công!");
 		}
-		return "redirect:/quan-tri/mang-xa-hoi";
+		return "redirect:/quan-tri/web/mang-xa-hoi";
 	}
 
-	@RequestMapping(value = "/quan-tri/mang-xa-hoi/edit/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/quan-tri/web/mang-xa-hoi/edit/{id}", method = RequestMethod.GET)
 	public ModelAndView editSmarpay(@ModelAttribute("socialnetwork") SocialNetWorkEntity socialnetwork,
 			@PathVariable int id) {
 		SocialNetWorkEntity socialnetworkitem = socialNetWorkService.findSocialNetWorkById(socialnetwork);
@@ -100,7 +110,7 @@ public class SocialNetWorkController extends BaseController {
 		return _mvShare;
 	}
 
-	@RequestMapping(value = "/quan-tri/mang-xa-hoi/thung-rac", method = RequestMethod.GET)
+	@RequestMapping(value = "/quan-tri/web/mang-xa-hoi/thung-rac", method = RequestMethod.GET)
 	public ModelAndView trashSmarpay(@ModelAttribute("socialnetwork") SocialNetWorkEntity socialnetwork) {
 		int totalData = socialNetWorkService.findTrashSocialNetWork().size();
 		PaginateDTO paginateInfo = paginateService.GetInfoPaginates(totalData, totalDataPage, 1);
@@ -112,7 +122,7 @@ public class SocialNetWorkController extends BaseController {
 		return _mvShare;
 	}
 
-	@GetMapping("/quan-tri/mang-xa-hoi/thung-rac/{currentPage}")
+	@GetMapping("/quan-tri/web/mang-xa-hoi/thung-rac/{currentPage}")
 	public ModelAndView trashSmarpay(@PathVariable String currentPage,
 			@ModelAttribute("socialnetwork") SocialNetWorkEntity socialnetwork) {
 		int totalData = socialNetWorkService.findTrashSocialNetWork().size();
@@ -126,7 +136,7 @@ public class SocialNetWorkController extends BaseController {
 		return _mvShare;
 	}
 
-	@RequestMapping(value = "/quan-tri/mang-xa-hoi/editsave", method = RequestMethod.POST, produces = "application/x-www-form-urlencoded;charset=UTF-8")
+	@RequestMapping(value = "/quan-tri/web/mang-xa-hoi/editsave", method = RequestMethod.POST, produces = "application/x-www-form-urlencoded;charset=UTF-8")
 	public String editsaveSmarpay(@ModelAttribute("socialnetwork") SocialNetWorkEntity socialnetwork,
 			HttpSession session, ModelMap modelMap,
 			@RequestParam(value = "image", required = false) MultipartFile photo,
@@ -139,7 +149,7 @@ public class SocialNetWorkController extends BaseController {
 		}
 		if (!check) {
 			redirectAttributes.addFlashAttribute("oldvalue", socialnetwork);
-			return "redirect:/quan-tri/mang-xa-hoi/edit/" + socialnetwork.getId();
+			return "redirect:/quan-tri/web/mang-xa-hoi/edit/" + socialnetwork.getId();
 		}
 		try {
 			socialnetwork.setImg(saveFile(photo));
@@ -147,18 +157,31 @@ public class SocialNetWorkController extends BaseController {
 			socialnetwork.setUpdated_by(loginInfo.getUser_id());
 			socialNetWorkService.updateSocialNetWork(socialnetwork);
 			redirectAttributes.addFlashAttribute("msg", "Cập nhật thành công!");
+			// them note để quản lý
+			NoteEntity noteEntity = new NoteEntity();
+			noteEntity.setContent("Admin đã chỉnh sửa mạng xã hội: " + socialnetwork.getId());
+			noteEntity.setCreated_at(new Date());
+			noteEntity.setCreated_by(loginInfo.getUser_id());
+			noteService.addNote(noteEntity);
 		} catch (Exception e) {
 			redirectAttributes.addFlashAttribute("msgfail", "Cập nhật không thành công!");
 		}
-		return "redirect:/quan-tri/mang-xa-hoi";
+		return "redirect:/quan-tri/web/mang-xa-hoi";
 	}
 
-	@RequestMapping(value = "/quan-tri/mang-xa-hoi/delete/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/quan-tri/web/mang-xa-hoi/delete/{id}", method = RequestMethod.GET)
 	public String deleteSmarpay(@PathVariable int id, ModelMap modelMap, final RedirectAttributes redirectAttributes,
-			HttpServletRequest request) {
+			HttpServletRequest request, HttpSession session) {
 		try {
+			UserEntity loginInfo = (UserEntity) session.getAttribute("LoginInfo");
 			socialNetWorkService.deleteSocialNetWork(id);
 			redirectAttributes.addFlashAttribute("msg", "Xóa thành công!");
+			// them note để quản lý
+			NoteEntity noteEntity = new NoteEntity();
+			noteEntity.setContent("Admin đã xóa vĩnh viễn mạng xã hội: " + id);
+			noteEntity.setCreated_at(new Date());
+			noteEntity.setCreated_by(loginInfo.getUser_id());
+			noteService.addNote(noteEntity);
 		} catch (Exception e) {
 			redirectAttributes.addFlashAttribute("msgfail", "Xóa không thành công!");
 		}
@@ -166,12 +189,19 @@ public class SocialNetWorkController extends BaseController {
 		return "redirect:" + referer;
 	}
 
-	@RequestMapping(value = "/quan-tri/mang-xa-hoi/deltrash/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/quan-tri/web/mang-xa-hoi/deltrash/{id}", method = RequestMethod.GET)
 	public String delSmarpay(@PathVariable int id, ModelMap modelMap, final RedirectAttributes redirectAttributes,
-			HttpServletRequest request) {
+			HttpServletRequest request, HttpSession session) {
 		try {
-			socialNetWorkService.deltrashSocialNetWork(id);
+			UserEntity loginInfo = (UserEntity) session.getAttribute("LoginInfo");
+			socialNetWorkService.deltrashSocialNetWork(id, loginInfo);
 			redirectAttributes.addFlashAttribute("msg", "Xóa vào thùng rác thành công!");
+			// them note để quản lý
+			NoteEntity noteEntity = new NoteEntity();
+			noteEntity.setContent("Admin đã xóa tạm thời mạng xã hội: " + id);
+			noteEntity.setCreated_at(new Date());
+			noteEntity.setCreated_by(loginInfo.getUser_id());
+			noteService.addNote(noteEntity);
 		} catch (Exception e) {
 			redirectAttributes.addFlashAttribute("msgfail", "Xóa vào thùng rác không thành công!");
 		}
@@ -179,12 +209,19 @@ public class SocialNetWorkController extends BaseController {
 		return "redirect:" + referer;
 	}
 
-	@RequestMapping(value = "/quan-tri/mang-xa-hoi/retrash/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/quan-tri/web/mang-xa-hoi/retrash/{id}", method = RequestMethod.GET)
 	public String retrashSmarpay(@PathVariable int id, ModelMap modelMap, final RedirectAttributes redirectAttributes,
-			HttpServletRequest request) {
+			HttpServletRequest request, HttpSession session) {
 		try {
-			socialNetWorkService.retrashSocialNetWork(id);
+			UserEntity loginInfo = (UserEntity) session.getAttribute("LoginInfo");
+			socialNetWorkService.retrashSocialNetWork(id, loginInfo);
 			redirectAttributes.addFlashAttribute("msg", "Thao tác thành công!");
+			// them note để quản lý
+			NoteEntity noteEntity = new NoteEntity();
+			noteEntity.setContent("Admin đã bỏ xóa vĩnh viễn mạng xã hội: " + id);
+			noteEntity.setCreated_at(new Date());
+			noteEntity.setCreated_by(loginInfo.getUser_id());
+			noteService.addNote(noteEntity);
 		} catch (Exception e) {
 			redirectAttributes.addFlashAttribute("msgfail", "Thao tác không thành công!");
 		}
@@ -192,12 +229,19 @@ public class SocialNetWorkController extends BaseController {
 		return "redirect:" + referer;
 	}
 
-	@RequestMapping(value = "/quan-tri/mang-xa-hoi/status/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/quan-tri/web/mang-xa-hoi/status/{id}", method = RequestMethod.GET)
 	public String onOffSmarpay(@PathVariable int id, ModelMap modelMap, final RedirectAttributes redirectAttributes,
-			HttpServletRequest request) {
+			HttpServletRequest request, HttpSession session) {
 		try {
-			socialNetWorkService.onOffSocialNetWork(id);
+			UserEntity loginInfo = (UserEntity) session.getAttribute("LoginInfo");
+			socialNetWorkService.onOffSocialNetWork(id, loginInfo);
 			redirectAttributes.addFlashAttribute("msg", "Thao tác thành công!");
+			// them note để quản lý
+			NoteEntity noteEntity = new NoteEntity();
+			noteEntity.setContent("Admin đã thay đổi trạng thái mạng xã hội: " + id);
+			noteEntity.setCreated_at(new Date());
+			noteEntity.setCreated_by(loginInfo.getUser_id());
+			noteService.addNote(noteEntity);
 		} catch (Exception e) {
 			redirectAttributes.addFlashAttribute("msgfail", "Thao tác không thành công!");
 		}

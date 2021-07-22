@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.khoaluantotnghiep.entity.OptiongroupsEntity;
+import com.khoaluantotnghiep.entity.UserEntity;
 import com.khoaluantotnghiep.mapper.OptiongroupsMapper;
 
 @Transactional
@@ -112,21 +113,24 @@ public class OptiongroupsDAO extends BaseDAO {
 		jdbcTemplate.update(sql);
 	}
 
-	public void deltrash(int optiongroups_id) {
-		String sql = "UPDATE optiongroups SET status = 0 WHERE optiongroups_id   = " + optiongroups_id;
+	public void deltrash(int optiongroups_id, UserEntity loginInfo) {
+		String sql = "UPDATE optiongroups SET status = 0,updated_by = " + loginInfo.getUser_id()
+				+ ", updated_at = NOW() WHERE optiongroups_id   = " + optiongroups_id;
 		jdbcTemplate.update(sql);
 	}
 
-	public void retrash(int optiongroups_id) {
-		String sql = "UPDATE optiongroups SET status = 2 WHERE optiongroups_id   = " + optiongroups_id;
+	public void retrash(int optiongroups_id, UserEntity loginInfo) {
+		String sql = "UPDATE optiongroups SET status = 2,updated_by = " + loginInfo.getUser_id()
+				+ ", updated_at = NOW() WHERE optiongroups_id   = " + optiongroups_id;
 		jdbcTemplate.update(sql);
 	}
 
-	public void onOff(int optiongroups_id) {
-		String sql = "UPDATE optiongroups SET status = case WHEN status =1 then 2 when status=2 then 1 end WHERE optiongroups_id   = "
-				+ optiongroups_id;
+	public void onOff(int optiongroups_id, UserEntity loginInfo) {
+		String sql = "UPDATE optiongroups SET status = case WHEN status =1 then 2 when status=2 then 1 end,updated_by = "
+				+ loginInfo.getUser_id() + ", updated_at = NOW() WHERE optiongroups_id   = " + optiongroups_id;
 		jdbcTemplate.update(sql);
 	}
+
 	public boolean isNameExists(String name) {
 		int count = 0;
 		String sql = "SELECT count(*) FROM optiongroups WHERE optiongroupname = ?";
@@ -134,10 +138,11 @@ public class OptiongroupsDAO extends BaseDAO {
 
 		return count > 0;
 	}
-	public boolean isNameExists(String name,int id) {
+
+	public boolean isNameExists(String name, int id) {
 		int count = 0;
 		String sql = "SELECT count(*) FROM optiongroups WHERE optiongroupname = ? and optiongroups_id <> ?";
-		count = jdbcTemplate.queryForObject(sql, new Object[] { name,id }, Integer.class);
+		count = jdbcTemplate.queryForObject(sql, new Object[] { name, id }, Integer.class);
 
 		return count > 0;
 	}

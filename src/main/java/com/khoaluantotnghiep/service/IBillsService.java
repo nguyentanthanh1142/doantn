@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.khoaluantotnghiep.dto.CartDTO;
 import com.khoaluantotnghiep.entity.BilldetailEntity;
 import com.khoaluantotnghiep.entity.BillsEntity;
+import com.khoaluantotnghiep.entity.UserEntity;
 
 @Service
 public interface IBillsService {
@@ -23,7 +24,7 @@ public interface IBillsService {
 
 	public void deleteBill(int id);
 
-	public void changeStatus(int id);
+	public void changeStatus(int id, UserEntity loginInfo);
 
 	public List<BillsEntity> GetDataBillSeachPaginate(int start, int totalPage, String display_name);
 
@@ -40,5 +41,9 @@ public interface IBillsService {
 	public List<BillsEntity> GetDataCustomerPaginate(int start, int totalPage);
 
 	public BillsEntity findBillsConfirm(String code);
+
+	public void cancelBill(int id, UserEntity loginInfo);
+
+	public void cancelBillforUser(int id, UserEntity loginInfo);
 
 }

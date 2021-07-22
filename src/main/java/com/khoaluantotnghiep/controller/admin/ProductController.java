@@ -21,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.khoaluantotnghiep.dto.PaginateDTO;
+import com.khoaluantotnghiep.entity.NoteEntity;
 import com.khoaluantotnghiep.entity.OptionsEntity;
 import com.khoaluantotnghiep.entity.ProductEntity;
 import com.khoaluantotnghiep.entity.ProductOptionsEntity;
@@ -28,6 +29,7 @@ import com.khoaluantotnghiep.entity.UserEntity;
 import com.khoaluantotnghiep.entity.UtilitiesEntity;
 import com.khoaluantotnghiep.service.impl.CategoryServiceImpl;
 import com.khoaluantotnghiep.service.impl.ManufacturerServiceImpl;
+import com.khoaluantotnghiep.service.impl.NoteServiceImpl;
 import com.khoaluantotnghiep.service.impl.OptiongroupsServiceImpl;
 import com.khoaluantotnghiep.service.impl.OptionsServiceImpl;
 import com.khoaluantotnghiep.service.impl.PaginatesServiceImpl;
@@ -53,6 +55,8 @@ public class ProductController extends BaseController {
 	OptiongroupsServiceImpl optiongroupsService;
 	@Autowired
 	ManufacturerServiceImpl manufacturerService;
+	@Autowired
+	NoteServiceImpl noteService;
 	private int totalDataPage = 5;
 
 	@GetMapping("/quan-tri/san-pham")
@@ -132,6 +136,12 @@ public class ProductController extends BaseController {
 			product.setUpdated_by(loginInfo.getUser_id());
 			product.setCreated_by(loginInfo.getUser_id());
 			productService.addProduct(product);
+			// them note để quản lý
+			NoteEntity noteEntity = new NoteEntity();
+			noteEntity.setContent("Admin đã thêm sản phẩm " + product.getProductname());
+			noteEntity.setCreated_at(new Date());
+			noteEntity.setCreated_by(loginInfo.getUser_id());
+			noteService.addNote(noteEntity);
 			redirectAttributes.addFlashAttribute("msg", "Thêm thành công!");
 		} catch (Exception e) {
 			redirectAttributes.addFlashAttribute("msgfail", "Thêm không thành công");
@@ -197,6 +207,12 @@ public class ProductController extends BaseController {
 			product.setProductdetail(request.getParameter("productdetail"));
 			product.setUpdated_by(loginInfo.getUser_id());
 			productService.updateProduct(product);
+			// them note để quản lý
+			NoteEntity noteEntity = new NoteEntity();
+			noteEntity.setContent("Admin đã chỉnh sửa sản phẩm " + product.getProduct_id());
+			noteEntity.setCreated_at(new Date());
+			noteEntity.setCreated_by(loginInfo.getUser_id());
+			noteService.addNote(noteEntity);
 			redirectAttributes.addFlashAttribute("msg", "Cập nhật thành công");
 		} catch (Exception e) {
 			redirectAttributes.addFlashAttribute("msgfail", "Cập nhật không thành công");
@@ -206,10 +222,17 @@ public class ProductController extends BaseController {
 
 	@GetMapping(value = "/quan-tri/san-pham/delete/{id}")
 	public String deleteProduct(@PathVariable int id, ModelMap modelMap, final RedirectAttributes redirectAttributes,
-			HttpServletRequest request) {
+			HttpServletRequest request, HttpSession session) {
 		try {
+			UserEntity loginInfo = (UserEntity) session.getAttribute("LoginInfo");
 			productService.deleteProduct(id);
 			redirectAttributes.addFlashAttribute("msg", "Xóa thành công");
+			// them note để quản lý
+			NoteEntity noteEntity = new NoteEntity();
+			noteEntity.setContent("Admin đã xóa sản phẩm " + id);
+			noteEntity.setCreated_at(new Date());
+			noteEntity.setCreated_by(loginInfo.getUser_id());
+			noteService.addNote(noteEntity);
 		} catch (Exception e) {
 			redirectAttributes.addFlashAttribute("msgfail", "Xóa không thành công");
 		}
@@ -219,10 +242,17 @@ public class ProductController extends BaseController {
 
 	@GetMapping(value = "/quan-tri/san-pham/trash/{id}")
 	public String delProduct(@PathVariable int id, ModelMap modelMap, final RedirectAttributes redirectAttributes,
-			HttpServletRequest request) {
+			HttpServletRequest request, HttpSession session) {
 		try {
-			productService.delTrash(id);
+			UserEntity loginInfo = (UserEntity) session.getAttribute("LoginInfo");
+			productService.delTrash(id, loginInfo);
 			redirectAttributes.addFlashAttribute("msg", "Thao tác thành công");
+			// them note để quản lý
+			NoteEntity noteEntity = new NoteEntity();
+			noteEntity.setContent("Admin đã xóa tạm thời sản phẩm " + id);
+			noteEntity.setCreated_at(new Date());
+			noteEntity.setCreated_by(loginInfo.getUser_id());
+			noteService.addNote(noteEntity);
 		} catch (Exception e) {
 			redirectAttributes.addFlashAttribute("msgfail", "Thao tác không thành công");
 		}
@@ -232,10 +262,17 @@ public class ProductController extends BaseController {
 
 	@GetMapping(value = "/quan-tri/san-pham/retrash/{id}")
 	public String retrashProduct(@PathVariable int id, ModelMap modelMap, final RedirectAttributes redirectAttributes,
-			HttpServletRequest request) {
+			HttpServletRequest request, HttpSession session) {
 		try {
-			productService.reTrash(id);
+			UserEntity loginInfo = (UserEntity) session.getAttribute("LoginInfo");
+			productService.reTrash(id, loginInfo);
 			redirectAttributes.addFlashAttribute("msg", "Thao tác thành công");
+			// them note để quản lý
+			NoteEntity noteEntity = new NoteEntity();
+			noteEntity.setContent("Admin bỏ xóa tạm thời sản phẩm " + id);
+			noteEntity.setCreated_at(new Date());
+			noteEntity.setCreated_by(loginInfo.getUser_id());
+			noteService.addNote(noteEntity);
 		} catch (Exception e) {
 			redirectAttributes.addFlashAttribute("msgfail", "Thao tác không thành công");
 		}
@@ -245,10 +282,17 @@ public class ProductController extends BaseController {
 
 	@GetMapping(value = "/quan-tri/san-pham/status/{id}")
 	public String onOffProduct(@PathVariable int id, ModelMap modelMap, final RedirectAttributes redirectAttributes,
-			HttpServletRequest request) {
+			HttpServletRequest request, HttpSession session) {
 		try {
-			productService.onOffProduct(id);
+			UserEntity loginInfo = (UserEntity) session.getAttribute("LoginInfo");
+			productService.onOffProduct(id, loginInfo);
 			redirectAttributes.addFlashAttribute("msg", "Thao tác thành công");
+			// them note để quản lý
+			NoteEntity noteEntity = new NoteEntity();
+			noteEntity.setContent("Admin thay đổi trạng thái sản phẩm " + id);
+			noteEntity.setCreated_at(new Date());
+			noteEntity.setCreated_by(loginInfo.getUser_id());
+			noteService.addNote(noteEntity);
 		} catch (Exception e) {
 			redirectAttributes.addFlashAttribute("msgfail", "Thao tác không thành công");
 		}
@@ -278,6 +322,12 @@ public class ProductController extends BaseController {
 			utilities.setProduct_id(id);
 			utilitiesService.addUtilities(utilities);
 			redirectAttributes.addFlashAttribute("msg", "Thêm hành công");
+			// them note để quản lý
+			NoteEntity noteEntity = new NoteEntity();
+			noteEntity.setContent("Admin thêm tiện ích sản phẩm " + id);
+			noteEntity.setCreated_at(new Date());
+			noteEntity.setCreated_by(loginInfo.getUser_id());
+			noteService.addNote(noteEntity);
 		} catch (Exception e) {
 			redirectAttributes.addFlashAttribute("msgfail", "Thêm không thành công");
 		}
@@ -310,6 +360,12 @@ public class ProductController extends BaseController {
 			prodop.setOptiongroup_id(optionsEntity.getOptiongroup_id());
 			prodOptionService.addProdOption(prodop);
 			redirectAttributes.addFlashAttribute("msg", "Thêm hành công");
+			// them note để quản lý
+			NoteEntity noteEntity = new NoteEntity();
+			noteEntity.setContent("Admin thêm lựa chọn sản phẩm " + id);
+			noteEntity.setCreated_at(new Date());
+			noteEntity.setCreated_by(loginInfo.getUser_id());
+			noteService.addNote(noteEntity);
 		} catch (Exception e) {
 			redirectAttributes.addFlashAttribute("msgfail", "Thêm không thành công");
 		}

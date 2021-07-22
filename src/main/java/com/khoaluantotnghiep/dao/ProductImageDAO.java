@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.khoaluantotnghiep.entity.ProductImageEntity;
+import com.khoaluantotnghiep.entity.UserEntity;
 import com.khoaluantotnghiep.mapper.ProductImageMapper;
 
 @Repository
@@ -83,13 +84,15 @@ public class ProductImageDAO extends BaseDAO {
 		return list;
 	}
 
-	public void deltrashProductImage(int id) {
-		String sql = "UPDATE product_image SET status = 0 WHERE id = " + id;
+	public void deltrashProductImage(int id, UserEntity loginInfo) {
+		String sql = "UPDATE product_image SET status = 0,updated_by = " + loginInfo.getUser_id()
+				+ ", updated_at = NOW() WHERE id = " + id;
 		jdbcTemplate.update(sql);
 	}
 
-	public void retrashProductImage(int id) {
-		String sql = "UPDATE product_image SET status = 2 WHERE id = " + id;
+	public void retrashProductImage(int id, UserEntity loginInfo) {
+		String sql = "UPDATE product_image SET status = 2,updated_by = " + loginInfo.getUser_id()
+				+ ", updated_at = NOW() WHERE id = " + id;
 		jdbcTemplate.update(sql);
 	}
 
@@ -98,9 +101,9 @@ public class ProductImageDAO extends BaseDAO {
 		jdbcTemplate.update(sql);
 	}
 
-	public void onOffProductImage(int id) {
-		String sql = "UPDATE product_image SET status = case WHEN status =1 then 2 when status=2 then 1 end where id = "
-				+ id;
+	public void onOffProductImage(int id, UserEntity loginInfo) {
+		String sql = "UPDATE product_image SET status = case WHEN status =1 then 2 when status=2 then 1 end,updated_by = "
+				+ loginInfo.getUser_id() + ", updated_at = NOW() where id = " + id;
 		jdbcTemplate.update(sql);
 	}
 
@@ -114,4 +117,3 @@ public class ProductImageDAO extends BaseDAO {
 	public void update(ProductImageEntity prodimg) {
 	}
 }
-

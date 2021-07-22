@@ -8,9 +8,9 @@
 <title>Thùng rác dịch vụ</title>
 </head>
 <body>
-	<c:url var="delete" value="/quan-tri/dich-vu/delete" />
-	<c:url var="retrash" value="/quan-tri/dich-vu/retrash" />
-	<c:url var="list" value="/quan-tri/dich-vu" />
+	<c:url var="delete" value="/quan-tri/web/dich-vu/delete" />
+	<c:url var="retrash" value="/quan-tri/web/dich-vu/retrash" />
+	<c:url var="list" value="/quan-tri/web/dich-vu" />
 	<div class="content-wrapper pt-3">
 		<!-- Content Header (Page header) -->
 		<!-- Main content -->
@@ -94,11 +94,11 @@
 							varStatus="loop">
 							<c:if test="${(loop.index)==paginateInfo.currentPage}">
 								<li class="page-item active"><a class="page-link"
-									href="<c:url value="/quan-tri/dich-vu/thung-rac/${loop.index}"/>">${loop.index}</a></li>
+									href="<c:url value="/quan-tri/web/dich-vu/thung-rac/${loop.index}"/>">${loop.index}</a></li>
 							</c:if>
 							<c:if test="${(loop.index) != paginateInfo.currentPage}">
 								<li class="page-item "><a class="page-link"
-									href="<c:url value="/quan-tri/dich-vu/thung-rac/${loop.index}"/>">${loop.index}</a></li>
+									href="<c:url value="/quan-tri/web/dich-vu/thung-rac/${loop.index}"/>">${loop.index}</a></li>
 							</c:if>
 						</c:forEach>
 					</ul>

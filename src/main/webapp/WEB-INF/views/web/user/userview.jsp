@@ -37,6 +37,8 @@
 								class="title-info">Đơn hàng của bạn</a></li>
 							<li><a href="<c:url value='/tai-khoan/doi-mat-khau'/>"
 								class="title-info">Đổi mật khẩu</a></li>
+							<li><a href="<c:url value='/dang-xuat'/>" class="title-info">Đăng
+									xuất</a></li>
 						</ul>
 					</div>
 				</div>

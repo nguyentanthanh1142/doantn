@@ -8,8 +8,8 @@
 <title>Chỉnh sửa nhà thanh toán</title>
 </head>
 <body>
-	<c:url var="editsave" value="/quan-tri/nha-thanh-toan/editsave" />
-	<c:url var="list" value="/quan-tri/nha-thanh-toan" />
+	<c:url var="editsave" value="/quan-tri/web/nha-thanh-toan/editsave" />
+	<c:url var="list" value="/quan-tri/web/nha-thanh-toan" />
 	<form:form modelAttribute="smartpay" action="${editsave}"
 		enctype="multipart/form-data" method="POST">
 		<div class="content-wrapper pt-3">

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.khoaluantotnghiep.entity.ContactEntity;
+import com.khoaluantotnghiep.entity.UserEntity;
 
 @Service
 public interface IContactService {
@@ -20,5 +21,5 @@ public interface IContactService {
 
 	public List<ContactEntity> GetDataContactsPaginate(int start, int totalPage);
 
-	public void onOffContact(int id);
+	public void onOffContact(int id,UserEntity loginInfo);
 }

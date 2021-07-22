@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.khoaluantotnghiep.entity.ProductEntity;
+import com.khoaluantotnghiep.entity.UserEntity;
 import com.khoaluantotnghiep.mapper.ProductMapper;
 
 @Repository
@@ -114,7 +115,7 @@ public class ProductDAO extends BaseDAO {
 				product.getProductimg(), product.getProduct_guarantee(), product.getProduct_condition(),
 				product.getProduct_catid(), product.getManufacturer_id(), product.getProduct_slug(),
 				product.getProduct_status(), product.getCreated_at(), product.getUpdated_at(), product.getCreated_by(),
-				product.getUpdated_by(),product.getProduct_available());
+				product.getUpdated_by(), product.getProduct_available());
 	}
 
 	public void deleteProduct(int product_id) {
@@ -131,8 +132,8 @@ public class ProductDAO extends BaseDAO {
 					product.getProductweight(), product.getProductdetail(), product.getProductshortdesc(),
 					product.getProductimg(), product.getProduct_guarantee(), product.getProduct_condition(),
 					product.getProduct_catid(), product.getManufacturer_id(), product.getProduct_slug(),
-					product.getProduct_status(), product.getUpdated_at(), product.getUpdated_by(),product.getProduct_available(),
-					product.getProduct_id());
+					product.getProduct_status(), product.getUpdated_at(), product.getUpdated_by(),
+					product.getProduct_available(), product.getProduct_id());
 		} else {
 			sql = "UPDATE product SET productname = ?, productprice = ?, productpricesale = ?, productweight = ?, productdetail = ?, productshortdesc = ?,"
 					+ " product_guarantee = ?,product_condition = ?, product_catid = ?, manufacturer_id = ?, product_slug = ?, product_status = ?, updated_at = ?, updated_by = ?, available = ? WHERE product_id = ?";
@@ -140,13 +141,14 @@ public class ProductDAO extends BaseDAO {
 					product.getProductweight(), product.getProductdetail(), product.getProductshortdesc(),
 					product.getProduct_guarantee(), product.getProduct_condition(), product.getProduct_catid(),
 					product.getManufacturer_id(), product.getProduct_slug(), product.getProduct_status(),
-					product.getUpdated_at(), product.getUpdated_by(),product.getProduct_available(), product.getProduct_id());
+					product.getUpdated_at(), product.getUpdated_by(), product.getProduct_available(),
+					product.getProduct_id());
 		}
 	}
 
-	public void onOffProduct(int product_id) {
-		String sql = "UPDATE product SET product_status = case when  product_status =1 then 2 when  product_status =2 then 1 end where  product_id ="
-				+ product_id;
+	public void onOffProduct(int product_id, UserEntity loginInfo) {
+		String sql = "UPDATE product SET product_status = case when  product_status =1 then 2 when  product_status =2 then 1 end,updated_by = "
+				 +loginInfo.getUser_id() + ", updated_at = NOW() where  product_id =" + product_id;
 		jdbcTemplate.update(sql);
 	}
 
@@ -156,13 +158,15 @@ public class ProductDAO extends BaseDAO {
 		return list;
 	}
 
-	public void delTrash(int product_id) {
-		String sql = "UPDATE product SET product_status = 0  where  product_id =" + product_id;
+	public void delTrash(int product_id, UserEntity loginInfo) {
+		String sql = "UPDATE product SET product_status = 0,updated_by = " + +loginInfo.getUser_id()
+				+ ", updated_at = NOW()  where  product_id =" + product_id;
 		jdbcTemplate.update(sql);
 	}
 
-	public void reTrash(int product_id) {
-		String sql = "UPDATE product SET product_status = 2  where  product_id =" + product_id;
+	public void reTrash(int product_id, UserEntity loginInfo) {
+		String sql = "UPDATE product SET product_status = 2,updated_by = " + +loginInfo.getUser_id()
+				+ ", updated_at = NOW()  where  product_id =" + product_id;
 		jdbcTemplate.update(sql);
 	}
 

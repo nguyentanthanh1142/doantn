@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.khoaluantotnghiep.entity.ContactEntity;
+import com.khoaluantotnghiep.entity.UserEntity;
 import com.khoaluantotnghiep.mapper.ContactMapper;
 
 @Repository
@@ -64,9 +65,10 @@ public class ContactDAO extends BaseDAO {
 		}
 		return listContacts;
 	}
-	public void onOffContact(int id) {
-		String sql = "UPDATE contact SET status = case WHEN status =1 then 2 when status=2 then 1 end where id = "
-				+ id;
+
+	public void onOffContact(int id,UserEntity loginInfo) {
+		String sql = "UPDATE contact SET status = case WHEN status =1 then 2 when status=2 then 1 end,updated_by ="
+				+ loginInfo.getUser_id() + ", updated_at = NOW() where id = " + id;
 		jdbcTemplate.update(sql);
 	}
 }

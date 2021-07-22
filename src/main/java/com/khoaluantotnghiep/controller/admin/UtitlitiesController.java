@@ -19,8 +19,10 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.khoaluantotnghiep.dto.PaginateDTO;
+import com.khoaluantotnghiep.entity.NoteEntity;
 import com.khoaluantotnghiep.entity.UserEntity;
 import com.khoaluantotnghiep.entity.UtilitiesEntity;
+import com.khoaluantotnghiep.service.impl.NoteServiceImpl;
 import com.khoaluantotnghiep.service.impl.PaginatesServiceImpl;
 import com.khoaluantotnghiep.service.impl.ProductServiceImpl;
 import com.khoaluantotnghiep.service.impl.UtilitiesServiceImpl;
@@ -34,6 +36,8 @@ public class UtitlitiesController extends BaseController {
 	UtilitiesServiceImpl utilitiesService;
 	@Autowired
 	ProductServiceImpl productService;
+	@Autowired
+	NoteServiceImpl noteService;
 
 	@GetMapping(value = "/quan-tri/tien-ich")
 	public ModelAndView Utilities() {
@@ -90,8 +94,14 @@ public class UtitlitiesController extends BaseController {
 				return "redirect:/quan-tri/tien-ich/add";
 			}
 			utilitiesService.addUtilities(utilities);
-			
 			redirectAttributes.addFlashAttribute("msg", "Thêm thành công!");
+			// them note để quản lý
+			NoteEntity noteEntity = new NoteEntity();
+			noteEntity.setContent("Admin đã thêm tiện ích " + utilities.getUtilitiesname() + " cho sản phẩm "
+					+ utilities.getProduct_id());
+			noteEntity.setCreated_at(new Date());
+			noteEntity.setCreated_by(loginInfo.getUser_id());
+			noteService.addNote(noteEntity);
 		} catch (Exception e) {
 			redirectAttributes.addFlashAttribute("msgfail", "Thêm không thành công!");
 		}
@@ -124,12 +134,18 @@ public class UtitlitiesController extends BaseController {
 	}
 
 	@RequestMapping(value = "/quan-tri/tien-ich/delete/{id}", method = RequestMethod.GET)
-	public String deleteUtilities(@PathVariable int id, ModelMap modelMap,
-			final RedirectAttributes redirectAttributes,
-			HttpServletRequest request) {
+	public String deleteUtilities(@PathVariable int id, ModelMap modelMap, final RedirectAttributes redirectAttributes,
+			HttpServletRequest request, HttpSession session) {
 		try {
+			UserEntity loginInfo = (UserEntity) session.getAttribute("LoginInfo");
 			utilitiesService.deleteUtilities(id);
 			redirectAttributes.addFlashAttribute("msg", "Xóa thành công!");
+			// them note để quản lý
+			NoteEntity noteEntity = new NoteEntity();
+			noteEntity.setContent("Admin đã xóa vĩnh viễn tiện ích " + id);
+			noteEntity.setCreated_at(new Date());
+			noteEntity.setCreated_by(loginInfo.getUser_id());
+			noteService.addNote(noteEntity);
 		} catch (Exception e) {
 			redirectAttributes.addFlashAttribute("msgfail", "Thao tác không thành công!");
 		}
@@ -139,10 +155,17 @@ public class UtitlitiesController extends BaseController {
 
 	@RequestMapping(value = "/quan-tri/tien-ich/trash/{id}", method = RequestMethod.GET)
 	public String delUtilities(@PathVariable int id, ModelMap modelMap, final RedirectAttributes redirectAttributes,
-			HttpServletRequest request) {
+			HttpServletRequest request, HttpSession session) {
 		try {
-			utilitiesService.deltrash(id);
+			UserEntity loginInfo = (UserEntity) session.getAttribute("LoginInfo");
+			utilitiesService.deltrash(id, loginInfo);
 			redirectAttributes.addFlashAttribute("msg", "Thao tácthành công!");
+			// them note để quản lý
+			NoteEntity noteEntity = new NoteEntity();
+			noteEntity.setContent("Admin đã xóa tạm thời tiện ích " + id);
+			noteEntity.setCreated_at(new Date());
+			noteEntity.setCreated_by(loginInfo.getUser_id());
+			noteService.addNote(noteEntity);
 		} catch (Exception e) {
 			redirectAttributes.addFlashAttribute("msgfail", "Thao tác không thành công!");
 		}
@@ -152,12 +175,18 @@ public class UtitlitiesController extends BaseController {
 	}
 
 	@RequestMapping(value = "/quan-tri/tien-ich/retrash/{id}", method = RequestMethod.GET)
-	public String retrashUtilities(@PathVariable int id, ModelMap modelMap,
-			final RedirectAttributes redirectAttributes,
-			HttpServletRequest request) {
+	public String retrashUtilities(@PathVariable int id, ModelMap modelMap, final RedirectAttributes redirectAttributes,
+			HttpServletRequest request, HttpSession session) {
 		try {
-			utilitiesService.retrash(id);
+			UserEntity loginInfo = (UserEntity) session.getAttribute("LoginInfo");
+			utilitiesService.retrash(id, loginInfo);
 			redirectAttributes.addFlashAttribute("msg", "Thao tác thành công!");
+			// them note để quản lý
+			NoteEntity noteEntity = new NoteEntity();
+			noteEntity.setContent("Admin đã bỏ xóa tạm thời tiện ích " + id);
+			noteEntity.setCreated_at(new Date());
+			noteEntity.setCreated_by(loginInfo.getUser_id());
+			noteService.addNote(noteEntity);
 		} catch (Exception e) {
 			redirectAttributes.addFlashAttribute("msgfail", "Thao tác không thành công!");
 		}
@@ -167,10 +196,17 @@ public class UtitlitiesController extends BaseController {
 
 	@RequestMapping(value = "/quan-tri/tien-ich/status/{id}", method = RequestMethod.GET)
 	public String onOffUtilities(@PathVariable int id, ModelMap modelMap, final RedirectAttributes redirectAttributes,
-			HttpServletRequest request) {
+			HttpServletRequest request, HttpSession session) {
 		try {
-			utilitiesService.onOffTopic(id);
+			UserEntity loginInfo = (UserEntity) session.getAttribute("LoginInfo");
+			utilitiesService.onOffTopic(id, loginInfo);
 			redirectAttributes.addFlashAttribute("msg", "Thao tác thành công!");
+			// them note để quản lý
+			NoteEntity noteEntity = new NoteEntity();
+			noteEntity.setContent("Admin đã thay đổi trạng thái tiện ích " + id);
+			noteEntity.setCreated_at(new Date());
+			noteEntity.setCreated_by(loginInfo.getUser_id());
+			noteService.addNote(noteEntity);
 		} catch (Exception e) {
 			redirectAttributes.addFlashAttribute("msgfail", "Thao tác không thành công!");
 		}
@@ -207,6 +243,12 @@ public class UtitlitiesController extends BaseController {
 			}
 			utilitiesService.updateUtilities(utilities);
 			redirectAttributes.addFlashAttribute("msg", "Cập nhật thành công");
+			// them note để quản lý
+			NoteEntity noteEntity = new NoteEntity();
+			noteEntity.setContent("Admin đã thay đổi trạng thái tiện ích " + utilities.getUtilities_id());
+			noteEntity.setCreated_at(new Date());
+			noteEntity.setCreated_by(loginInfo.getUser_id());
+			noteService.addNote(noteEntity);
 		} catch (Exception e) {
 			redirectAttributes.addFlashAttribute("msgfail", "Cập nhật không thành công");
 		}

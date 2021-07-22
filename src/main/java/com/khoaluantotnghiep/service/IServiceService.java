@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.khoaluantotnghiep.entity.ServiceEntity;
+import com.khoaluantotnghiep.entity.UserEntity;
 
 @Service
 public interface IServiceService {
@@ -20,11 +21,11 @@ public interface IServiceService {
 
 	public ServiceEntity findServiceById(int id);
 
-	public void onOff(int id);
+	public void onOff(int id,UserEntity loginInfo);
 
-	public void delTrash(int id);
+	public void delTrash(int id,UserEntity loginInfo);
 
-	public void reTrash(int id);
+	public void reTrash(int id,UserEntity loginInfo);
 
 	public void delete(int id);
 
