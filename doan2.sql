@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th7 10, 2021 lúc 07:44 PM
+-- Thời gian đã tạo: Th7 22, 2021 lúc 09:38 PM
 -- Phiên bản máy phục vụ: 10.4.13-MariaDB
 -- Phiên bản PHP: 7.4.8
 
@@ -44,20 +44,19 @@ CREATE TABLE `banner` (
 
 INSERT INTO `banner` (`id`, `banner_name`, `banner_img`, `banner_status`, `created_by`, `updated_by`, `created_at`, `updated_at`) VALUES
 (3, 'Quảng 123', '1621179541004.jpg', 0, 1, 1, '2021-05-16 08:39:01', '2021-05-16 08:39:01'),
-(4, 'banner 1', '1621180472127.jpg', 1, 1, 1, '2021-05-16 08:54:32', '2021-05-16 08:54:32'),
+(4, 'banner 1', '1621180472127.jpg', 0, 1, 5, '2021-05-16 08:54:32', '2021-07-16 14:30:29'),
 (5, 'banner 2', '1621180483254.jpg', 1, 1, 1, '2021-05-16 08:54:43', '2021-05-16 08:54:43'),
 (6, 'banner 3', '1621180687288.jpg', 2, 1, 1, '2021-05-16 08:58:07', '2021-05-16 08:58:07'),
-(7, 'banner 4', '1621180699556.jpg', 2, 1, 1, '2021-05-16 08:58:19', '2021-05-16 08:58:19'),
+(7, 'banner 4', '1621180699556.jpg', 2, 1, 5, '2021-05-16 08:58:19', '2021-07-16 14:25:46'),
 (8, 'Quảng cáo 123', '1621167098662.jpg', 0, 1, 1, '2021-05-16 05:11:38', '2021-05-16 08:37:39'),
 (9, 'Quảng cáo 2', '1621177556568.jpg', 0, 1, 1, '2021-05-16 08:05:56', '2021-05-16 08:05:56'),
-(10, 'Quảng 123', '1621179541004.jpg', 0, 1, 1, '2021-05-16 08:39:01', '2021-05-16 08:39:01'),
 (11, 'Quảng cáo 123', '1621167098662.jpg', 0, 1, 1, '2021-05-16 05:11:38', '2021-05-16 08:37:39'),
 (12, 'Quảng cáo 2', '1621177556568.jpg', 0, 1, 1, '2021-05-16 08:05:56', '2021-05-16 08:05:56'),
 (13, 'Quảng 123', '1621179541004.jpg', 0, 1, 1, '2021-05-16 08:39:01', '2021-05-16 08:39:01'),
-(14, 'banner 1', '1621180472127.jpg', 2, 1, 1, '2021-05-16 08:54:32', '2021-05-16 08:54:32'),
+(14, 'banner 1', '1621180472127.jpg', 1, 1, 1, '2021-05-16 08:54:32', '2021-05-16 08:54:32'),
 (15, 'banner 2', '1621180483254.jpg', 2, 1, 1, '2021-05-16 08:54:43', '2021-05-16 08:54:43'),
-(16, 'banner 3', '1621180687288.jpg', 2, 1, 1, '2021-05-16 08:58:07', '2021-05-16 08:58:07'),
-(17, 'banner 4', '1621180699556.jpg', 2, 1, 1, '2021-05-16 08:58:19', '2021-05-16 08:58:19');
+(16, 'banner 3', '1621180687288.jpg', 2, 1, 5, '2021-05-16 08:58:07', '2021-07-16 11:52:04'),
+(17, 'banner 4', '1621180699556.jpg', 0, 1, 5, '2021-05-16 08:58:19', '2021-07-16 11:50:36');
 
 -- --------------------------------------------------------
 
@@ -135,7 +134,10 @@ INSERT INTO `billdetail` (`id`, `product_id`, `bills_id`, `quanty`, `total`) VAL
 (133, 33, 107, 1, 19090000),
 (134, 49, 107, 1, 12668000),
 (135, 39, 107, 1, 8190000),
-(136, 55, 108, 1, 14500000);
+(136, 55, 108, 1, 14500000),
+(137, 48, 109, 1, 10941000),
+(138, 49, 109, 1, 12668000),
+(139, 54, 110, 1, 25000000);
 
 -- --------------------------------------------------------
 
@@ -159,6 +161,7 @@ CREATE TABLE `bills` (
   `status` int(11) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_by` int(11) DEFAULT NULL,
   `coupon` tinyint(1) NOT NULL,
   `coupon_id` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -167,51 +170,53 @@ CREATE TABLE `bills` (
 -- Đang đổ dữ liệu cho bảng `bills`
 --
 
-INSERT INTO `bills` (`id`, `code`, `email`, `display_name`, `phone`, `address`, `city`, `district`, `province`, `note`, `total`, `quanty`, `status`, `created_at`, `updated_at`, `coupon`, `coupon_id`) VALUES
-(61, 'ce74857886384e0cbdee73716da210ac', 'quangvinh290720@gmail.com', 'abc', '123', '20 T?ng Nh?n Phú b', 'Thái Bình', 'Huyện Kiến Xương', 'Xã Vũ An', '', 11540000, 1, 0, '2021-05-22 04:47:42', '2021-06-19 04:47:42', 0, 1),
-(62, '19c73a755f994f2b828a1f2d63ea1bb5', 'quangvinh290720@gmail.com', 'sena', '0123151515', '20 T?ng Nh?n Phú b', 'Hà Nam', 'Thành phố Phủ Lý', 'Xã Kim Bình', '', 11500000, 1, 0, '2021-05-20 05:40:59', '2021-06-20 05:40:59', 0, 1),
-(66, '829fd1fdba814fe9934b2fc6faf05894', 'quangvinh290720@gmail.com', 'sena', '0565796988', '20 Tăng nhơn phú', 'Hà Nam', 'Huyện Duy Tiên', 'Xã Tiên Nội', '', 11500000, 1, 0, '2021-06-20 01:37:12', '2021-06-20 01:37:12', 0, 1),
-(67, 'a777d36077ba48aa9dc0ccff5693560b', 'quangvinh290720@gmail.com', 'abc', '123', '20 Tăng nhơn phú', 'Hà Nam', 'Thành phố Phủ Lý', 'Xã Tiên Hiệp', '', 25613000, 2, 0, '2021-06-24 23:02:19', '2021-06-24 23:02:19', 0, 1),
-(68, 'b3fc5c62d9bf4113985a34133407e1a7', 'quangvinh290720@gmail.com', 'abc', '0565796988', '20 Tăng nhơn phú', 'Nam Định', 'Huyện Trực Ninh', 'Xã Trực Mỹ', '', 10981000, 1, 0, '2021-06-30 05:34:33', '2021-06-30 05:34:33', 0, 1),
-(70, 'a643fe87aa0b4ae5b649dbed2dd536ef', 'quangvinh290720@gmail.com', 'nguyễn văn a', '0565796988', 'iphone 12 pro max tăng nhơn phú', 'Nam Định', 'Huyện Xuân Trường', 'Xã Xuân Vinh', '', 11440000, 1, 0, '2021-06-29 18:22:21', '2021-06-29 18:22:21', 1, 4),
-(71, 'f524990365d0487983a2faa18f8a4c60', 'quangvinh290720@gmail.com', 'nguyễn văn a', '0565796988', '20 Tăng nhơn phú', 'Nam Định', 'Huyện Trực Ninh', 'Xã Trực Đại', '', 11240000, 1, 0, '2021-06-29 20:09:42', '2021-06-29 20:09:42', 1, 4),
-(72, 'fe0fe6742b76496e9e33efddfb8ef6ba', 'ccc@yahoo.com', 'sdsadas', '0878841435', '24', 'Thái Bình', 'Huyện Thái Thụy', 'Xã Thụy Xuân', '1', 5630000, 1, 0, '2021-06-29 22:00:30', '2021-06-29 22:00:30', 1, 4),
-(73, '03570e4c75de41d4bf12cbdea8f2e739', 'quangvinh290720@gmail.com', 'admin', '0823456789', '24', 'Thanh Hóa', 'Huyện Thường Xuân', 'Xã Xuân Cẩm', '123', 49375000, 3, 0, '2021-06-29 22:42:11', '2021-06-29 22:42:11', 0, 1),
-(74, '438ad5f21524479d9de9e7a89a57ae83', 'quangvinh290720@gmail.com', 'admin', '0923456789', '24', 'Thành phố Hải Phòng', 'Huyện Kiến Thuỵ', 'Xã Đoàn Xá', 'xxx', 21546000, 2, 0, '2021-06-29 23:03:52', '2021-06-29 23:03:52', 1, 4),
-(75, '7bb0cd72aec4416d975864bd48327b79', 'quangvinh290720@gmail.com', 'admin', '0923456789', '123', 'Ninh Bình', 'Huyện Gia Viễn', 'Xã Gia Tân', '', 52610000, 4, 0, '2021-06-29 23:29:41', '2021-06-29 23:29:41', 1, 4),
-(76, 'ff543a0e6cb740c3b98d0e6e25809f90', 'nguyentanthanh1142@gmail.com', 'nguyen tan thanh', '0923456789', 'xxxxxxxx', 'Hà Giang', 'Huyện Đồng Văn', 'Xã Lũng Thầu', '', 10640000, 1, 0, '2021-07-02 20:32:08', '2021-07-02 20:32:08', 1, 4),
-(77, 'da83997e2ae9413187e07c76eccb0a17', 'nguyentanthanh1142@gmail.com', 'nguyen tan thanh', '0923456789', '24', 'Thái Bình', 'Huyện Đông Hưng', 'Xã Minh Tân', '1234', 29040000, 2, 0, '2021-07-09 03:30:36', '2021-07-09 03:30:36', 0, 1),
-(78, '158fdb92ee8e4cae826c009ca7175432', 'nguyentanthanh1142@gmail.com', 'nguyen tan thanh', '0923456789', '24', 'Hưng Yên', 'Huyện Yên Mỹ', 'Xã Lý Thường Kiệt', '1', 25040000, 1, 0, '2021-07-09 03:30:36', '2021-07-09 03:30:36', 0, 1),
-(79, '529072a39df6402fa6fa6cd532b05a49', 'nguyentanthanh1142@gmail.com', 'nguyen tan thanh', '0923456789', '24', 'Hưng Yên', 'Huyện Văn Giang', 'Xã Nghĩa Trụ', '123', 14540000, 1, 0, '2021-07-09 03:30:36', '2021-07-09 03:30:36', 0, 1),
-(80, 'b2d38c76c71c45a2b3f89a6a1e9d4ade', 'nguyentanthanh1142@gmail.com', 'nguyen tan thanh', '0923456789', '24', 'Nam Định', 'Thành phố Nam Định', 'Phường Trần Quang Khải', 'zxc xcz', 14540000, 1, 0, '2021-07-09 03:30:36', '2021-07-09 03:30:36', 0, 1),
-(81, 'b93ea4676f094ca9928c11299ace452a', 'nguyentanthanh1142@gmail.com', 'nguyen tan thanh', '0923456789', '24', 'Ninh Bình', 'Huyện Nho Quan', 'Xã Thanh Lạc', 'x', 9631000, 1, 0, '2021-07-09 03:30:36', '2021-07-09 03:30:36', 0, 1),
-(82, '36a790a4076a40258d22be2565988803', 'nguyentanthanh1142@gmail.com', 'nguyen tan thanh', '0923456789', 'z', 'Ninh Bình', 'Thành phố Tam Điệp', 'Xã Quang Sơn', 'xxxx', 14540000, 1, 0, '2021-07-09 04:35:48', '2021-07-09 04:35:48', 0, 1),
-(83, 'e435382923fc4f07ab0f1039793106d7', 'nguyentanthanh1142@gmail.com', 'nguyen tan thanh', '0923456789', '24', 'Thành phố Hải Phòng', 'Huyện Kiến Thuỵ', 'Xã Đoàn Xá', 'xxxx', 25040000, 1, 0, '2021-07-10 05:24:49', '2021-07-10 05:24:49', 0, 1),
-(84, 'ee576b299dbf4e75a53a4a2a00dc65bf', 'nguyentanthanh1142@gmail.com', 'nguyen tan thanh', '0923456789', '24', 'Ninh Bình', 'Thành phố Tam Điệp', 'Xã Quang Sơn', 'xzzzxzx', 14540000, 1, 0, '2021-07-10 05:33:07', '2021-07-10 05:33:07', 0, 1),
-(85, 'f21e80570e834500b0e4b0219083b3af', 'nguyentanthanh1142@gmail.com', 'nguyen tan thanh', '0923456789', 'z', 'Nghệ An', 'Huyện Đô Lương', 'Xã Lưu Sơn', 'xc zxczxczx', 29040000, 2, 0, '2021-07-10 05:35:47', '2021-07-10 05:35:47', 0, 1),
-(86, 'bfc125bf2218400784b961eff5589ea3', 'nguyentanthanh1142@gmail.com', 'nguyen tan thanh', '0923456789', '24', 'Ninh Bình', 'Huyện Yên Mô', 'Xã Yên Nhân', 'zxzxzx', 12630000, 1, 0, '2021-07-10 05:37:37', '2021-07-10 05:37:37', 0, 1),
-(87, '099307c0cfb04bf881f9fed92c2b5bc8', 'nguyentanthanh1142@gmail.com', 'nguyen tan thanh', '0923456789', '24', 'Nam Định', 'Huyện Mỹ Lộc', 'Xã Mỹ Thịnh', 'zzzzzzz', 10140000, 1, 0, '2021-07-10 05:45:26', '2021-07-10 05:45:26', 0, 1),
-(88, '5d8e1900810e418f91dc972b98c73c7f', 'nguyentanthanh1142@gmail.com', 'nguyen tan thanh', '0923456789', '24', 'Nghệ An', 'Huyện Nam Đàn', 'Xã Nam Lộc', 'xcvxcvx', 14113000, 1, 0, '2021-07-10 05:52:07', '2021-07-10 05:52:07', 0, 1),
-(89, '3874100ab52c4db6bc12bfd765cf3642', 'nguyentanthanh1142@gmail.com', 'nguyen tan thanh', '0923456789', '24', 'Ninh Bình', 'Huyện Gia Viễn', 'Xã Gia Trấn', '2222', 5630000, 1, 0, '2021-07-10 05:54:25', '2021-07-10 05:54:25', 0, 1),
-(90, 'd85e9ace032f41d1a1c05b91fc205ebe', 'nguyentanthanh1142@gmail.com', 'nguyen tan thanh', '0923456789', '24', 'Nam Định', 'Thành phố Nam Định', 'Phường Trần Quang Khải', 'zxzczxczx', 12630000, 1, 0, '2021-07-09 18:05:59', '2021-07-09 18:05:59', 0, 1),
-(91, '0b394a741c764e4e96b79652766293c2', 'nguyentanthanh1142@gmail.com', 'nguyen tan thanh', '0923456789', '24', 'Hải Dương', 'Huyện Bình Giang', 'Xã Hồng Khê', 'a12312312', 14540000, 1, 0, '2021-07-09 18:16:31', '2021-07-09 18:16:31', 0, 1),
-(92, '539b73ffba104ff59c9ae94159f30610', 'nguyentanthanh1142@gmail.com', 'nguyen tan thanh', '0923456789', '24', 'Hưng Yên', 'Huyện Văn Lâm', 'Xã Đình Dù', '12312312', 17430000, 1, 0, '2021-07-09 21:12:22', '2021-07-09 21:12:22', 0, 1),
-(93, '985e7204c5ea4650ab303c968fbc73a3', 'nguyentanthanh1142@gmail.com', 'nguyen tan thanh', '0923456789', '24', 'Thái Bình', 'Thành phố Thái Bình', 'Xã Đông Thọ', '12312', 8230000, 1, 0, '2021-07-09 21:17:22', '2021-07-09 21:17:22', 0, 1),
-(94, 'c269b43479a94e63a49a2351f0329778', 'nguyentanthanh1142@gmail.com', 'nguyen tan thanh', '0923456789', '24', 'Nam Định', 'Huyện Mỹ Lộc', 'Xã Mỹ Tiến', '212121', 10140000, 1, 0, '2021-07-09 21:21:40', '2021-07-09 21:21:40', 0, 1),
-(95, '50bf080fe8c2434bb47c71bd60b6a85c', 'nguyentanthanh1142@gmail.com', 'nguyen tan thanh', '0923456789', '24', 'Hà Nam', 'Huyện Duy Tiên', 'Xã Yên Bắc', '', 11540000, 1, 0, '2021-07-09 21:24:15', '2021-07-09 21:24:15', 0, 1),
-(96, 'c9eedb7d3e0c44de951607b4d8efea83', 'nguyentanthanh1142@gmail.com', 'nguyen tan thanh', '0923456789', '24', 'Nam Định', 'Huyện Mỹ Lộc', 'Xã Mỹ Hưng', '1231231', 5630000, 1, 0, '2021-07-09 21:28:18', '2021-07-09 21:28:18', 0, 1),
-(97, 'f65fdf35f9d84526a06d24c389ed6bbe', 'nguyentanthanh1142@gmail.com', 'nguyen tan thanh', '0923456789', '24', 'Thành phố Hải Phòng', 'Huyện An Lão', 'Xã Thái Sơn', 'zczxczx', 6230000, 1, 0, '2021-07-09 21:34:17', '2021-07-09 21:34:17', 0, 1),
-(98, 'f1c0cd820a6c4545bd3a04d41f3cfe37', 'nguyentanthanh1142@gmail.com', 'nguyen tan thanh', '0923456789', '24', 'Hưng Yên', 'Huyện Văn Giang', 'Xã Nghĩa Trụ', '1234', 20898000, 2, 0, '2021-07-09 21:34:17', '2021-07-09 21:34:17', 0, 1),
-(99, '689be981e09f4c93b0293585af1ad58c', 'nguyentanthanh1142@gmail.com', 'nguyen tan thanh', '0923456789', '24', 'Hưng Yên', 'Huyện Văn Giang', 'Xã Long Hưng', 'q213', 26620000, 2, 0, '2021-07-09 21:34:17', '2021-07-09 21:34:17', 0, 1),
-(100, '99b423a3f6954ebc9c1f2e3553559e36', 'nguyentanthanh1142@gmail.com', 'nguyen tan thanh', '0923456789', '24', 'Nam Định', 'Huyện Ý Yên', 'Xã Yên Dương', 'xzzx', 29040000, 2, 0, '2021-07-09 20:02:14', '2021-07-09 20:02:14', 0, 1),
-(101, '2f030ea288eb41679e04006b7f6cecbd', 'nguyentanthanh1142@gmail.com', 'nguyen tan thanh', '0923456789', '24', 'Sơn La', 'Huyện Quỳnh Nhai', 'Xã Chiềng Khay', 'hbbn', 27208000, 2, 0, '2021-07-09 20:15:23', '2021-07-09 20:15:23', 0, 1),
-(102, '34f6a3b19de040a1afc9bbbb41137e45', 'nguyentanthanh1142@gmail.com', 'nguyen tan thanh', '0923456789', '24', 'Ninh Bình', 'Thành phố Tam Điệp', 'Phường Yên Bình', '123', 25840000, 2, 0, '2021-07-09 20:21:30', '2021-07-09 20:21:30', 0, 1),
-(103, '022470e5266445848d823624eebb8bb0', 'nguyentanthanh1142@gmail.com', 'nguyen tan thanh', '0923456789', '24', 'Lai Châu', 'Huyện Tam Đường', 'Thị trấn Tam Đường', '12312', 17430000, 1, 0, '2021-07-09 20:25:40', '2021-07-09 20:25:40', 0, 1),
-(104, '2829acc665694f129dcfabd861b6c936', 'nguyentanthanh1142@gmail.com', 'nguyen tan thanh', '0923456789', '24', 'Sơn La', 'Huyện Quỳnh Nhai', 'Xã Chiềng Khay', '', 23330000, 2, 0, '2021-07-09 20:28:53', '2021-07-09 20:28:53', 0, 1),
-(105, 'f95950e775fc49c3b75578aacc70eae8', 'nguyentanthanh1142@gmail.com', 'nguyen tan thanh', '0923456789', '24', 'Nam Định', 'Huyện Ý Yên', 'Xã Yên Hưng', '1', 23540000, 2, 0, '2021-07-09 20:42:53', '2021-07-09 20:42:53', 1, 4),
-(106, 'ecf27365b8fd46c88bcb89d75ac12e2c', 'nguyentanthanh1142@gmail.com', 'nguyen tan thanh', '0923456789', '24', 'Hưng Yên', 'Huyện Văn Giang', 'Xã Tân Tiến', 'xxxx', 13620000, 2, 0, '2021-07-10 01:06:27', '2021-07-10 01:06:27', 0, 1),
-(107, '6d4bbd2a416f4bc3bbcca325968e635e', 'quangvinh290720@gmail.com', 'admin', '0923456789', '123', 'Ninh Bình', 'Huyện Gia Viễn', 'Xã Gia Tiến', 'zzxczx', 39688000, 3, 0, '2021-07-10 01:57:01', '2021-07-10 01:57:01', 1, 4),
-(108, '106ddf24094e4a6cad0ccef56e5ef436', 'nguyentanthanh1142@gmail.com', 'nguyen tan thanh', '0923456789', '24', 'Sơn La', 'Thành phố Sơn La', 'Phường Tô Hiệu', '12312312', 14540000, 1, 0, '2021-07-11 05:24:22', '2021-07-11 05:24:22', 0, 1);
+INSERT INTO `bills` (`id`, `code`, `email`, `display_name`, `phone`, `address`, `city`, `district`, `province`, `note`, `total`, `quanty`, `status`, `created_at`, `updated_at`, `updated_by`, `coupon`, `coupon_id`) VALUES
+(61, 'ce74857886384e0cbdee73716da210ac', 'quangvinh290720@gmail.com', 'abc', '123', '20 T?ng Nh?n Phú b', 'Thái Bình', 'Huyện Kiến Xương', 'Xã Vũ An', '', 11540000, 1, 0, '2021-05-22 04:47:42', '2021-06-19 04:47:42', NULL, 0, 1),
+(62, '19c73a755f994f2b828a1f2d63ea1bb5', 'quangvinh290720@gmail.com', 'sena', '0123151515', '20 T?ng Nh?n Phú b', 'Hà Nam', 'Thành phố Phủ Lý', 'Xã Kim Bình', '', 11500000, 1, -1, '2021-05-20 05:40:59', '2021-07-17 16:18:12', 5, 0, 1),
+(66, '829fd1fdba814fe9934b2fc6faf05894', 'quangvinh290720@gmail.com', 'sena', '0565796988', '20 Tăng nhơn phú', 'Hà Nam', 'Huyện Duy Tiên', 'Xã Tiên Nội', '', 11500000, 1, 0, '2021-06-20 01:37:12', '2021-06-20 01:37:12', NULL, 0, 1),
+(67, 'a777d36077ba48aa9dc0ccff5693560b', 'quangvinh290720@gmail.com', 'abc', '123', '20 Tăng nhơn phú', 'Hà Nam', 'Thành phố Phủ Lý', 'Xã Tiên Hiệp', '', 25613000, 2, 0, '2021-06-24 23:02:19', '2021-06-24 23:02:19', NULL, 0, 1),
+(68, 'b3fc5c62d9bf4113985a34133407e1a7', 'quangvinh290720@gmail.com', 'abc', '0565796988', '20 Tăng nhơn phú', 'Nam Định', 'Huyện Trực Ninh', 'Xã Trực Mỹ', '', 10981000, 1, 0, '2021-06-30 05:34:33', '2021-06-30 05:34:33', NULL, 0, 1),
+(70, 'a643fe87aa0b4ae5b649dbed2dd536ef', 'quangvinh290720@gmail.com', 'nguyễn văn a', '0565796988', 'iphone 12 pro max tăng nhơn phú', 'Nam Định', 'Huyện Xuân Trường', 'Xã Xuân Vinh', '', 11440000, 1, 0, '2021-06-29 18:22:21', '2021-06-29 18:22:21', NULL, 1, 4),
+(71, 'f524990365d0487983a2faa18f8a4c60', 'quangvinh290720@gmail.com', 'nguyễn văn a', '0565796988', '20 Tăng nhơn phú', 'Nam Định', 'Huyện Trực Ninh', 'Xã Trực Đại', '', 11240000, 1, 0, '2021-06-29 20:09:42', '2021-06-29 20:09:42', NULL, 1, 4),
+(72, 'fe0fe6742b76496e9e33efddfb8ef6ba', 'ccc@yahoo.com', 'sdsadas', '0878841435', '24', 'Thái Bình', 'Huyện Thái Thụy', 'Xã Thụy Xuân', '1', 5630000, 1, 0, '2021-06-29 22:00:30', '2021-06-29 22:00:30', NULL, 1, 4),
+(73, '03570e4c75de41d4bf12cbdea8f2e739', 'quangvinh290720@gmail.com', 'admin', '0823456789', '24', 'Thanh Hóa', 'Huyện Thường Xuân', 'Xã Xuân Cẩm', '123', 49375000, 3, 0, '2021-06-29 22:42:11', '2021-06-29 22:42:11', NULL, 0, 1),
+(74, '438ad5f21524479d9de9e7a89a57ae83', 'quangvinh290720@gmail.com', 'admin', '0923456789', '24', 'Thành phố Hải Phòng', 'Huyện Kiến Thuỵ', 'Xã Đoàn Xá', 'xxx', 21546000, 2, 0, '2021-06-29 23:03:52', '2021-06-29 23:03:52', NULL, 1, 4),
+(75, '7bb0cd72aec4416d975864bd48327b79', 'quangvinh290720@gmail.com', 'admin', '0923456789', '123', 'Ninh Bình', 'Huyện Gia Viễn', 'Xã Gia Tân', '', 52610000, 4, 0, '2021-06-29 23:29:41', '2021-06-29 23:29:41', NULL, 1, 4),
+(76, 'ff543a0e6cb740c3b98d0e6e25809f90', 'nguyentanthanh1142@gmail.com', 'nguyen tan thanh', '0923456789', 'xxxxxxxx', 'Hà Giang', 'Huyện Đồng Văn', 'Xã Lũng Thầu', '', 10640000, 1, 0, '2021-07-02 20:32:08', '2021-07-02 20:32:08', NULL, 1, 4),
+(77, 'da83997e2ae9413187e07c76eccb0a17', 'nguyentanthanh1142@gmail.com', 'nguyen tan thanh', '0923456789', '24', 'Thái Bình', 'Huyện Đông Hưng', 'Xã Minh Tân', '1234', 29040000, 2, 0, '2021-07-09 03:30:36', '2021-07-09 03:30:36', NULL, 0, 1),
+(78, '158fdb92ee8e4cae826c009ca7175432', 'nguyentanthanh1142@gmail.com', 'nguyen tan thanh', '0923456789', '24', 'Hưng Yên', 'Huyện Yên Mỹ', 'Xã Lý Thường Kiệt', '1', 25040000, 1, 0, '2021-07-09 03:30:36', '2021-07-09 03:30:36', NULL, 0, 1),
+(79, '529072a39df6402fa6fa6cd532b05a49', 'nguyentanthanh1142@gmail.com', 'nguyen tan thanh', '0923456789', '24', 'Hưng Yên', 'Huyện Văn Giang', 'Xã Nghĩa Trụ', '123', 14540000, 1, 0, '2021-07-09 03:30:36', '2021-07-09 03:30:36', NULL, 0, 1),
+(80, 'b2d38c76c71c45a2b3f89a6a1e9d4ade', 'nguyentanthanh1142@gmail.com', 'nguyen tan thanh', '0923456789', '24', 'Nam Định', 'Thành phố Nam Định', 'Phường Trần Quang Khải', 'zxc xcz', 14540000, 1, 0, '2021-07-09 03:30:36', '2021-07-09 03:30:36', NULL, 0, 1),
+(81, 'b93ea4676f094ca9928c11299ace452a', 'nguyentanthanh1142@gmail.com', 'nguyen tan thanh', '0923456789', '24', 'Ninh Bình', 'Huyện Nho Quan', 'Xã Thanh Lạc', 'x', 9631000, 1, 0, '2021-07-09 03:30:36', '2021-07-09 03:30:36', NULL, 0, 1),
+(82, '36a790a4076a40258d22be2565988803', 'nguyentanthanh1142@gmail.com', 'nguyen tan thanh', '0923456789', 'z', 'Ninh Bình', 'Thành phố Tam Điệp', 'Xã Quang Sơn', 'xxxx', 14540000, 1, 0, '2021-07-09 04:35:48', '2021-07-09 04:35:48', NULL, 0, 1),
+(83, 'e435382923fc4f07ab0f1039793106d7', 'nguyentanthanh1142@gmail.com', 'nguyen tan thanh', '0923456789', '24', 'Thành phố Hải Phòng', 'Huyện Kiến Thuỵ', 'Xã Đoàn Xá', 'xxxx', 25040000, 1, 1, '2021-07-10 05:24:49', '2021-07-17 08:39:47', 35, 0, 1),
+(84, 'ee576b299dbf4e75a53a4a2a00dc65bf', 'nguyentanthanh1142@gmail.com', 'nguyen tan thanh', '0923456789', '24', 'Ninh Bình', 'Thành phố Tam Điệp', 'Xã Quang Sơn', 'xzzzxzx', 14540000, 1, -1, '2021-07-10 05:33:07', '2021-07-10 05:33:07', NULL, 0, 1),
+(85, 'f21e80570e834500b0e4b0219083b3af', 'nguyentanthanh1142@gmail.com', 'nguyen tan thanh', '0923456789', 'z', 'Nghệ An', 'Huyện Đô Lương', 'Xã Lưu Sơn', 'xc zxczxczx', 29040000, 2, -1, '2021-07-10 05:35:47', '2021-07-16 08:56:24', 5, 0, 1),
+(86, 'bfc125bf2218400784b961eff5589ea3', 'nguyentanthanh1142@gmail.com', 'nguyen tan thanh', '0923456789', '24', 'Ninh Bình', 'Huyện Yên Mô', 'Xã Yên Nhân', 'zxzxzx', 12630000, 1, 4, '2021-07-10 05:37:37', '2021-07-16 08:26:09', 5, 0, 1),
+(87, '099307c0cfb04bf881f9fed92c2b5bc8', 'nguyentanthanh1142@gmail.com', 'nguyen tan thanh', '0923456789', '24', 'Nam Định', 'Huyện Mỹ Lộc', 'Xã Mỹ Thịnh', 'zzzzzzz', 10140000, 1, 2, '2021-07-10 05:45:26', '2021-07-10 05:45:26', NULL, 0, 1),
+(88, '5d8e1900810e418f91dc972b98c73c7f', 'nguyentanthanh1142@gmail.com', 'nguyen tan thanh', '0923456789', '24', 'Nghệ An', 'Huyện Nam Đàn', 'Xã Nam Lộc', 'xcvxcvx', 14113000, 1, 1, '2021-07-10 05:52:07', '2021-07-10 05:52:07', NULL, 0, 1),
+(89, '3874100ab52c4db6bc12bfd765cf3642', 'nguyentanthanh1142@gmail.com', 'nguyen tan thanh', '0923456789', '24', 'Ninh Bình', 'Huyện Gia Viễn', 'Xã Gia Trấn', '2222', 5630000, 1, -1, '2021-07-10 05:54:25', '2021-07-10 05:54:25', NULL, 0, 1),
+(90, 'd85e9ace032f41d1a1c05b91fc205ebe', 'nguyentanthanh1142@gmail.com', 'nguyen tan thanh', '0923456789', '24', 'Nam Định', 'Thành phố Nam Định', 'Phường Trần Quang Khải', 'zxzczxczx', 12630000, 1, 0, '2021-07-09 18:05:59', '2021-07-09 18:05:59', NULL, 0, 1),
+(91, '0b394a741c764e4e96b79652766293c2', 'nguyentanthanh1142@gmail.com', 'nguyen tan thanh', '0923456789', '24', 'Hải Dương', 'Huyện Bình Giang', 'Xã Hồng Khê', 'a12312312', 14540000, 1, 0, '2021-07-09 18:16:31', '2021-07-09 18:16:31', NULL, 0, 1),
+(92, '539b73ffba104ff59c9ae94159f30610', 'nguyentanthanh1142@gmail.com', 'nguyen tan thanh', '0923456789', '24', 'Hưng Yên', 'Huyện Văn Lâm', 'Xã Đình Dù', '12312312', 17430000, 1, 0, '2021-07-09 21:12:22', '2021-07-09 21:12:22', NULL, 0, 1),
+(93, '985e7204c5ea4650ab303c968fbc73a3', 'nguyentanthanh1142@gmail.com', 'nguyen tan thanh', '0923456789', '24', 'Thái Bình', 'Thành phố Thái Bình', 'Xã Đông Thọ', '12312', 8230000, 1, 0, '2021-07-09 21:17:22', '2021-07-09 21:17:22', NULL, 0, 1),
+(94, 'c269b43479a94e63a49a2351f0329778', 'nguyentanthanh1142@gmail.com', 'nguyen tan thanh', '0923456789', '24', 'Nam Định', 'Huyện Mỹ Lộc', 'Xã Mỹ Tiến', '212121', 10140000, 1, 0, '2021-07-09 21:21:40', '2021-07-09 21:21:40', NULL, 0, 1),
+(95, '50bf080fe8c2434bb47c71bd60b6a85c', 'nguyentanthanh1142@gmail.com', 'nguyen tan thanh', '0923456789', '24', 'Hà Nam', 'Huyện Duy Tiên', 'Xã Yên Bắc', '', 11540000, 1, 0, '2021-07-09 21:24:15', '2021-07-09 21:24:15', NULL, 0, 1),
+(96, 'c9eedb7d3e0c44de951607b4d8efea83', 'nguyentanthanh1142@gmail.com', 'nguyen tan thanh', '0923456789', '24', 'Nam Định', 'Huyện Mỹ Lộc', 'Xã Mỹ Hưng', '1231231', 5630000, 1, 0, '2021-07-09 21:28:18', '2021-07-09 21:28:18', NULL, 0, 1),
+(97, 'f65fdf35f9d84526a06d24c389ed6bbe', 'nguyentanthanh1142@gmail.com', 'nguyen tan thanh', '0923456789', '24', 'Thành phố Hải Phòng', 'Huyện An Lão', 'Xã Thái Sơn', 'zczxczx', 6230000, 1, -1, '2021-07-09 21:34:17', '2021-07-17 15:49:09', 34, 0, 1),
+(98, 'f1c0cd820a6c4545bd3a04d41f3cfe37', 'nguyentanthanh1142@gmail.com', 'nguyen tan thanh', '0923456789', '24', 'Hưng Yên', 'Huyện Văn Giang', 'Xã Nghĩa Trụ', '1234', 20898000, 2, 0, '2021-07-09 21:34:17', '2021-07-09 21:34:17', NULL, 0, 1),
+(99, '689be981e09f4c93b0293585af1ad58c', 'nguyentanthanh1142@gmail.com', 'nguyen tan thanh', '0923456789', '24', 'Hưng Yên', 'Huyện Văn Giang', 'Xã Long Hưng', 'q213', 26620000, 2, 0, '2021-07-09 21:34:17', '2021-07-09 21:34:17', NULL, 0, 1),
+(100, '99b423a3f6954ebc9c1f2e3553559e36', 'nguyentanthanh1142@gmail.com', 'nguyen tan thanh', '0923456789', '24', 'Nam Định', 'Huyện Ý Yên', 'Xã Yên Dương', 'xzzx', 29040000, 2, 0, '2021-07-09 20:02:14', '2021-07-09 20:02:14', NULL, 0, 1),
+(101, '2f030ea288eb41679e04006b7f6cecbd', 'nguyentanthanh1142@gmail.com', 'nguyen tan thanh', '0923456789', '24', 'Sơn La', 'Huyện Quỳnh Nhai', 'Xã Chiềng Khay', 'hbbn', 27208000, 2, 0, '2021-07-09 20:15:23', '2021-07-09 20:15:23', NULL, 0, 1),
+(102, '34f6a3b19de040a1afc9bbbb41137e45', 'nguyentanthanh1142@gmail.com', 'nguyen tan thanh', '0923456789', '24', 'Ninh Bình', 'Thành phố Tam Điệp', 'Phường Yên Bình', '123', 25840000, 2, 0, '2021-07-09 20:21:30', '2021-07-09 20:21:30', NULL, 0, 1),
+(103, '022470e5266445848d823624eebb8bb0', 'nguyentanthanh1142@gmail.com', 'nguyen tan thanh', '0923456789', '24', 'Lai Châu', 'Huyện Tam Đường', 'Thị trấn Tam Đường', '12312', 17430000, 1, 0, '2021-07-09 20:25:40', '2021-07-09 20:25:40', NULL, 0, 1),
+(104, '2829acc665694f129dcfabd861b6c936', 'nguyentanthanh1142@gmail.com', 'nguyen tan thanh', '0923456789', '24', 'Sơn La', 'Huyện Quỳnh Nhai', 'Xã Chiềng Khay', '', 23330000, 2, 0, '2021-07-09 20:28:53', '2021-07-09 20:28:53', NULL, 0, 1),
+(105, 'f95950e775fc49c3b75578aacc70eae8', 'nguyentanthanh1142@gmail.com', 'nguyen tan thanh', '0923456789', '24', 'Nam Định', 'Huyện Ý Yên', 'Xã Yên Hưng', '1', 23540000, 2, 0, '2021-07-09 20:42:53', '2021-07-09 20:42:53', NULL, 1, 4),
+(106, 'ecf27365b8fd46c88bcb89d75ac12e2c', 'nguyentanthanh1142@gmail.com', 'nguyen tan thanh', '0923456789', '24', 'Hưng Yên', 'Huyện Văn Giang', 'Xã Tân Tiến', 'xxxx', 13620000, 2, -1, '2021-07-10 01:06:27', '2021-07-17 15:53:27', 34, 0, 1),
+(107, '6d4bbd2a416f4bc3bbcca325968e635e', 'quangvinh290720@gmail.com', 'admin', '0923456789', '123', 'Ninh Bình', 'Huyện Gia Viễn', 'Xã Gia Tiến', 'zzxczx', 39688000, 3, 0, '2021-07-10 01:57:01', '2021-07-10 01:57:01', NULL, 1, 4),
+(108, '106ddf24094e4a6cad0ccef56e5ef436', 'nguyentanthanh1142@gmail.com', 'nguyen tan thanh', '0923456789', '24', 'Sơn La', 'Thành phố Sơn La', 'Phường Tô Hiệu', '12312312', 14540000, 1, 4, '2021-07-11 05:24:22', '2021-07-11 05:24:22', NULL, 0, 1),
+(109, '6fa158507a0d48a796d83fa29ac30fb7', 'nguyentanthanh1142@gmail.com', 'nguyen tan thanh', '0923456789', '24', 'Thái Bình', 'Huyện Đông Hưng', 'Xã Đông Giang', '', 23649000, 2, 0, '2021-07-14 21:17:38', '2021-07-14 21:17:38', NULL, 0, 1),
+(110, '9709e714941f4b249e51932401026935', 'nguyentanthanh1142@gmail.com', 'nguyen tan thanh', '0923456789', '24', 'Nam Định', 'Huyện Vụ Bản', 'Xã Thành Lợi', '', 25040000, 1, 0, '2021-07-15 20:11:43', '2021-07-15 20:11:43', NULL, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -248,7 +253,7 @@ INSERT INTO `category` (`id`, `name`, `slug`, `metadesc`, `metakey`, `status`, `
 (11, 'Tủ lạnh 1', 'tu-lanh-1', '', '', 0, '2021-05-21 02:47:31', '2021-05-21 02:47:31', 0, 0),
 (12, 'Máy lọc nước 1', 'may-loc-nuoc-1', '', '', 0, '2021-05-21 02:47:31', '2021-05-21 02:47:31', 0, 0),
 (13, 'Máy nước nóng 1', 'may-nuoc-nong-1', '', '', 0, '2021-05-21 02:47:31', '2021-05-21 02:47:31', 0, 0),
-(14, 'Điện gia dụng 1', 'dien-gia-dung-1', '', '', 0, '2021-05-21 03:19:34', '2021-05-21 03:19:34', 8, 8),
+(14, 'Điện gia dụng 1', 'dien-gia-dung-1', '', '', 0, '2021-05-21 03:19:34', '2021-07-15 17:39:26', 8, 5),
 (15, 'Dàn Karaoke 1', 'dan-karaoke-1', '', '', 0, '2021-05-21 03:20:35', '2021-05-21 03:20:35', 8, 8);
 
 -- --------------------------------------------------------
@@ -292,28 +297,33 @@ CREATE TABLE `contact` (
   `subject` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `content` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `status` int(11) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_by` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `contact`
 --
 
-INSERT INTO `contact` (`id`, `name`, `phone`, `email`, `address`, `subject`, `content`, `status`, `created_at`) VALUES
-(19, 'test 11', '0123456789', 'vip@gmail.com', 'iphone 12 pro max tăng nhơn phú', 'liên hệ', 'Where does it come from?\r\nWhere does it come from?\r\nContrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of \"de Finibus Bonorum et Malorum\" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, \"Lorem ipsum dolor sit amet..\", comes from a line in section 1.10.32.\r\n', 1, '2021-05-17 07:49:02'),
-(20, 'test 12', '0123456789', 'vip@gmail.com', 'iphone 12 pro max tăng nhơn phú', 'liên hệ', 'Where does it come from?\r\nWhere does it come from?\r\nContrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of \"de Finibus Bonorum et Malorum\" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, \"Lorem ipsum dolor sit amet..\", comes from a line in section 1.10.32.\r\n', 1, '2021-05-17 07:49:02'),
-(21, 'Adu', '123', 'quangvinh290720@gmail.com', '20 Tăng nhơn phú', 'tăng nhơn phú', 'tăng nhơn phú', 1, '2021-05-24 06:55:23'),
-(22, 'admin', 'exception1', 'quangvinh290720@gmail.com', '20 Tăng nhơn phú', '20 Tăng nhơn phú', '20 Tăng nhơn phú', 1, '2021-05-24 06:58:08'),
-(23, 'vinh', 'iphone 12 pro max tăng nhơn phú', 'quangvinh290720@gmail.com', 'iphone 12 pro max tăng nhơn phú', 'iphone 12 pro max tăng nhơn phú', 'iphone 12 pro max tăng nhơn phú', 1, '2021-05-24 08:09:20'),
-(24, 'admin', '123', 'quangvinh290720@gmail.com', '20 T?ng Nh?n Phú b', 'iphone 12 pro max tăng nhơn phú', '123', 1, '2021-06-17 09:23:58'),
-(25, '12', '123', '12@gmail.com', '123', '123', '123', 1, '2021-06-17 09:26:21'),
-(26, 'quangvinh290720', '', 'quangvinh290720@gmail.com', 'quangvinh290720', 'quangvinh290720', 'quangvinh290720', 1, '2021-06-17 09:26:54'),
-(27, 'quangvinh290720@gmail.com', '123', 'quangvinh290720@gmail.com', 'quangvinh290720@gmail.com', 'quangvinh290720@gmail.com', 'quangvinh290720@gmail.com', 1, '2021-06-17 09:36:12'),
-(28, 'asd123', '0923456789', 'nguyentanthanh1142@gmail.com', '24', '123', '...', 1, '2021-07-10 04:43:16'),
-(29, 'asd123', '0923456789', 'nguyentanthanh1142@gmail.com', '24', '232', '0212', 1, '2021-07-10 06:07:42'),
-(30, 'Thanh toán Smartpay', '0923456789', 'nguyentanthanh1142@gmail.com', '24', '1231231', '2adasdasdas', 1, '2021-07-10 06:13:10'),
-(31, 'asd123', '0878841435', 'ccc@yahoo.com', '24', '1231231', 'test', 1, '2021-07-10 07:12:39'),
-(32, 'asd123', '0878841435', 'quangvinh290720@gmail.com', '24', '1231231', 'test', 1, '2021-07-10 07:13:02');
+INSERT INTO `contact` (`id`, `name`, `phone`, `email`, `address`, `subject`, `content`, `status`, `created_at`, `updated_at`, `updated_by`) VALUES
+(19, 'test 11', '0123456789', 'vip@gmail.com', 'iphone 12 pro max tăng nhơn phú', 'liên hệ', 'Where does it come from?\r\nWhere does it come from?\r\nContrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of \"de Finibus Bonorum et Malorum\" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, \"Lorem ipsum dolor sit amet..\", comes from a line in section 1.10.32.\r\n', 2, '2021-05-17 07:49:02', '2021-07-16 11:34:04', 5),
+(20, 'test 12', '0123456789', 'vip@gmail.com', 'iphone 12 pro max tăng nhơn phú', 'liên hệ', 'Where does it come from?\r\nWhere does it come from?\r\nContrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of \"de Finibus Bonorum et Malorum\" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, \"Lorem ipsum dolor sit amet..\", comes from a line in section 1.10.32.\r\n', 1, '2021-05-17 07:49:02', '2021-07-16 11:29:57', NULL),
+(21, 'Adu', '123', 'quangvinh290720@gmail.com', '20 Tăng nhơn phú', 'tăng nhơn phú', 'tăng nhơn phú', 1, '2021-05-24 06:55:23', '2021-07-16 11:29:57', NULL),
+(22, 'admin', 'exception1', 'quangvinh290720@gmail.com', '20 Tăng nhơn phú', '20 Tăng nhơn phú', '20 Tăng nhơn phú', 1, '2021-05-24 06:58:08', '2021-07-16 11:29:57', NULL),
+(23, 'vinh', 'iphone 12 pro max tăng nhơn phú', 'quangvinh290720@gmail.com', 'iphone 12 pro max tăng nhơn phú', 'iphone 12 pro max tăng nhơn phú', 'iphone 12 pro max tăng nhơn phú', 1, '2021-05-24 08:09:20', '2021-07-16 11:29:57', NULL),
+(24, 'admin', '123', 'quangvinh290720@gmail.com', '20 T?ng Nh?n Phú b', 'iphone 12 pro max tăng nhơn phú', '123', 1, '2021-06-17 09:23:58', '2021-07-16 11:29:57', NULL),
+(25, '12', '123', '12@gmail.com', '123', '123', '123', 1, '2021-06-17 09:26:21', '2021-07-16 11:29:57', NULL),
+(26, 'quangvinh290720', '', 'quangvinh290720@gmail.com', 'quangvinh290720', 'quangvinh290720', 'quangvinh290720', 1, '2021-06-17 09:26:54', '2021-07-16 11:29:57', NULL),
+(27, 'quangvinh290720@gmail.com', '123', 'quangvinh290720@gmail.com', 'quangvinh290720@gmail.com', 'quangvinh290720@gmail.com', 'quangvinh290720@gmail.com', 1, '2021-06-17 09:36:12', '2021-07-16 11:29:57', NULL),
+(28, 'asd123', '0923456789', 'nguyentanthanh1142@gmail.com', '24', '123', '...', 1, '2021-07-10 04:43:16', '2021-07-16 11:29:57', NULL),
+(29, 'asd123', '0923456789', 'nguyentanthanh1142@gmail.com', '24', '232', '0212', 1, '2021-07-10 06:07:42', '2021-07-16 11:29:57', NULL),
+(30, 'Thanh toán Smartpay', '0923456789', 'nguyentanthanh1142@gmail.com', '24', '1231231', '2adasdasdas', 1, '2021-07-10 06:13:10', '2021-07-16 11:29:57', NULL),
+(31, 'asd123', '0878841435', 'ccc@yahoo.com', '24', '1231231', 'test', 1, '2021-07-10 07:12:39', '2021-07-16 11:29:57', NULL),
+(32, 'asd123', '0878841435', 'quangvinh290720@gmail.com', '24', '1231231', 'test', 2, '2021-07-10 07:13:02', '2021-07-16 11:29:57', NULL),
+(33, 'GIAO HÀNH NHANH CHÓNG', '0923456789', 'nguyentanthanh1142@gmail.com', '24', '1', 'asdasdas', 1, '2021-07-16 04:35:00', '2021-07-16 11:35:01', NULL),
+(34, 'GIAO HÀNH NHANH CHÓNG', '0878841435', 'nguyentanthanh1142@gmail.com', '24', '12312', '312312', 1, '2021-07-21 14:12:59', '2021-07-21 21:12:59', NULL),
+(35, 'GIAO HÀNH NHANH CHÓNG', '0923456789', 'nguyentanthanh1142@gmail.com', '24', '123', '123', 1, '2021-07-22 02:04:10', '2021-07-22 09:04:10', NULL);
 
 -- --------------------------------------------------------
 
@@ -343,7 +353,7 @@ INSERT INTO `coupon` (`id`, `code`, `available`, `pricesale`, `start`, `end`, `s
 (1, 'Null', 0, 0, '2021-06-29 17:59:11', '2021-06-29 17:59:11', 0, '2021-06-29 17:59:11', 8, '2021-06-29 17:59:11', 8),
 (2, 'ASASBBNAABWELQ', 11, 100000, '2021-06-12 10:24:30', '2021-06-30 10:24:30', 1, '2021-06-12 10:24:30', 8, '2021-06-12 10:24:30', 8),
 (4, 'vietnamvodich', 3, 300000, '2021-06-19 10:00:00', '2021-07-31 10:00:00', 1, '2021-06-20 01:37:02', 8, '2021-06-20 01:37:02', 8),
-(6, 'ASASBWELQP', 0, 100000, '2021-06-12 17:23:28', '2021-06-29 17:23:28', 1, '2021-06-12 17:23:28', 8, '2021-06-12 17:23:28', 8),
+(6, 'ASASBWELQP', 0, 100000, '2021-06-12 17:23:28', '2021-06-29 17:23:28', 2, '2021-06-12 17:23:28', 8, '2021-07-16 12:04:21', 5),
 (8, 'CR9pjPcY5AG7', 12, 200000, '2021-06-29 10:00:00', '2021-07-06 10:00:00', 1, '2021-06-30 03:32:36', 5, '2021-06-30 03:32:36', 5);
 
 -- --------------------------------------------------------
@@ -377,7 +387,7 @@ INSERT INTO `manufacturer` (`manufacturer_id`, `manufacturer_name`, `manufacture
 (6, 'LG', 'lg', 'LG2002-b_13.png', 1, '2021-05-21 03:33:16', '2021-05-21 03:33:16', 0, 0),
 (7, 'Sharp', 'sharp', 'Sharp1942-b_48.png', 1, '2021-05-21 03:33:16', '2021-05-21 03:33:16', 0, 0),
 (9, 'Kangaroo', 'kangaroo', '1621684793100.jpg', 1, '2021-05-22 04:59:53', '2021-05-22 04:59:53', 8, 8),
-(10, 'Kangaroo 1', 'kangaroo', '1621684793100.jpg', 0, '2021-05-22 04:59:53', '2021-05-22 04:59:53', 8, 8),
+(10, 'Kangaroo 1', 'kangaroo', '1621684793100.jpg', 0, '2021-05-22 04:59:53', '2021-07-15 18:03:32', 8, 5),
 (11, 'Kangaroo 2', 'kangaroo', '1621684793100.jpg', 0, '2021-05-22 04:59:53', '2021-05-22 04:59:53', 8, 8),
 (12, 'Kangaroo 3', 'kangaroo', '1621684793100.jpg', 0, '2021-05-22 04:59:53', '2021-05-22 04:59:53', 8, 8),
 (13, 'Kangaroo 4', 'kangaroo', '1621684793100.jpg', 0, '2021-05-22 04:59:53', '2021-05-22 04:59:53', 8, 8),
@@ -412,7 +422,32 @@ INSERT INTO `menu` (`menu_id`, `menu_name`, `menu_slug`, `menu_status`, `orders`
 (1, 'Trang chủ', 'trang-chu', 1, 1, 0, '2021-06-16 16:19:15', '2021-06-16 16:19:15', 8, 8),
 (2, 'Sản phẩm', 'san-pham', 1, 2, 0, '2021-06-16 16:19:15', '2021-06-16 16:19:15', 8, 8),
 (3, 'Bài viết', 'bai-viet', 1, 3, 0, '2021-06-16 16:19:15', '2021-06-16 16:19:15', 8, 8),
-(4, 'Liên hệ', 'lien-he', 1, 4, 0, '2021-06-16 16:19:15', '2021-06-16 16:19:15', 8, 8);
+(4, 'Liên hệ', 'lien-he', 1, 4, 0, '2021-06-16 16:19:15', '2021-07-16 11:46:06', 8, 5);
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `note`
+--
+
+CREATE TABLE `note` (
+  `id` bigint(20) NOT NULL,
+  `content` varchar(255) NOT NULL,
+  `created_by` int(11) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Đang đổ dữ liệu cho bảng `note`
+--
+
+INSERT INTO `note` (`id`, `content`, `created_by`, `created_at`) VALUES
+(5, 'Admin xóa tạm thời ảnh bìa 4', 5, '2021-07-10 07:30:29'),
+(6, 'Admin thay đổi trạng thái sản phẩm 2', 5, '2021-07-16 07:37:28'),
+(7, 'Admin thay đổi trạng thái sản phẩm 2', 5, '2021-07-16 07:37:38'),
+(8, 'Admin thay đổi trạng thái sản phẩm 56', 8, '2021-07-17 01:52:58'),
+(9, 'Admin đã thay đổi trạng thái 9', 5, '2021-07-17 02:26:58'),
+(10, 'Admin đã xóa liên hệ liên hệ 9', 5, '2021-07-17 02:27:01');
 
 -- --------------------------------------------------------
 
@@ -445,7 +480,7 @@ INSERT INTO `optiongroups` (`optiongroups_id`, `optiongroupname`, `metadesc`, `m
 (6, 'Loại máy', '', '', 1, 0, 0, '2021-06-01 15:32:35', '2021-06-01 15:32:35'),
 (7, 'Tiêu thụ điện', '', '', 1, 0, 0, '2021-06-01 15:32:35', '2021-06-01 15:32:35'),
 (8, 'Tiêu thụ điện 1', '<p>Ti&ecirc;u thụ điện 1</p>\r\n', ' Tiêu thụ điện 1', 2, 8, 8, '2021-06-02 08:38:20', '2021-06-02 08:38:20'),
-(9, 'Tiêu thụ điện 233', '<p>Ti&ecirc;u thụ điện 23</p>\r\n', 'Tiêu thụ điện 23', 2, 8, 8, '2021-06-02 09:25:08', '2021-06-02 09:57:10');
+(9, 'Tiêu thụ điện 233', '<p>Ti&ecirc;u thụ điện 23</p>\r\n', 'Tiêu thụ điện 23', 0, 8, 5, '2021-06-02 09:25:08', '2021-07-15 19:03:49');
 
 -- --------------------------------------------------------
 
@@ -488,7 +523,7 @@ INSERT INTO `options` (`options_id`, `optiongroup_id`, `optionname`, `metadesc`,
 (15, 7, '0.61 kW/h, 5 sao (Hiệu suất năng lượng 6.0)', '', '', 1, 0, 0, '2021-06-01 16:05:18', '2021-06-01 16:05:18'),
 (16, 7, 'Tiêu thụ điện 123', '<p>123</p>\r\n', '123', 0, 8, 8, '2021-06-02 10:33:15', '2021-06-02 10:33:15'),
 (17, 7, 'Tiêu thụ điện 1234', '<p>Ti&ecirc;u thụ điện 1234</p>\r\n', 'Tiêu thụ điện 1234', 0, 8, 8, '2021-06-02 10:34:12', '2021-06-03 02:43:19'),
-(19, 8, 'Tiêu thụ điện 111', '<p>Ti&ecirc;u thụ điện 111</p>\r\n', 'Tiêu thụ điện 111', 0, 8, 8, '2021-06-03 02:43:50', '2021-06-03 02:43:50'),
+(19, 8, 'Tiêu thụ điện 111', '<p>Ti&ecirc;u thụ điện 111</p>\r\n', 'Tiêu thụ điện 111', 0, 8, 5, '2021-06-03 02:43:50', '2021-07-15 19:05:57'),
 (20, 7, 'Tiêu thụ điện 11', '<p>Ti&ecirc;u thụ điện 111</p>\r\n', 'Tiêu thụ điện 111', 0, 8, 8, '2021-06-03 02:44:25', '2021-06-03 02:44:25'),
 (21, 7, 'ttd', '<p>ttd</p>\r\n', 'ttd', 0, 8, 8, '2021-06-03 02:45:00', '2021-06-03 02:45:00'),
 (22, 7, 'ttd 1', '<p>ttd 1</p>\r\n', 'ttd 1', 0, 8, 8, '2021-06-03 02:45:23', '2021-06-03 02:45:23');
@@ -526,8 +561,8 @@ INSERT INTO `page` (`page_id`, `page_title`, `page_slug`, `page_detail`, `page_i
 (23, 'Đổi trả 15 ngày', 'doi-tra-15-ngay', '<h1>Ch&iacute;nh s&aacute;ch đổi trả</h1>\r\n\r\n<p>Thật kh&oacute; chịu nếu phải l&agrave;m c&ocirc;ng t&aacute;c đổi/ trả cho đơn h&agrave;ng vừa mua!</p>\r\n\r\n<p>V&agrave; cũng kh&ocirc;ng mấy dễ chịu khi đọc những trang &quot;Ch&iacute;nh s&aacute;ch đổi trả&quot; d&agrave;i ngoằng v&agrave; đủ thứ điều r&agrave;ng buộc (thường l&agrave; như thế).</p>\r\n\r\n<p>Do đ&oacute; Điện m&aacute;y Th&agrave;nh Vinh sẽ viết ngắn gọn nhất c&oacute; thể, cơ bản l&agrave;:</p>\r\n\r\n<p>- Kh&aacute;ch h&agrave;ng&nbsp;<strong>được đổi hoặc trả</strong>&nbsp;sản phẩm&nbsp;<strong>trong v&ograve;ng 15 ng&agrave;y</strong>&nbsp;kể từ ng&agrave;y nhận được sản phẩm.</p>\r\n\r\n<p>- Bất kỳ sản phẩm n&agrave;o đặt mua tại Điện m&aacute;y Th&agrave;nh Vinh&nbsp;cũng được &aacute;p dụng ch&iacute;nh s&aacute;ch n&agrave;y.</p>\r\n\r\n<p>- Trường hợp đổi,&nbsp;<strong>kh&aacute;ch h&agrave;ng sẽ chịu chi ph&iacute; vận chuyển,</strong>&nbsp;v&agrave; Điện m&aacute;y Th&agrave;nh Vinh sẽ&nbsp;<strong>giao lại h&agrave;ng miễn ph&iacute;&nbsp;</strong>cho Kh&aacute;ch h&agrave;ng.</p>\r\n\r\n<p>- Trường hợp trả,&nbsp;Điện m&aacute;y Th&agrave;nh Vinh&nbsp;<strong>sẽ ho&agrave;n lại tiền h&agrave;ng</strong>&nbsp;(kh&ocirc;ng bao gồm tiền ph&iacute; vận chuyển nếu c&oacute;) cho kh&aacute;ch&nbsp;<strong>trong v&ograve;ng 24h qua t&agrave;i khoản của kh&aacute;ch</strong>. Sau đ&oacute;, Điện m&aacute;y Th&agrave;nh Vinh sẽ&nbsp;<strong>đến tận nơi lấy h&agrave;ng trả v&agrave; kh&ocirc;ng thu th&ecirc;m bất cứ ph&iacute; g&igrave;</strong>&nbsp;(Kh&aacute;ch h&agrave;ng cũng c&oacute; thể tự gởi lại h&agrave;ng cho Điện m&aacute;y Th&agrave;nh Vinh)</p>\r\n\r\n<p><strong>3 Bước nhanh ch&oacute;ng để đổi trả:&nbsp;</strong></p>\r\n\r\n<p><strong>Bước 1:</strong>&nbsp;Điền th&ocirc;ng tin đổi h&agrave;ng ở&nbsp;<a href=\"https://coolmate.typeform.com/to/H1Rl0eM9\">đ&acirc;y</a>, v&agrave; trả h&agrave;ng ở&nbsp;<a href=\"https://coolmate.typeform.com/to/wo8dotKH\">đ&acirc;y</a>, hoặc qua số hotline 01xxxxxxx.</p>\r\n\r\n<p><strong>Bước 2:</strong>&nbsp;Nhận cuộc gọi x&aacute;c nhận từ Điện m&aacute;y Th&agrave;nh Vinh về sản phẩm v&agrave; thời gian nhận h&agrave;ng</p>\r\n\r\n<p><strong>Bước 3:</strong>&nbsp;Ngay khi x&aacute;c nhận ch&uacute;ng t&ocirc;i sẽ gởi bạn đơn h&agrave;ng mới (hoặc lấy đơn h&agrave;ng về), bạn chỉ cần gởi h&agrave;ng cần đổi/trả cho shipper l&agrave; được.</p>\r\n\r\n<p>Xem th&ecirc;m dịch vụ CoolReturn chỉ c&oacute; tại Điện m&aacute;y Th&agrave;nh Vinh ở&nbsp;<a href=\"https://www.coolmate.me/page/dich-vu-doi-hang-tan-noi-coolreturn\">đ&acirc;y</a>.</p>\r\n\r\n<p><strong>Đối với việc trả h&agrave;ng:</strong></p>\r\n\r\n<p>Ch&uacute;ng t&ocirc;i sẽ ho&agrave;n lại số tiền h&agrave;ng (sau khi đ&atilde; trừ 25.000 VNĐ ph&iacute; ship h&agrave;ng) v&agrave;o t&agrave;i khoản m&agrave; bạn x&aacute;c nhận tối đa trong 24h l&agrave;m việc (kh&ocirc;ng t&iacute;nh thứ 7 &amp; Chủ Nhật).</p>\r\n\r\n<p><strong>Lưu &yacute;:</strong></p>\r\n\r\n<p>&nbsp;⁃ Điện m&aacute;y Th&agrave;nh Vinh hỗ trợ đổi tối đa 3 lần/1 kh&aacute;ch h&agrave;ng.</p>\r\n\r\n<p>&nbsp;⁃ Điện m&aacute;y Th&agrave;nh Vinh c&oacute; quyền quyết định dừng việc hỗ trợ đổi trả v&agrave; trả lại tiền cho kh&aacute;ch h&agrave;ng nếu ph&aacute;t hiện kh&aacute;ch h&agrave;ng sử dụng ch&iacute;nh s&aacute;ch để trục lợi (như việc đổi qu&aacute; nhiều lần).</p>\r\n', 'Đổi trả 60 ngày', 'Đổi trả 60 ngày', '<p>Đổi trả 60 ng&agrave;y</p>\r\n', 1, 31, 8, 8, '2021-05-20 10:29:58', '2021-06-09 08:29:03'),
 (24, 'Giới thiệu\r\n', 'gioi-thieu', 'Giới thiệu', 'Giới thiệu', 'Giới thiệu', 'Giới thiệu', 1, 32, 8, 8, '2021-05-20 10:30:52', '2021-05-20 10:30:52'),
 (25, 'Tuyển dụng', 'tuyen-dung', 'Tuyển dụng', 'Tuyển dụng', 'Tuyển dụng', 'Tuyển dụng', 1, 32, 8, 8, '2021-05-20 10:30:52', '2021-05-20 10:30:52'),
-(26, 'test 123', 'test123', '<p><img alt=\"\" src=\"/spring-web/images/finder/images/hcm_13.jpg\" style=\"height:589px; width:960px\" />test</p>\r\n', '1621507832308.jpg', 'test', '<p>test</p>\r\n', 2, 33, 8, 5, '2021-05-20 03:50:32', '2021-07-10 09:11:12'),
-(27, 'test', 'test', 'test', '1621776221893.jpg', 'test', 'test', 1, 34, 8, 8, '2021-05-23 06:23:41', '2021-05-23 06:23:41'),
+(26, 'test 123', 'test123', '<p><img alt=\"\" src=\"/spring-web/images/finder/images/hcm_13.jpg\" style=\"height:589px; width:960px\" />test</p>\r\n', '1621507832308.jpg', 'test', '<p>test</p>\r\n', 1, 33, 8, 5, '2021-05-20 03:50:32', '2021-07-15 16:10:04'),
+(27, 'test', 'test', 'test', '1621776221893.jpg', 'test', 'test', 2, 34, 8, 34, '2021-05-23 06:23:41', '2021-07-15 16:12:16'),
 (28, 'Mua hàng trả góp Online', 'mua-hang-tra-gop-online', '<h1>Mua h&agrave;ng trả g&oacute;p Online</h1>\r\n\r\n<ul>\r\n	<li>1. ĐIỀU KIỆN V&Agrave; GIẤY TỜ GỐC CẦN C&Oacute;</li>\r\n	<li>Tuổi từ 20 - 60 (t&iacute;nh theo ng&agrave;y th&aacute;ng năm sinh tr&ecirc;n chứng minh nh&acirc;n d&acirc;n).</li>\r\n	<li>Chứng minh nh&acirc;n d&acirc;n c&ograve;n hạn sử dụng (15 năm t&iacute;nh từ ng&agrave;y cấp).</li>\r\n	<li>Hộ khẩu (người mua h&agrave;ng phải c&oacute; t&ecirc;n trong hộ khẩu). Nếu khoản vay dưới 10 triệu c&oacute; thể thay hộ khẩu bằng bằng l&aacute;i xe.</li>\r\n	<li>C&ocirc;ng ty t&agrave;i ch&iacute;nh chỉ kiểm tra xong v&agrave; gửi lại kh&ocirc;ng giữ bất cứ giấy tờ g&igrave; của kh&aacute;ch h&agrave;ng.</li>\r\n</ul>\r\n\r\n<p><strong>(&Aacute;p dụng cho Kh&aacute;ch H&agrave;ng mua h&agrave;ng trả g&oacute;p với Đối T&aacute;c)</strong></p>\r\n\r\n<h4>1. Tuy&ecirc;n bố</h4>\r\n\r\n<p>a. Qu&yacute; Kh&aacute;ch H&agrave;ng c&oacute; nhu cầu mua h&agrave;ng trả g&oacute;p, trả chậm c&oacute; thể tự do lựa chọn v&agrave; sử dụng dịch vụ của bất kỳ b&ecirc;n cung cấp dịch vụ, sản phẩm (&ldquo;Đối T&aacute;c&rdquo;) trả g&oacute;p, trả chậm hoặc c&aacute;c dịch vụ, sản phẩm t&agrave;i ch&iacute;nh tương tự (&ldquo;Dịch Vụ&rdquo;).</p>\r\n\r\n<p>b. Evo Mobile l&agrave; b&ecirc;n cung cấp dịch vụ nhập liệu cho Đối T&aacute;c. Evo Mobile hỗ trợ Đối T&aacute;c thực hiện một số c&ocirc;ng việc như thu thập th&ocirc;ng tin, nhập liệu, v&agrave; hướng dẫn Kh&aacute;ch H&agrave;ng k&yacute; hợp đồng với Đối T&aacute;c theo mẫu quy định tại Mục 3.</p>\r\n\r\n<p>c.&nbsp;Evo Mobile được ủy quyền cung cấp h&oacute;a đơn v&agrave; chi tiết sản phẩm b&aacute;n của kh&aacute;ch h&agrave;ng cho đối t&aacute;c trả g&oacute;p.</p>\r\n\r\n<h4>2. Bảo mật th&ocirc;ng tin c&aacute; nh&acirc;n</h4>\r\n\r\n<p>a. Kh&aacute;ch H&agrave;ng đồng &yacute; để cung cấp th&ocirc;ng tin c&aacute; nh&acirc;n cho Evo Mobile để sử dụng Dịch Vụ bằng việc x&aacute;c nhận m&atilde; OTP như sau: sau khi hợp đồng đ&atilde; k&yacute; giữa Kh&aacute;ch H&agrave;ng v&agrave; C&ocirc;ng ty T&agrave;i Ch&iacute;nh thanh l&yacute;</p>\r\n\r\n<p>- Kh&aacute;ch H&agrave;ng đăng k&yacute; sử dụng Dịch Vụ bằng số điện thoại đang sử dụng.</p>\r\n\r\n<p>- Evo Mobile gửi m&atilde; OTP v&agrave;o số điện thoại m&agrave; Kh&aacute;ch H&agrave;ng đ&atilde; đăng k&yacute; nhằm x&aacute;c định Kh&aacute;ch H&agrave;ng l&agrave; người sử dụng của số điện thoại tr&ecirc;n.</p>\r\n\r\n<p>- Kh&aacute;ch H&agrave;ng cung cấp m&atilde; OTP cho Evo Mobile.</p>\r\n\r\n<p>Để l&agrave;m r&otilde; nội dung n&agrave;y, th&ocirc;ng tin c&aacute; nh&acirc;n của c&oacute; nghĩa l&agrave; bất kỳ dữ liệu n&agrave;o c&oacute; li&ecirc;n quan đến một c&aacute; nh&acirc;n, d&ugrave; đ&uacute;ng hay sai, v&agrave; c&oacute; thể gi&uacute;p nhận dạng được c&aacute; nh&acirc;n cụ thể hoặc kh&ocirc;ng thể nhận dạng (&ldquo;Th&ocirc;ng Tin C&aacute; Nh&acirc;n&rdquo;).</p>\r\n\r\n<p>b. Evo Mobile thu thập Th&ocirc;ng Tin C&aacute; Nh&acirc;n của Kh&aacute;ch H&agrave;ng để sử dụng v&agrave; chuyển giao cho Đối T&aacute;c. Tong khả năng của m&igrave;nh, Evo Mobile chủ động thực hiện c&aacute;c biện ph&aacute;p hợp l&yacute; để bảo vệ Th&ocirc;ng Tin C&aacute; Nh&acirc;n tr&aacute;nh khỏi việc bị lạm dụng, mất m&aacute;t, thay đổi, tiết lộ, mua lại hoặc truy cập tr&aacute;i ph&eacute;p. Tuy nhi&ecirc;n, Evo Mobile kh&ocirc;ng thể đưa ra một cam kết chắc chắn rằng Th&ocirc;ng Tin C&aacute; Nh&acirc;n được đảm bảo an to&agrave;n một c&aacute;ch tuyệt đối v&agrave; kh&ocirc;ng đảm bảo việc sử dụng th&ocirc;ng tin của Đối T&aacute;c. Evo Mobile kh&ocirc;ng chịu tr&aacute;ch nhiệm trong trường hợp c&oacute; sự truy cập tr&aacute;i ph&eacute;p Th&ocirc;ng Tin C&aacute; Nh&acirc;n, đặc biệt l&agrave; sau khi th&ocirc;ng tin c&aacute; nh&acirc;n đ&atilde; được chuyển giao cho Đối T&aacute;c. Trong phạm vi ph&aacute;p luật cho ph&eacute;p, th&ocirc;ng tin c&aacute; nh&acirc;n m&agrave; Kh&aacute;ch H&agrave;ng cung cấp c&oacute; thể được tiết lộ cho c&aacute;c mục đ&iacute;ch đ&atilde; n&ecirc;u trong ch&iacute;nh s&aacute;ch n&agrave;y đối với những đối tượng sau:</p>\r\n\r\n<p>- C&aacute;c c&ocirc;ng ty li&ecirc;n kết của Evo Mobile hoặc c&aacute;c chi nh&aacute;nh v&agrave; nh&acirc;n vi&ecirc;n để cung cấp nội dung, th&ocirc;ng tin hoặc phản hồi cho Kh&aacute;ch H&agrave;ng hoặc cho Evo Mobile;</p>\r\n\r\n<p>- C&aacute;c chuy&ecirc;n gia tư vấn chuy&ecirc;n nghiệp của Evo Mobile như kiểm to&aacute;n vi&ecirc;n, cố vấn t&agrave;i ch&iacute;nh v&agrave; luật sư;</p>\r\n\r\n<p>- C&aacute;c cơ quan quản l&yacute; nh&agrave; nước c&oacute; li&ecirc;n quan v&agrave; c&aacute;c cơ quan c&oacute; thẩm quyền kh&aacute;c để đảm bảo việc tu&acirc;n thủ ph&aacute;p luật;</p>\r\n\r\n<p>- Bất kỳ b&ecirc;n n&agrave;o kh&aacute;c m&agrave; Kh&aacute;ch H&agrave;ng cho ph&eacute;p ch&uacute;ng t&ocirc;i tiết lộ Th&ocirc;ng tin c&aacute; nh&acirc;n của m&igrave;nh.</p>\r\n\r\n<p>c. Evo Mobile được miễn trừ v&agrave; Kh&aacute;ch H&agrave;ng phải tự chịu tr&aacute;ch nhiệm trong trường hợp Đối T&aacute;c tiết lộ Th&ocirc;ng Tin C&aacute; Nh&acirc;n cho b&ecirc;n thứ ba kh&aacute;c tr&aacute;i mục đ&iacute;ch mong muốn của Kh&aacute;ch H&agrave;ng.&nbsp;</p>\r\n\r\n<p>d. Kh&aacute;ch H&agrave;ng vui l&ograve;ng li&ecirc;n hệ với Evo Mobiletrong trường hợp: (i) Kh&aacute;ch H&agrave;ng thay đổi th&ocirc;ng tin c&aacute; nh&acirc;n đ&atilde; cung cấp cho Evo Mobile; hoặc (ii) Kh&aacute;ch H&agrave;ng muốn hủy th&ocirc;ng tin c&aacute; nh&acirc;n đ&atilde; cung cấp sau khi hợp đồng đ&atilde; k&yacute; giữa Kh&aacute;ch H&agrave;ng v&agrave; Đối T&aacute;c đ&atilde; thanh l&yacute;</p>\r\n', '1624556641887.jpg', 'trả góp', '<p>mua h&agrave;ng trả g&oacute;p</p>\r\n', 1, 31, 8, 8, '2021-06-24 10:44:01', '2021-06-24 10:44:01');
 
 -- --------------------------------------------------------
@@ -557,16 +592,16 @@ CREATE TABLE `post` (
 --
 
 INSERT INTO `post` (`post_id`, `post_topicid`, `post_title`, `post_slug`, `post_detail`, `post_img`, `post_status`, `post_metakey`, `post_metadesc`, `created_by`, `updated_by`, `created_at`, `updated_at`) VALUES
-(23, 37, '\'Gỡ bỏ hình ảnh Hoài Linh là hành động đúng đắn\'', 'go-bo-hinh-anh-hoai-linh-la-hanh-dong-dung-dan', '<p><img alt=\"\" src=\"/spring-web/images/finder/images/hoailinh.png\" style=\"height:255px; width:480px\" /></p>\r\n\r\n<p>test h&igrave;nh</p>\r\n\r\n<p><img alt=\"\" src=\"/spring-web/images/finder/images/shopee_hoailinh.jpeg\" style=\"height:372px; width:860px\" /></p>\r\n\r\n<p>&nbsp;</p>\r\n', '1622164500230.jpg', 1, '12', '<p>121234</p>\r\n', 8, 8, '2021-05-20 03:38:42', '2021-06-07 23:17:38'),
+(23, 37, '\'Gỡ bỏ hình ảnh Hoài Linh là hành động đúng đắn\'', 'go-bo-hinh-anh-hoai-linh-la-hanh-dong-dung-dan', '<p><img alt=\"\" src=\"/spring-web/images/finder/images/hoailinh.png\" style=\"height:255px; width:480px\" /></p>\r\n\r\n<p>test h&igrave;nh</p>\r\n\r\n<p><img alt=\"\" src=\"/spring-web/images/finder/images/shopee_hoailinh.jpeg\" style=\"height:372px; width:860px\" /></p>\r\n\r\n<p>&nbsp;</p>\r\n', '1622164500230.jpg', 0, '12', '<p>121234</p>\r\n', 8, 8, '2021-05-20 03:38:42', '2021-06-07 23:17:38'),
 (24, 33, 'Quan điểm phát triển thành phố phía tây TP.HCM của Chủ tịch nước', 'quan-diem-phat-trien-thanh-pho-phia-tay-tphcm-cua-chu-tich-nuoc', '<p>L&agrave; ứng vi&ecirc;n đại biểu Quốc hội tại huyện Củ Chi, H&oacute;c M&ocirc;n, trong chương tr&igrave;nh h&agrave;nh động, Chủ tịch nước Nguyễn Xu&acirc;n Ph&uacute;c nhấn mạnh quan điểm ph&aacute;t triển nơi đ&acirc;y th&agrave;nh đ&ocirc; thị sinh th&aacute;i.Trong chương tr&igrave;nh h&agrave;nh động của m&igrave;nh, Chủ tịch nước Nguyễn Xu&acirc;n Ph&uacute;c, ứng cử vi&ecirc;n đại biểu Quốc hội, quan t&acirc;m tới 4 vấn đề ch&iacute;nh: Cải thiện m&ocirc;i trường đầu tư kinh doanh, bảo vệ m&ocirc;i trường sinh th&aacute;i, đảm bảo an sinh x&atilde; hội; giải quyết kiến nghị người d&acirc;n, đấu tranh ph&ograve;ng chống tham nhũng; th&uacute;c đẩy triển khai 4 chương tr&igrave;nh ph&aacute;t triển th&agrave;nh phố đ&atilde; đề ra; v&agrave; đặc biệt l&agrave; th&uacute;c đẩy s&aacute;ng kiến, đưa TP.HCM th&agrave;nh h&igrave;nh mẫu của cả nước trong ph&aacute;t triển.</p>\r\n', '1622164500230.jpg', 2, 'test', 'test', 8, 8, '2021-05-21 01:45:16', '2021-05-30 12:33:29'),
-(25, 35, 'Những điều đáng chờ đợi trong sự kiện của Apple', 'apple-chuan-bi-ra-mat-ios-15', 'iOS 15, macOS 12 và MacBook Pro là những sản phẩm có thể được Apple giới thiệu tại hội nghị WWDC 2021 diễn ra trong chưa đầy 2 tuần nữa.', '1622164500230.jpg', 1, 'apple', 'bài viết', 8, 8, '2021-05-27 17:52:24', '2021-05-27 17:52:24'),
+(25, 35, 'Những điều đáng chờ đợi trong sự kiện của Apple', 'apple-chuan-bi-ra-mat-ios-15', 'iOS 15, macOS 12 và MacBook Pro là những sản phẩm có thể được Apple giới thiệu tại hội nghị WWDC 2021 diễn ra trong chưa đầy 2 tuần nữa.', '1622164500230.jpg', 0, 'apple', 'bài viết', 8, 8, '2021-05-27 17:52:24', '2021-05-27 17:52:24'),
 (26, 35, 'Lý do cáp iPhone dễ đứt', 'ly-do-cap-iphone-de-dut', 'Cáp sạc là một trong những phụ kiện Apple bị người dùng phàn nàn nhiều nhất vì độ bền kém.\r\nTheo BGR, đoạn video được đăng trên kênh YouTube Apple Explained đã chia sẻ 2 lý do khiến cáp sạc iPhone, iPad và MacBook dễ đứt.', '1622164500230.jpg', 1, 'apple', 'Cáp sạc là một trong những phụ kiện Apple bị người dùng phàn nàn nhiều nhất vì độ bền kém.\r\nTheo BGR, đoạn video được đăng trên kênh YouTube Apple Explained đã chia sẻ 2 lý do khiến cáp sạc iPhone, iPad và MacBook dễ đứt.', 8, 8, '2021-05-27 18:05:39', '2021-05-27 18:05:39'),
 (27, 35, 'Loạt smartphone sắp lên kệ tại Việt Nam', 'loat-smartphone-sap-len-ke-tai-viet-nam', 'Xiaomi thông báo giới thiệu mẫu Redmi Note 10 5G và Redmi Note 10S vào ngày 27/5 và lên kệ vào ngày 28/5.Xiaomi Redmi Note10 5G được trang bị chip MediaTek Dimensity 7000, RAM 4 GB, bộ nhớ trong 128 GB, pin dung lượng 5.000 mAh và sạc nhanh 18 W. Hệ thống camera sau của máy gồm 48 MP, 2 MP và 2 MP.', '1622164500230.jpg', 1, 'smartphone', 'mô tả điện thoại', 8, 8, '2021-05-27 18:09:43', '2021-05-27 18:09:43'),
 (28, 36, '\'Gỡ bỏ hình ảnh Hoài Linh là hành động đúng đắn\'', 'test-test', 'Chuyên gia quảng cáo khẳng định khi nghệ sĩ dính bê bối nghiêm trọng, việc thương hiệu nhanh chóng dừng hợp tác với cá nhân đó sẽ nhận được cảm tình của người tiêu dùng.\r\nNgày 27/5, sàn thương mại điện tử Shopee gỡ bỏ hầu hết hình ảnh của nghệ sĩ Hoài Linh, được sử dụng trong một chiến dịch marketing từ ngày 20/5 của doanh nghiệp.', '1622164407676.jpg', 1, 'Hoài Linh', 'bài viết về nghệ sĩ Hoài Linh', 8, 8, '2021-05-27 18:13:27', '2021-05-27 18:13:27'),
 (29, 36, 'KINH DOANH BẤT ĐỘNG SẢN  Biệt thự 61,5 triệu USD của cựu CEO Google', 'biet-thu-61-5-trieu-usd-cua-cuu-ceo-google', 'Tỷ phú Eric Schmidt, cựu CEO Google, chi 61,5 triệu USD vào khoảng giữa tháng 5 để sở hữu một căn biệt thự sang trọng tại tiểu bang California, Mỹ.Bất động sản tọa lạc tại khu Holmby Hills của thành phố Los Angeles, nằm trên một mảnh đất rộng hơn 1 ha, được xây dựng vào năm 1936.', '1622164500230.jpg', 1, 'Google', 'Nhà của ông  Tỷ phú Eric Schmidt, cựu CEO Google', 8, 8, '2021-05-27 18:15:00', '2021-05-27 18:47:19'),
 (30, 37, 'Biện pháp chưa từng có tiền lệ trong chiến dịch chống Covid-19', 'bien-phap-chua-tung-co-tien-le-trong-chien-dich-chong-covid-19', '<p>Ng&agrave;y 29/4, dịch Covid-19 b&ugrave;ng ph&aacute;t tại H&agrave; Nam. Chỉ sau 40 ng&agrave;y, Việt Nam đối mặt số ca mắc Covid-19 cao nhất từ trước đến nay - 5.832 bệnh nh&acirc;n (t&iacute;nh đến tối 7/6). Bộ trưởng Y tế Nguyễn Thanh Long cho hay như đ&atilde; dự b&aacute;o trước đ&oacute;, đợt dịch thứ 4 diễn ra rất phức tạp, kh&oacute; kiểm so&aacute;t. Dịch bệnh lan ra 39 tỉnh, th&agrave;nh phố.</p>\r\n\r\n<p>Dịch phức tạp v&igrave; 4 điểm kh&aacute;c biệt so với những giai đoạn trước. Đ&oacute; l&agrave; th&aacute;ch thức từ đa ổ dịch, đa nguồn l&acirc;y; hai &quot;th&agrave;nh tr&igrave; y tế&quot; bị chọc thủng; sự xuất hiện của biến chủng mới B.1.617 (từ Ấn Độ); nhiều người trẻ tuổi, kh&ocirc;ng mắc bệnh nền nhưng diễn biến nặng rất nhanh.</p>\r\n\r\n<p>Trước những kh&aacute;c biệt v&agrave; số ca mắc vẫn tiếp tục tăng, đặc biệt ở 4 th&agrave;nh phố lớn l&agrave; Bắc Ninh, Bắc Giang, H&agrave; Nội, TP.HCM, Ch&iacute;nh phủ, Bộ Y tế đ&atilde; quyết liệt dập dịch ở mức độ cao nhất. Nhiều biện ph&aacute;p lần đầu ti&ecirc;n được &aacute;p dụng ch&iacute;nh thức v&agrave; th&iacute; điểm ở nhiều địa phương.</p>\r\n\r\n<p><img alt=\"Nhân viên y tế TP.HCM tại các điểm lấy mẫu xét nghiệm, sàng lọc Covid-19 cho người dân. Ảnh: Chí Hùng.\" src=\"/spring-web/images/finder/images/hcm_13.jpg\" style=\"height:589px; width:960px\" /></p>\r\n\r\n<h3>&quot;Đột ph&aacute; chiến lược&quot; ph&ograve;ng dịch bằng vaccine</h3>\r\n\r\n<p>Với phương ch&acirc;m chống dịch ng&agrave;y c&agrave;ng mạnh mẽ, quyết liệt, Thủ tướng Phạm Minh Ch&iacute;nh cho rằng vaccine l&agrave; &quot;ch&igrave;a kh&oacute;a&quot; để vượt qua dịch Covid-19 v&agrave; nhiều lần qu&aacute;n triệt &ldquo;huy động mọi nguồn lực để mua vaccine&rdquo;.</p>\r\n\r\n<p>TS Nguyễn Sỹ Dũng (nguy&ecirc;n Ph&oacute; chủ nhiệm Văn ph&ograve;ng Quốc hội) đ&aacute;nh gi&aacute;: &ldquo;Trọng t&acirc;m r&otilde; r&agrave;ng phải l&agrave; vaccine, ti&ecirc;m chủng để tạo miễn dịch cộng đồng, kh&ocirc;ng thể cứ truy vết, khoanh v&ugrave;ng m&atilde;i được. Hơn 1,5 năm vừa qua cứ li&ecirc;n tục như vậy nhưng đến b&acirc;y giờ th&igrave; kh&ocirc;ng thể k&eacute;o d&agrave;i v&ocirc; tận&rdquo;, &ocirc;ng n&oacute;i.</p>\r\n\r\n<p>Từ kinh nghiệm của một số quốc gia tr&ecirc;n thế giới, &ocirc;ng Dũng cho rằng &ldquo;ti&ecirc;m chủng sẽ tạo n&ecirc;n sự kh&aacute;c biệt&rdquo;, l&agrave; &quot;đột ph&aacute; chiến lược&quot; trong ph&ograve;ng, chống dịch.</p>\r\n\r\n<p>Bộ trưởng Y tế Nguyễn Thanh Long cũng nhận định: &quot;Chỉ c&oacute; vaccine Covid-19 mới đưa được cuộc sống trở lại b&igrave;nh thường&quot;. Do đ&oacute;, Ch&iacute;nh phủ v&agrave; Bộ Y tế t&iacute;ch cực tiếp cận nhiều nguồn cung ứng, đảm bảo nguồn t&agrave;i ch&iacute;nh vững bền cho vaccine Covid-19.</p>\r\n\r\n<p><img alt=\"Đồ họa: Thiên Nhan.\" src=\"/spring-web/images/finder/images/vaccine_2.jpg\" style=\"height:594px; width:960px\" /></p>\r\n', '1623176690146.jpg', 1, 'covid19', '<h3>&quot;Đột ph&aacute; chiến lược&quot; ph&ograve;ng dịch bằng vaccine</h3>\r\n', 8, 8, '2021-06-08 11:24:51', '2021-06-08 11:24:51'),
 (31, 36, '\'Gỡ bỏ hình ảnh Hoài Linh là hành động đúng đắn 2\'', 'test-test-2', 'Chuyên gia quảng cáo khẳng định khi nghệ sĩ dính bê bối nghiêm trọng, việc thương hiệu nhanh chóng dừng hợp tác với cá nhân đó sẽ nhận được cảm tình của người tiêu dùng.\r\nNgày 27/5, sàn thương mại điện tử Shopee gỡ bỏ hầu hết hình ảnh của nghệ sĩ Hoài Linh, được sử dụng trong một chiến dịch marketing từ ngày 20/5 của doanh nghiệp.', '1622164407676.jpg', 1, 'Hoài Linh', 'bài viết về nghệ sĩ Hoài Linh', 8, 8, '2021-05-27 18:13:27', '2021-05-27 18:13:27'),
-(32, 36, 'KINH DOANH BẤT ĐỘNG SẢN  Biệt thự 61,5 triệu USD của cựu CEO Google2', 'biet-thu-61-5-trieu-usd-cua-cuu-ceo-google-2', 'Tỷ phú Eric Schmidt, cựu CEO Google, chi 61,5 triệu USD vào khoảng giữa tháng 5 để sở hữu một căn biệt thự sang trọng tại tiểu bang California, Mỹ.Bất động sản tọa lạc tại khu Holmby Hills của thành phố Los Angeles, nằm trên một mảnh đất rộng hơn 1 ha, được xây dựng vào năm 1936.', '1622164500230.jpg', 1, 'Google', 'Nhà của ông  Tỷ phú Eric Schmidt, cựu CEO Google', 8, 8, '2021-05-27 18:15:00', '2021-05-27 18:47:19');
+(32, 36, 'KINH DOANH BẤT ĐỘNG SẢN  Biệt thự 61,5 triệu USD của cựu CEO Google2', 'biet-thu-61-5-trieu-usd-cua-cuu-ceo-google-2', 'Tỷ phú Eric Schmidt, cựu CEO Google, chi 61,5 triệu USD vào khoảng giữa tháng 5 để sở hữu một căn biệt thự sang trọng tại tiểu bang California, Mỹ.Bất động sản tọa lạc tại khu Holmby Hills của thành phố Los Angeles, nằm trên một mảnh đất rộng hơn 1 ha, được xây dựng vào năm 1936.', '1622164500230.jpg', 2, 'Google', 'Nhà của ông  Tỷ phú Eric Schmidt, cựu CEO Google', 8, 34, '2021-05-27 18:15:00', '2021-07-15 15:31:02');
 
 -- --------------------------------------------------------
 
@@ -601,7 +636,7 @@ CREATE TABLE `product` (
 --
 
 INSERT INTO `product` (`product_id`, `productname`, `product_slug`, `productprice`, `productpricesale`, `productweight`, `productdetail`, `productshortdesc`, `productimg`, `product_guarantee`, `product_condition`, `product_catid`, `manufacturer_id`, `product_status`, `available`, `created_at`, `updated_at`, `created_by`, `updated_by`) VALUES
-(2, 'Máy lạnh Panasonic Inverter 1 HP CU/CS-XU9UKH-8', 'panasonic-cu-cs-xu9ukh-8', 13900000, 12900000, 11, 'Máy lạnh Panasonic Inverter 1 HP CU/CS-XU9UKH-8', 'Máy lạnh Panasonic Inverter 1 HP CU/CS-XU9UKH-8', 'panasonic-cu-cs-xu9ukh-8-1-1-180x120.jpg', 'Bảo hành có cam kết trong 24 tháng (chỉ áp dụng cho sản phẩm chính, KHÔNG áp dụng cho phụ kiện kèm theo)', 'Mới và đầy đủ phụ kiện từ nhà sản xuất', 2, 3, 1, 20, '2021-04-27 16:11:29', '2021-04-27 16:11:29', 1, 1),
+(2, 'Máy lạnh Panasonic Inverter 1 HP CU/CS-XU9UKH-8', 'panasonic-cu-cs-xu9ukh-8', 13900000, 12900000, 11, '<p>M&aacute;y lạnh Panasonic Inverter 1 HP CU/CS-XU9UKH-8<img alt=\"\" src=\"/spring-web/images/finder/images/hcm_13.jpg\" style=\"height:589px; width:960px\" /></p>\r\n', 'Máy lạnh Panasonic Inverter 1 HP CU/CS-XU9UKH-8', 'panasonic-cu-cs-xu9ukh-8-1-1-180x120.jpg', 'Bảo hành có cam kết trong 24 tháng (chỉ áp dụng cho sản phẩm chính, KHÔNG áp dụng cho phụ kiện kèm theo)', 'Mới và đầy đủ phụ kiện từ nhà sản xuất', 2, 3, 1, 20, '2021-04-27 16:11:29', '2021-07-16 14:37:38', 1, 5),
 (3, 'Android Tivi Casper 55 inch 55UG6000', 'casper-55ug6000', 13900000, 12900000, 11, 'android-tivi-casper-55-inch-55ug6000', 'android-tivi-casper-55-inch-55ug6000', 'casper-55ug6000.png', 'Bảo hành có cam kết trong 12 tháng (chỉ áp dụng cho sản phẩm chính, KHÔNG áp dụng cho phụ kiện kèm theo)', 'Mới và đầy đủ phụ kiện từ nhà sản xuất', 1, 2, 1, 20, '2021-04-28 13:58:52', '2021-04-28 13:58:52', 1, 1),
 (5, 'Samsung Smart Tivi UA43TU8100', 'samsung-ua43tu8100', 11900000, 10900000, 1, 'Samsung Smart TV UA43TU8100', 'Samsung Smart TV UA43TU8100', 'Samsung_QA43Q60T.png', 'Bảo hành có cam kết trong 12 tháng (chỉ áp dụng cho sản phẩm chính, KHÔNG áp dụng cho phụ kiện kèm theo)', 'Mới và đầy đủ phụ kiện từ nhà sản xuất', 1, 1, 1, 20, '2021-04-28 17:03:46', '2021-04-28 17:03:46', 1, 1),
 (6, 'Sony Android Tivi KD-43X8000H', 'sony-kd-43x8000h', 13590000, 12590000, 1, 'Sony Android TV KD-43X8000H', 'Sony Android TV KD-43X8000H', 'Sony_3X8000H.png', 'Bảo hành có cam kết trong 12 tháng (chỉ áp dụng cho sản phẩm chính, KHÔNG áp dụng cho phụ kiện kèm theo)', 'Mới và đầy đủ phụ kiện từ nhà sản xuất', 1, 5, 1, 20, '2021-04-28 17:03:46', '2021-04-28 17:03:46', 1, 1),
@@ -640,7 +675,7 @@ INSERT INTO `product` (`product_id`, `productname`, `product_slug`, `productpric
 (53, 'abc', 'abc', 0.1, 0.1, 0.1, '<p>abc</p>\r\n', 'abc', '1624882444415.jpg', 'abc', 'abc', 1, 1, 0, 20, '2021-06-28 05:14:04', '2021-06-28 05:14:04', 5, 5),
 (54, 'quicktest', 'quicktest', 25000000, 25000000, 12, '<p><img alt=\"\" src=\"/spring-web/images/finder/images/280916_043859thap_ntt_ngang_6_7_2016-01(1).jpg\" style=\"height:1196px; width:1600px\" /></p>\r\n', 'quicktest', '1625058030622.jpg', '12 tháng', 'oke', 1, 1, 1, 20, '2021-06-30 06:00:30', '2021-06-30 06:00:30', 5, 5),
 (55, 'test may lanh samsung', 'test-may-lanh-samsung', 15000000, 14500000, 12, '<p>test</p>\r\n', 'test', '1625651370189.jpg', '12 tháng', 'Oke', 1, 1, 1, 12, '2021-07-07 02:49:30', '2021-07-07 02:52:11', 8, 8),
-(56, 'test may lanh samsung2', 'test-may-lanh-samsung2', 15000000, 14500000, 12, '<p>asdas</p>\r\n', 'ádasd', '1625651571679.jpg', '12 tháng', 'asdas', 1, 1, 1, 10, '2021-07-07 02:52:51', '2021-07-07 02:52:51', 8, 8);
+(56, 'test may lanh samsung2', 'test-may-lanh-samsung2', 15000000, 14500000, 12, '<p>asdas</p>\r\n', 'ádasd', '1625651571679.jpg', '12 tháng', 'asdas', 1, 1, 1, 10, '2021-07-07 02:52:51', '2021-07-17 08:52:58', 8, 8);
 
 -- --------------------------------------------------------
 
@@ -681,7 +716,7 @@ INSERT INTO `productoptions` (`productoptions_id`, `product_id`, `optiongroup_id
 (20, 10, 6, 14, '', '', 1, 0, 0, '2021-06-01 13:30:34', '2021-06-01 13:30:34'),
 (21, 11, 7, 15, '', '', 1, 0, 0, '2021-06-01 13:30:34', '2021-06-01 13:30:34'),
 (23, 2, 7, 15, '<p>sad</p>\r\n', 'asd', 1, 8, 8, '2021-06-03 08:17:12', '2021-06-03 08:17:12'),
-(32, 51, 4, 9, '<p>tivi 4k&nbsp;</p>\r\n', 'tivi 4k ', 1, 8, 8, '2021-06-15 09:01:03', '2021-06-15 09:01:03');
+(32, 51, 4, 9, '<p>tivi 4k&nbsp;</p>\r\n', 'tivi 4k ', 1, 8, 5, '2021-06-15 09:01:03', '2021-07-15 18:56:09');
 
 -- --------------------------------------------------------
 
@@ -705,7 +740,7 @@ CREATE TABLE `product_image` (
 --
 
 INSERT INTO `product_image` (`id`, `product_id`, `img`, `status`, `created_at`, `created_by`, `updated_at`, `updated_by`) VALUES
-(1, 51, 'lg-55nano79tnd-2-org.jpg', 1, '2021-06-16 10:48:09', 8, '2021-06-16 10:48:09', 8),
+(1, 51, 'lg-55nano79tnd-2-org.jpg', 1, '2021-06-16 10:48:09', 8, '2021-07-15 19:06:33', 5),
 (2, 51, 'lg-55nano79tnd-3-org.jpg', 1, '2021-06-16 10:48:09', 8, '2021-06-16 10:48:09', 8),
 (3, 51, 'lg-55nano79tnd-4-org.jpg', 1, '2021-06-16 10:50:43', 8, '2021-06-16 10:50:43', 8),
 (4, 51, 'lg-55nano79tnd-5-org.jpg', 1, '2021-06-16 10:50:43', 8, '2021-06-16 10:50:43', 8),
@@ -791,7 +826,9 @@ INSERT INTO `role` (`id`, `name`, `code`, `status`, `created_at`, `created_by`, 
 (1, 'Người dùng', 'USER_USER', 1, '2021-06-25 07:44:16', 0, '2021-06-25 07:44:16', 0),
 (2, 'Quản trị sản phẩm', 'ADMIN_PROD', 1, '2021-06-25 07:44:46', 0, '2021-06-25 07:44:46', 0),
 (3, 'Quản trị bài viết', 'ADMIN_PAGE', 1, '2021-06-25 07:44:46', 0, '2021-06-25 07:44:46', 0),
-(4, 'Quản trị hệ thống', 'ADMIN_ALL', 1, '2021-06-25 07:46:03', 0, '2021-06-25 07:46:03', 0);
+(4, 'Quản trị hệ thống', 'ADMIN_ALL', 1, '2021-06-25 07:46:03', 0, '2021-06-25 07:46:03', 0),
+(6, 'Quản trị bán hàng', 'ADMIN_SALE', 1, '2021-07-14 17:35:44', 5, '2021-07-14 17:35:44', 5),
+(7, 'Quản trị liên hệ', 'ADMIN_CONTACT', 1, '2021-07-14 17:40:01', 5, '2021-07-14 17:40:01', 5);
 
 -- --------------------------------------------------------
 
@@ -825,8 +862,8 @@ INSERT INTO `service` (`id`, `name`, `img`, `metadesc`, `metakey`, `status`, `cr
 (6, 'admin1', '1623172422306.jpg', '', '111', 0, '2021-06-08 10:13:42', 8, '2021-06-08 10:13:42', 8),
 (7, 'vinh', '1623172447418.jpg', '', '123', 0, '2021-06-08 10:14:07', 8, '2021-06-08 10:14:07', 8),
 (8, 'abc', '1623172466178.jpg', '', '123', 0, '2021-06-08 10:14:26', 8, '2021-06-08 10:14:26', 8),
-(9, 'admin', '1623172530346.jpg', '<p>123</p>\r\n', '123', 2, '2021-06-08 10:15:31', 8, '2021-06-08 10:48:43', 8),
-(10, 'admin', '1623173929029.jpg', '', 'admin', 0, '2021-06-08 10:38:49', 8, '2021-06-08 10:38:49', 8),
+(9, 'admin', '1623172530346.jpg', '<p>123</p>\r\n', '123', 0, '2021-06-08 10:15:31', 8, '2021-07-17 09:27:01', 5),
+(10, 'admin', '1623173929029.jpg', '', 'admin', 0, '2021-06-08 10:38:49', 8, '2021-07-16 11:37:15', 5),
 (11, 'admin123', '1623174381080.jpg', '<p>123</p>\r\n', '123', 0, '2021-06-08 10:46:22', 8, '2021-06-08 10:48:40', 8);
 
 -- --------------------------------------------------------
@@ -855,9 +892,9 @@ INSERT INTO `slide` (`slide_id`, `slide_caption`, `slide_img`, `slide_status`, `
 (5, 'slide3', '1620896543789.jpg', 1, 1, 1, '2021-05-13 02:02:23', '2021-05-13 02:02:23'),
 (6, 'slide 4', '1621185957895.jpg', 0, 1, 1, '2021-05-16 10:25:57', '2021-05-17 00:02:39'),
 (7, 'slide 5', '1621233174692.jpg', 0, 1, 2, '2021-05-16 23:32:54', '2021-05-16 23:54:44'),
-(8, 'slide6', '1620896531655.jpg', 2, 1, 1, '2021-05-13 02:02:11', '2021-05-13 02:02:11'),
+(8, 'slide6', '1620896531655.jpg', 0, 1, 5, '2021-05-13 02:02:11', '2021-07-16 11:46:27'),
 (9, 'slide7', '1620896543789.jpg', 0, 1, 1, '2021-05-13 02:02:23', '2021-05-13 02:02:23'),
-(10, 'slide8', '1621185957895.jpg', 0, 1, 1, '2021-05-16 10:25:57', '2021-05-17 00:02:39'),
+(10, 'slide8', '1621185957895.jpg', 0, 1, 5, '2021-05-16 10:25:57', '2021-07-16 11:47:09'),
 (11, 'slide9', '1621233174692.jpg', 0, 1, 2, '2021-05-16 23:32:54', '2021-05-16 23:54:44');
 
 -- --------------------------------------------------------
@@ -886,7 +923,7 @@ CREATE TABLE `smartpay` (
 INSERT INTO `smartpay` (`id`, `name`, `img`, `metakey`, `metadesc`, `status`, `created_at`, `created_by`, `updated_at`, `updated_by`) VALUES
 (1, 'Thanh toán Smartpay', '1625049338473.jpg', 'Thanh toán Smartpay', '<p>Giảm ngay 20% tối đa 500.000đ khi thanh to&aacute;n qua Smartpay tại quầy</p>\r\n', 1, '2021-06-24 16:30:24', 8, '2021-06-30 03:35:38', 5),
 (2, 'Thanh toán ví Moca trên ứng dụng Grab', '1625049345765.jpg', 'Thanh toán ví Moca trên ứng dụng Grab', '<p>Nhập MOCA400 Giảm/Ho&agrave;n tiền 10% tối đa 400.000đ khi thanh to&aacute;n Online bằng v&iacute; Moca</p>\r\n', 1, '2021-06-24 09:35:08', 8, '2021-06-30 03:35:45', 5),
-(4, 'Zaló pay', '1625049353236.jpg', 'Zaló pay', '<p>Zal&oacute; pay</p>\r\n', 1, '2021-06-24 17:02:46', 8, '2021-06-30 03:35:53', 5);
+(4, 'Zaló pay', '1625049353236.jpg', 'Zaló pay', '<p>Zal&oacute; pay</p>\r\n', 1, '2021-06-24 17:02:46', 8, '2021-07-16 11:41:32', 5);
 
 -- --------------------------------------------------------
 
@@ -915,7 +952,7 @@ INSERT INTO `socialnetwork` (`id`, `name`, `img`, `icon`, `address`, `status`, `
 (1, 'Facebook', 'fb.png', '<i 							class=\"fab fa-facebook-f\"></i>', 'https://www.facebook.com/ngdquangvinh297', 1, '2021-06-29 14:58:59', 8, 8, '2021-06-29 14:58:59'),
 (2, 'Instagram', '1624980053485.jpg', '<i 							class=\"fab fa-instagram\"></i>', 'https://www.instagram.com/vinhzau4739/', 1, '2021-06-29 08:20:53', 5, 5, '2021-06-29 08:20:53'),
 (3, 'Youtube', '1624980175116.jpg', '<i 							class=\"fab fa-youtube\"></i>', 'https://www.youtube.com/channel/UCUO4QWYhvKgukr-zDsS9b2Q', 1, '2021-06-29 08:22:55', 5, 5, '2021-06-29 08:22:55'),
-(4, 'Twitter', '1624981696787.jpg', '<i class=\"fab fa-twitter\"></i>', 'https://twitter.com/?lang=vi', 1, '2021-06-29 08:48:16', 5, 5, '2021-06-29 08:54:30');
+(4, 'Twitter', '1624981696787.jpg', '<i class=\"fab fa-twitter\"></i>', 'https://twitter.com/?lang=vi', 1, '2021-06-29 08:48:16', 5, 5, '2021-07-16 11:44:04');
 
 -- --------------------------------------------------------
 
@@ -939,9 +976,9 @@ CREATE TABLE `topbar` (
 --
 
 INSERT INTO `topbar` (`id`, `name`, `img`, `status`, `created_at`, `created_by`, `updated_at`, `updated_by`) VALUES
-(1, 'Trùm máy lạnh', '176574359_877765719466139_6288595193608801989_n.gif', 2, '2021-06-10 16:15:15', 8, '2021-06-10 16:15:15', 8),
+(1, 'Trùm máy lạnh', '176574359_877765719466139_6288595193608801989_n.gif', 2, '2021-06-10 16:15:15', 8, '2021-07-16 11:53:14', 5),
 (2, 'Hỗ trợ mùa dịch', '1200-44-1200x44.png', 1, '2021-06-10 16:15:15', 8, '2021-06-10 16:15:15', 8),
-(3, 'test 1', '1200-44-1200x44.png', 0, '2021-06-10 16:23:29', 8, '2021-06-10 16:23:29', 8),
+(3, 'test 1', '1200-44-1200x44.png', 0, '2021-06-10 16:23:29', 8, '2021-07-16 11:53:10', 5),
 (4, 'test 2', '1200-44-1200x44.png', 0, '2021-06-10 16:23:29', 8, '2021-06-10 16:23:29', 8);
 
 -- --------------------------------------------------------
@@ -975,7 +1012,8 @@ INSERT INTO `topic` (`topic_id`, `topic_name`, `topic_slug`, `topic_metakey`, `t
 (34, 'test223', '123', '123', '123', 0, 0, 8, 8, '2021-05-23 06:23:14', '2021-05-23 06:23:14'),
 (35, 'Công nghệ', 'cong-nghe', 'Công nghệ', 'Công nghệ', 0, 1, 8, 8, '2021-05-27 17:51:28', '2021-05-27 17:51:28'),
 (36, 'Kinh Doanh', 'kinh-doanh', 'Kinh Doanh', 'Kinh Doanh', 0, 1, 8, 8, '2021-05-27 18:11:27', '2021-05-27 18:11:27'),
-(37, 'Sức khỏe', 'suc-khoe', 'sức khỏe', '<p>SỨC KHỎE</p>\r\n', 0, 1, 8, 8, '2021-06-08 11:19:10', '2021-06-08 11:25:36');
+(37, 'Sức khỏe', 'suc-khoe', 'sức khỏe', '<p>SỨC KHỎE</p>\r\n', 0, 1, 8, 8, '2021-06-08 11:19:10', '2021-06-08 11:25:36'),
+(39, 'testopic', 'testopic', 'testopic', '<p>&aacute;dasdas</p>\r\n', 0, 2, 34, 34, '2021-07-15 09:02:43', '2021-07-15 16:08:18');
 
 -- --------------------------------------------------------
 
@@ -1010,7 +1048,10 @@ INSERT INTO `user` (`user_id`, `username`, `password`, `user_fullname`, `user_em
 (5, 'admin', '$2a$10$PjbfC0gfN0/xO4aPbHSJmuo6DQHulJMO2RFWL.cROE5KWvyjQur.G', 'admin', 'quangvinh290720@gmail.com', 'ROLE_ADMIN', 4, 'Nam', '123', 'user.png', 1, '2bcca99e9e1f4d808789e21579e6a1ca', 1, 1, '2021-05-10 07:43:31', '2021-05-10 07:43:31'),
 (6, '123', '$2a$10$/RUbuT9KIqk6f8enaTQiLOXzhnUkiwEJRdtzdrMXXwU7dgnLKTCYG', '123', '123@gmail.com', 'ROLE_USER', 1, 'Nam', '123', 'user.png', 1, 'aasdsmkggasdgsxhmsd', 1, 1, '2021-05-10 10:55:15', '2021-05-10 10:55:15'),
 (8, 'sena', '$2a$12$J10E1ZKGJeE0U54JjY9LU.OUFGs8BybSLJuia9DPdeX9esK7dmO36', 'sena', 'ngvinh290720@gmail.com', 'ROLE_ADMIN', 2, 'Nam', '123', 'user.png', 1, '98bb32296d344f8899a15fc7cd4bed1b', 1, 1, '2021-05-14 00:40:59', '2021-05-14 00:40:59'),
-(34, 'user3', '$2a$12$wElwumDxT6f.U9WhLMeIX.HVPJEj3hELRPNkw.OL8yDtdojpqQGfG', 'nguyen tan thanh', 'nguyentanthanh1142@gmail.com', 'ROLE_USER', 1, 'Nam', '0923456789', 'user.png', 1, '0b55fca7a46143939dc1112972e79efe', 1, 1, '2021-07-10 10:25:01', '2021-07-10 10:25:01');
+(34, 'user3', '$2a$12$wElwumDxT6f.U9WhLMeIX.HVPJEj3hELRPNkw.OL8yDtdojpqQGfG', 'nguyen tan thanh', 'nguyentanthanh1142@gmail.com', 'ROLE_ADMIN', 3, 'Nam', '0923456789', 'user.png', 1, '0b55fca7a46143939dc1112972e79efe', 1, 1, '2021-07-10 10:25:01', '2021-07-10 10:25:01'),
+(35, 'adminsale', '$2a$12$G2X/0mCYFZNq9KjKFpzDWe.uzCnU/eRzDhzhkNhF.VB8.40blmvwy', 'nguyen van slae', 'adminsale123@gmail.com', 'ROLE_ADMIN', 6, 'Nam', '0356487911', 'user.png', 1, '5d0b18b6f45e4c6381c1e743193bd354', 1, 1, '2021-07-14 10:44:03', '2021-07-14 10:44:03'),
+(36, 'admincontact', '$2a$12$/.75T1igL2rgaCWoKf97j.XLXhXeN8IRXHZCnNboA8w5d6frz62ee', 'nguyen van contact', 'admincontact123@gmail.com', 'ROLE_ADMIN', 7, 'Nam', '0356497911', 'user.png', 1, 'dcf6e43f2396486db1061496e2ddb496', 1, 1, '2021-07-14 10:49:30', '2021-07-14 10:49:30'),
+(37, 'user2', '$2a$12$87Yp14ns0Jc7PRhM7TW1wOKX70Y56/lDkS2Cu.1sWB0V4VUwPPqJm', 'nguyen tan thanh', 'zxvz232@gmail.com', 'ROLE_USER', 1, 'Nam', '0923455789', 'user.png', 1, '0a9918c1e5704a40b070e628914abfda', 1, 1, '2021-07-22 01:53:41', '2021-07-22 01:53:41');
 
 -- --------------------------------------------------------
 
@@ -1055,7 +1096,7 @@ INSERT INTO `utilities` (`utilities_id`, `product_id`, `utilitiesname`, `metades
 (6, 11, 'Làm lạnh nhanh tức thì', '', '', 1, 0, 0, '2021-05-31 06:55:54', '2021-05-31 06:55:54'),
 (7, 3, 'Tìm kiếm bằng giọng nói tiếng Việt', '', '', 1, 0, 0, '2021-05-31 06:55:54', '2021-05-31 06:55:54'),
 (8, 3, 'Đ.khiển giọng nói không Remote', '', '', 1, 0, 0, '2021-05-31 06:55:54', '2021-05-31 06:55:54'),
-(21, 2, 'Chức năng hút ẩm 2', '<p>Chức năng h&uacute;t ẩm 2</p>\r\n', 'Chức năng hút ẩm 2', 1, 8, 8, '2021-06-01 06:15:07', '2021-06-01 06:15:07');
+(21, 2, 'Chức năng hút ẩm 2', '<p>Chức năng h&uacute;t ẩm 2</p>\r\n', 'Chức năng hút ẩm 2', 2, 8, 5, '2021-06-01 06:15:07', '2021-07-15 18:51:42');
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -1117,6 +1158,12 @@ ALTER TABLE `manufacturer`
 --
 ALTER TABLE `menu`
   ADD PRIMARY KEY (`menu_id`);
+
+--
+-- Chỉ mục cho bảng `note`
+--
+ALTER TABLE `note`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Chỉ mục cho bảng `optiongroups`
@@ -1247,13 +1294,13 @@ ALTER TABLE `banner`
 -- AUTO_INCREMENT cho bảng `billdetail`
 --
 ALTER TABLE `billdetail`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=137;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=140;
 
 --
 -- AUTO_INCREMENT cho bảng `bills`
 --
 ALTER TABLE `bills`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=109;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=111;
 
 --
 -- AUTO_INCREMENT cho bảng `category`
@@ -1271,7 +1318,7 @@ ALTER TABLE `configweb`
 -- AUTO_INCREMENT cho bảng `contact`
 --
 ALTER TABLE `contact`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT cho bảng `coupon`
@@ -1290,6 +1337,12 @@ ALTER TABLE `manufacturer`
 --
 ALTER TABLE `menu`
   MODIFY `menu_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT cho bảng `note`
+--
+ALTER TABLE `note`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT cho bảng `optiongroups`
@@ -1337,7 +1390,7 @@ ALTER TABLE `product_image`
 -- AUTO_INCREMENT cho bảng `role`
 --
 ALTER TABLE `role`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT cho bảng `service`
@@ -1367,19 +1420,19 @@ ALTER TABLE `socialnetwork`
 -- AUTO_INCREMENT cho bảng `topbar`
 --
 ALTER TABLE `topbar`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT cho bảng `topic`
 --
 ALTER TABLE `topic`
-  MODIFY `topic_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `topic_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT cho bảng `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `user_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT cho bảng `user_coupon`
