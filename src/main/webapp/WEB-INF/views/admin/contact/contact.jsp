@@ -56,7 +56,7 @@
 														class="btn btn-sm btn-danger ">Chưa phản hồi</a>
 												</c:when>
 												<c:otherwise>
-													<a href="${onoff}/${item.id}" class="btn btn-sm btn-info">Đã
+													<a href="" class="btn btn-sm btn-info">Đã
 														phản hồi</a>
 												</c:otherwise>
 											</c:choose></td>

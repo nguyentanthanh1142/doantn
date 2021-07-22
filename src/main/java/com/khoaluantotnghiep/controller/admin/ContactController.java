@@ -1,6 +1,9 @@
 package com.khoaluantotnghiep.controller.admin;
 
+import java.util.Date;
+
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,7 +16,10 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.khoaluantotnghiep.dto.PaginateDTO;
+import com.khoaluantotnghiep.entity.NoteEntity;
+import com.khoaluantotnghiep.entity.UserEntity;
 import com.khoaluantotnghiep.service.impl.ContactServiceImpl;
+import com.khoaluantotnghiep.service.impl.NoteServiceImpl;
 import com.khoaluantotnghiep.service.impl.PaginatesServiceImpl;
 
 @Controller(value = "contactControllerOfAdmin")
@@ -22,6 +28,8 @@ public class ContactController extends BaseController {
 	ContactServiceImpl contactService;
 	@Autowired
 	PaginatesServiceImpl paginateService;
+	@Autowired
+	NoteServiceImpl noteService;
 	private int totalProductPage = 10;
 
 	@RequestMapping(value = "/quan-tri/lien-he", method = RequestMethod.GET)
@@ -59,10 +67,17 @@ public class ContactController extends BaseController {
 
 	@GetMapping(value = "/quan-tri/lien-he/status/{id}")
 	public String onOffBanner(@PathVariable int id, ModelMap modelMap, final RedirectAttributes redirectAttributes,
-			HttpServletRequest request) {
+			HttpServletRequest request, HttpSession session) {
 		try {
-			contactService.onOffContact(id);
+			UserEntity loginInfo = (UserEntity) session.getAttribute("LoginInfo");
+			contactService.onOffContact(id, loginInfo);
 			redirectAttributes.addFlashAttribute("msg", "Thao tác thành công!");
+			// them note để quản lý
+			NoteEntity noteEntity = new NoteEntity();
+			noteEntity.setContent("Admin đã thay đổi trạng thái liên hệ " + id);
+			noteEntity.setCreated_at(new Date());
+			noteEntity.setCreated_by(loginInfo.getUser_id());
+			noteService.addNote(noteEntity);
 		} catch (Exception e) {
 			redirectAttributes.addFlashAttribute("msgfail", "Thao tác không thành công!");
 		}
@@ -71,11 +86,18 @@ public class ContactController extends BaseController {
 	}
 
 	@GetMapping("/quan-tri/lien-he/delete/{id}")
-	public String delete(@PathVariable int id, HttpServletRequest request,
-			final RedirectAttributes redirectAttributes) {
+	public String delete(@PathVariable int id, HttpServletRequest request, final RedirectAttributes redirectAttributes,
+			HttpSession session) {
 		try {
+			UserEntity loginInfo = (UserEntity) session.getAttribute("LoginInfo");
 			contactService.deleteContact(id);
 			redirectAttributes.addFlashAttribute("msg", "Xóa thành công!");
+			// them note để quản lý
+			NoteEntity noteEntity = new NoteEntity();
+			noteEntity.setContent("Admin đã xóa vĩnh viễn liên hệ " + id);
+			noteEntity.setCreated_at(new Date());
+			noteEntity.setCreated_by(loginInfo.getUser_id());
+			noteService.addNote(noteEntity);
 		} catch (Exception e) {
 			redirectAttributes.addFlashAttribute("msgfail", "Xóa  không thành công!");
 		}

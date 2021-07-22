@@ -8,11 +8,11 @@
 <title>Banner quảng cáo (topbar)</title>
 </head>
 <body>
-	<c:url var="add" value="/quan-tri/thanh-tren/add" />
-	<c:url var="get" value="/quan-tri/thanh-tren/edit" />
-	<c:url var="deltrash" value="/quan-tri/thanh-tren/trash" />
-	<c:url var="trash" value="/quan-tri/thanh-tren/thung-rac" />
-	<c:url var="onoff" value="/quan-tri/thanh-tren/status" />
+	<c:url var="add" value="/quan-tri/web/thanh-tren/add" />
+	<c:url var="get" value="/quan-tri/web/thanh-tren/edit" />
+	<c:url var="deltrash" value="/quan-tri/web/thanh-tren/trash" />
+	<c:url var="trash" value="/quan-tri/web/thanh-tren/thung-rac" />
+	<c:url var="onoff" value="/quan-tri/web/thanh-tren/status" />
 	<div class="content-wrapper pt-3">
 		<!-- Content Header (Page header) -->
 		<!-- Main content -->
@@ -55,7 +55,7 @@
 								<th style="width: 40px;" class="text-center">ID</th>
 								<th style="width: 200px;">Hình ảnh</th>
 								<th>Tên topbar</th>
-								<th style="width: 300px;">Chức năng</th>
+								<th style="width: 10rem;">Chức năng</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -93,7 +93,7 @@
 								<th style="width: 40px;" class="text-center">ID</th>
 								<th style="width: 200px;">Hình ảnh</th>
 								<th>Tên topbar</th>
-								<th style="width: 300px;">Chức năng</th>
+								<th style="width: 10rem;">Chức năng</th>
 							</tr>
 						</tfoot>
 					</table>
@@ -104,11 +104,11 @@
 							varStatus="loop">
 							<c:if test="${(loop.index)==paginateInfo.currentPage}">
 								<li class="page-item active"><a class="page-link"
-									href="<c:url value="/quan-tri/thanh-tren/${loop.index}"/>">${loop.index}</a></li>
+									href="<c:url value="/quan-tri/web/thanh-tren/${loop.index}"/>">${loop.index}</a></li>
 							</c:if>
 							<c:if test="${(loop.index) != paginateInfo.currentPage}">
 								<li class="page-item "><a class="page-link"
-									href="<c:url value="/quan-tri/thanh-tren/${loop.index}"/>">${loop.index}</a></li>
+									href="<c:url value="/quan-tri/web/thanh-tren/${loop.index}"/>">${loop.index}</a></li>
 							</c:if>
 						</c:forEach>
 					</ul>

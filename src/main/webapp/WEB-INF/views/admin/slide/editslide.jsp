@@ -8,8 +8,8 @@
 <title>Chỉnh sửa trình chiếu</title>
 </head>
 <body>
-	<c:url var="editsave" value="/quan-tri/trinh-chieu/editsave" />
-	<c:url var="list" value="/quan-tri/trinh-chieu" />
+	<c:url var="editsave" value="/quan-tri/web/trinh-chieu/editsave" />
+	<c:url var="list" value="/quan-tri/web/trinh-chieu" />
 	<form:form modelAttribute="slide" action="${editsave}"
 		enctype="multipart/form-data" method="POST">
 		<div class="content-wrapper pt-3">

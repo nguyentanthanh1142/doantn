@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.khoaluantotnghiep.dao.CouponDAO;
 import com.khoaluantotnghiep.entity.CouponEntity;
+import com.khoaluantotnghiep.entity.UserEntity;
 import com.khoaluantotnghiep.service.ICouponService;
 
 @Service
@@ -51,18 +52,18 @@ public class CouponServiceImpl implements ICouponService {
 	}
 
 	@Override
-	public void deltrash(int id) {
-		conponDao.deltrash(id);
+	public void deltrash(int id, UserEntity loginInfo) {
+		conponDao.deltrash(id, loginInfo);
 	}
 
 	@Override
-	public void retrash(int id) {
-		conponDao.retrash(id);
+	public void retrash(int id, UserEntity loginInfo) {
+		conponDao.retrash(id, loginInfo);
 	}
 
 	@Override
-	public void onOffCoupon(int id) {
-		conponDao.onOffCoupon(id);
+	public void onOffCoupon(int id, UserEntity loginInfo) {
+		conponDao.onOffCoupon(id, loginInfo);
 	}
 
 	@Override

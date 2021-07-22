@@ -8,11 +8,11 @@
 <title>Slideshow</title>
 </head>
 <body>
-	<c:url var="add" value="/quan-tri/trinh-chieu/add" />
-	<c:url var="get" value="/quan-tri/trinh-chieu/edit" />
-	<c:url var="deltrash" value="/quan-tri/trinh-chieu/trash" />
-	<c:url var="trash" value="/quan-tri/trinh-chieu/thung-rac" />
-	<c:url var="onoff" value="/quan-tri/trinh-chieu/status" />
+	<c:url var="add" value="/quan-tri/web/trinh-chieu/add" />
+	<c:url var="get" value="/quan-tri/web/trinh-chieu/edit" />
+	<c:url var="deltrash" value="/quan-tri/web/trinh-chieu/trash" />
+	<c:url var="trash" value="/quan-tri/web/trinh-chieu/thung-rac" />
+	<c:url var="onoff" value="/quan-tri/web/trinh-chieu/status" />
 	<div class="content-wrapper pt-3">
 		<!-- Content Header (Page header) -->
 		<!-- Main content -->
@@ -55,7 +55,7 @@
 								<th style="width: 40px;" class="text-center">ID</th>
 								<th style="width: 200px;">Hình ảnh</th>
 								<th>Tên Slide</th>
-								<th style="width: 300px;">Chức năng</th>
+								<th style="width: 10rem;">Chức năng</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -94,7 +94,7 @@
 								<th style="width: 40px;" class="text-center">ID</th>
 								<th style="width: 200px;">Hình ảnh</th>
 								<th>Tên Slide</th>
-								<th style="width: 300px;">Chức năng</th>
+								<th style="width: 10rem;">Chức năng</th>
 							</tr>
 						</tfoot>
 					</table>
@@ -105,11 +105,11 @@
 							varStatus="loop">
 							<c:if test="${(loop.index)==paginateInfo.currentPage}">
 								<li class="page-item active"><a class="page-link"
-									href="<c:url value="/quan-tri/trinh-chieu/${loop.index}"/>">${loop.index}</a></li>
+									href="<c:url value="/quan-tri/web/trinh-chieu/${loop.index}"/>">${loop.index}</a></li>
 							</c:if>
 							<c:if test="${(loop.index) != paginateInfo.currentPage}">
 								<li class="page-item "><a class="page-link"
-									href="<c:url value="/quan-tri/trinh-chieu/${loop.index}"/>">${loop.index}</a></li>
+									href="<c:url value="/quan-tri/web/trinh-chieu/${loop.index}"/>">${loop.index}</a></li>
 							</c:if>
 						</c:forEach>
 					</ul>

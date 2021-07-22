@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.khoaluantotnghiep.entity.TopbarEntity;
+import com.khoaluantotnghiep.entity.UserEntity;
 import com.khoaluantotnghiep.mapper.TopbarMapper;
 
 @Repository
@@ -79,7 +80,7 @@ public class TopbarDAO extends BaseDAO {
 	public void addTopbar(TopbarEntity topbar) {
 		String sql = "INSERT INTO topbar (`name`, `img`, `status`, `created_at`, `created_by`, `updated_at`, `updated_by`) VALUES(?, ?, ?, ?, ?, ?, ?)";
 		jdbcTemplate.update(sql, topbar.getName(), topbar.getImg(), topbar.getStatus(), topbar.getCreated_at(),
-				 topbar.getCreated_by(),topbar.getUpdated_at(), topbar.getUpdated_by());
+				topbar.getCreated_by(), topbar.getUpdated_at(), topbar.getUpdated_by());
 	}
 
 	public void deleteTopbar(int id) {
@@ -106,18 +107,21 @@ public class TopbarDAO extends BaseDAO {
 		return list;
 	}
 
-	public void deltrash(int id) {
-		String sql = "UPDATE topbar SET status = 0 WHERE id = " + id;
+	public void deltrash(int id,UserEntity loginInfo) {
+		String sql = "UPDATE topbar SET status = 0,updated_by =" + loginInfo.getUser_id()
+				+ ", updated_at = NOW() WHERE id = " + id;
 		jdbcTemplate.update(sql);
 	}
 
-	public void retrash(int id) {
-		String sql = "UPDATE topbar SET status = 2 WHERE id = " + id;
+	public void retrash(int id,UserEntity loginInfo) {
+		String sql = "UPDATE topbar SET status = 2,updated_by =" + loginInfo.getUser_id()
+				+ ", updated_at = NOW() WHERE id = " + id;
 		jdbcTemplate.update(sql);
 	}
 
-	public void onOffTopbar(int id) {
-		String sql = "UPDATE topbar SET status = case WHEN status =1 then 2 when status=2 then 1 end WHERE id = " + id;
+	public void onOffTopbar(int id,UserEntity loginInfo) {
+		String sql = "UPDATE topbar SET status = case WHEN status =1 then 2 when status=2 then 1 end,updated_by ="
+				+ loginInfo.getUser_id() + ", updated_at = NOW() WHERE id = " + id;
 		jdbcTemplate.update(sql);
 	}
 

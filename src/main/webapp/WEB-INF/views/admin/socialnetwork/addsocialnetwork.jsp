@@ -8,8 +8,8 @@
 <title>Thêm mạng xã hội</title>
 </head>
 <body>
-	<c:url var="save" value="/quan-tri/mang-xa-hoi/save" />
-	<c:url var="list" value="/quan-tri/mang-xa-hoi" />
+	<c:url var="save" value="/quan-tri/web/mang-xa-hoi/save" />
+	<c:url var="list" value="/quan-tri/web/mang-xa-hoi" />
 	<form:form modelAttribute="socialnetwork" action="${save}"
 		enctype="multipart/form-data" method="POST">
 		<div class="content-wrapper pt-3">

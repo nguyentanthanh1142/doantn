@@ -17,16 +17,18 @@ public class CartDAO extends BaseDAO {
 	public HashMap<Integer, CartDTO> addCart(int id, HashMap<Integer, CartDTO> cart) {
 		CartDTO itemCart = new CartDTO();
 		ProductEntity product = productDAO.findProductById(id);
-		if (product != null && cart.containsKey(id)) {
-			itemCart = cart.get(id);
-			itemCart.setQuanty(itemCart.getQuanty() + 1);
-			itemCart.setTotalprice(itemCart.getQuanty() * itemCart.getProductEntity().getProductpricesale());
-		} else {
-			itemCart.setProductEntity(product);
-			itemCart.setQuanty(1);
-			itemCart.setTotalprice(product.getProductpricesale());
+		if (product != null) {
+			if (cart.containsKey(id)) {
+				itemCart = cart.get(id);
+				itemCart.setQuanty(itemCart.getQuanty() + 1);
+				itemCart.setTotalprice(itemCart.getQuanty() * itemCart.getProductEntity().getProductpricesale());
+			} else {
+				itemCart.setProductEntity(product);
+				itemCart.setQuanty(1);
+				itemCart.setTotalprice(product.getProductpricesale());
+			}
+			cart.put(id, itemCart);
 		}
-		cart.put(id, itemCart);
 		return cart;
 	}
 

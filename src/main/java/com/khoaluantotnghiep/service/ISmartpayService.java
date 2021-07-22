@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.khoaluantotnghiep.entity.SmartpayEntity;
+import com.khoaluantotnghiep.entity.UserEntity;
 
 @Service
 public interface ISmartpayService {
@@ -20,17 +21,17 @@ public interface ISmartpayService {
 
 	public List<SmartpayEntity> findTrashSmartpay();
 
-	public void deltrashSmartpay(int id);
+	public void deltrashSmartpay(int id,UserEntity loginInfo);
 
 	public void updateSmartpay(SmartpayEntity smartpay);
 
 	public void addSmartpay(SmartpayEntity smartpay);
 
-	public void retrashSmartpay(int id);
+	public void retrashSmartpay(int id,UserEntity loginInfo);
 
 	public void deleteSmartpay(int id);
 
-	public void onOffSmartpay(int id);
+	public void onOffSmartpay(int id,UserEntity loginInfo);
 
 	public boolean isNameExists(String name);
 

@@ -26,6 +26,7 @@ public class BillsMapper implements RowMapper<BillsEntity> {
 		bills.setStatus(rs.getInt("status"));
 		bills.setCreated_at(rs.getString("created_at"));
 		bills.setUpdated_at(rs.getString("updated_at"));
+		bills.setUpdated_by(rs.getInt("updated_by"));
 		bills.setCoupon(rs.getBoolean("coupon"));
 		bills.setCoupon_id(rs.getInt("coupon_id"));
 		bills.setCode(rs.getString("code"));

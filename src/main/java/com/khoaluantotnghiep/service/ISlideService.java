@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.khoaluantotnghiep.entity.SlideEntity;
+import com.khoaluantotnghiep.entity.UserEntity;
 
 @Service
 public interface ISlideService {
@@ -22,11 +23,11 @@ public interface ISlideService {
 
 	public List<SlideEntity> findTrashSlide();
 
-	public void deltrash(int slide_id);
+	public void deltrash(int slide_id,UserEntity loginInfo);
 
-	public void retrash(int slide_id);
+	public void retrash(int slide_id,UserEntity loginInfo);
 
-	public void onOffSlide(int slide_id);
+	public void onOffSlide(int slide_id,UserEntity loginInfo);
 
 	public List<SlideEntity> GetDataSlideTrashPaginate(int start, int totalPage);
 

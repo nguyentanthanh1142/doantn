@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.khoaluantotnghiep.dao.BannerDAO;
 import com.khoaluantotnghiep.entity.BannerEntity;
+import com.khoaluantotnghiep.entity.UserEntity;
 import com.khoaluantotnghiep.service.IBannerService;
 
 @Service
@@ -36,13 +37,13 @@ public class BannerServiceImpl implements IBannerService {
 	}
 
 	@Override
-	public void deltrashBanner(int id) {
-		bannerDAO.deltrashBanner(id);
+	public void deltrashBanner(int id,UserEntity loginInfo) {
+		bannerDAO.deltrashBanner(id, loginInfo);
 	}
 
 	@Override
-	public void retrashBanner(int id) {
-		bannerDAO.retrashBanner(id);
+	public void retrashBanner(int id,UserEntity loginInfo) {
+		bannerDAO.retrashBanner(id, loginInfo);
 	}
 
 	@Override
@@ -61,8 +62,8 @@ public class BannerServiceImpl implements IBannerService {
 	}
 
 	@Override
-	public void onOffBanner(int id) {
-		bannerDAO.onOffBanner(id);
+	public void onOffBanner(int id,UserEntity loginInfo) {
+		bannerDAO.onOffBanner(id, loginInfo);
 	}
 
 	@Override

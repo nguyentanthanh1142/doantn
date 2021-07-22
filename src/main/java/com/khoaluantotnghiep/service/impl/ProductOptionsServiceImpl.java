@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.khoaluantotnghiep.dao.ProductOptionDAO;
 import com.khoaluantotnghiep.entity.ProductOptionsEntity;
+import com.khoaluantotnghiep.entity.UserEntity;
 import com.khoaluantotnghiep.service.IProductOptionsService;
 
 @Service
@@ -60,18 +61,18 @@ public class ProductOptionsServiceImpl implements IProductOptionsService {
 	}
 
 	@Override
-	public void deltrash(int productoptions_id) {
-		prodOptionDAO.deltrash(productoptions_id);
+	public void deltrash(int productoptions_id,UserEntity loginInfo) {
+		prodOptionDAO.deltrash(productoptions_id, loginInfo);
 	}
 
 	@Override
-	public void retrash(int productoptions_id) {
-		prodOptionDAO.retrash(productoptions_id);
+	public void retrash(int productoptions_id,UserEntity loginInfo) {
+		prodOptionDAO.retrash(productoptions_id, loginInfo);
 	}
 
 	@Override
-	public void onOffProdOption(int productoptions_id) {
-		prodOptionDAO.onOffProdOption(productoptions_id);
+	public void onOffProdOption(int productoptions_id,UserEntity loginInfo) {
+		prodOptionDAO.onOffProdOption(productoptions_id, loginInfo);
 	}
 
 }

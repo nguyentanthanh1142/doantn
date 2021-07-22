@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.khoaluantotnghiep.dao.ContactDAO;
 import com.khoaluantotnghiep.entity.ContactEntity;
+import com.khoaluantotnghiep.entity.UserEntity;
 import com.khoaluantotnghiep.service.IContactService;
 
 @Service
@@ -44,7 +45,7 @@ public class ContactServiceImpl implements IContactService {
 		return contactDAO.GetDataContactsPaginate(start, totalPage);
 	}
 	@Override
-	public void onOffContact(int id) {
-		contactDAO.onOffContact(id);
+	public void onOffContact(int id,UserEntity loginInfo) {
+		contactDAO.onOffContact(id, loginInfo);
 	}
 }

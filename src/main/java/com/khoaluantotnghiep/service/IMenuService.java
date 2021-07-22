@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.stereotype.Service;
 
 import com.khoaluantotnghiep.entity.MenuEntity;
+import com.khoaluantotnghiep.entity.UserEntity;
 
 @Service
 public interface IMenuService {
@@ -31,13 +32,13 @@ public interface IMenuService {
 
 	public void updateMenu(MenuEntity menu);
 
-	public void onOffMenu(int post_id);
+	public void onOffMenu(int post_id,UserEntity loginInfo);
 
 	public List<MenuEntity> findTrashMenu();
 
-	public void delTrash(int menu_id);
+	public void delTrash(int menu_id,UserEntity loginInfo);
 
-	public void reTrash(int menu_id);
+	public void reTrash(int menu_id,UserEntity loginInfo);
 
 	public void deleteMenu(int menu_id);
 

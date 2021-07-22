@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.khoaluantotnghiep.dao.SlideDAO;
 import com.khoaluantotnghiep.entity.SlideEntity;
+import com.khoaluantotnghiep.entity.UserEntity;
 import com.khoaluantotnghiep.service.ISlideService;
 
 @Service
@@ -45,18 +46,18 @@ public class SlideServiceImpl implements ISlideService {
 	}
 
 	@Override
-	public void deltrash(int slide_id) {
-		slideDAO.deltrash(slide_id);
+	public void deltrash(int slide_id,UserEntity loginInfo) {
+		slideDAO.deltrash(slide_id, loginInfo);
 	}
 
 	@Override
-	public void retrash(int slide_id) {
-		slideDAO.retrash(slide_id);
+	public void retrash(int slide_id,UserEntity loginInfo) {
+		slideDAO.retrash(slide_id, loginInfo);
 	}
 
 	@Override
-	public void onOffSlide(int slide_id) {
-		slideDAO.onOffSlide(slide_id);
+	public void onOffSlide(int slide_id,UserEntity loginInfo) {
+		slideDAO.onOffSlide(slide_id, loginInfo);
 	}
 
 	@Override

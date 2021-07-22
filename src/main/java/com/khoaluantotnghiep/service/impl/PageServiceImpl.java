@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.khoaluantotnghiep.dao.PageDAO;
 import com.khoaluantotnghiep.entity.PageEntity;
+import com.khoaluantotnghiep.entity.UserEntity;
 import com.khoaluantotnghiep.service.IPageService;
 
 @Service
@@ -40,18 +41,18 @@ public class PageServiceImpl implements IPageService {
 	}
 
 	@Override
-	public void onOffPage(int page_id) {
-		pageDAO.onOffPage(page_id);
+	public void onOffPage(int page_id, UserEntity loginInfo) {
+		pageDAO.onOffPage(page_id,  loginInfo);
 	}
 
 	@Override
-	public void delTrash(int page_id) {
-		pageDAO.delTrash(page_id);
+	public void delTrash(int page_id, UserEntity loginInfo) {
+		pageDAO.delTrash(page_id,  loginInfo);
 	}
 
 	@Override
-	public void reTrash(int page_id) {
-		pageDAO.reTrash(page_id);
+	public void reTrash(int page_id, UserEntity loginInfo) {
+		pageDAO.reTrash(page_id,  loginInfo);
 	}
 
 	@Override

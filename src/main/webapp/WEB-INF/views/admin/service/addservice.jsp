@@ -8,8 +8,8 @@
 <title>Thêm dịch vụ</title>
 </head>
 <body>
-	<c:url var="save" value="/quan-tri/dich-vu/save" />
-	<c:url var="list" value="/quan-tri/dich-vu" />
+	<c:url var="save" value="/quan-tri/web/dich-vu/save" />
+	<c:url var="list" value="/quan-tri/web/dich-vu" />
 	<form:form modelAttribute="service" action="${save}"
 		enctype="multipart/form-data" method="POST">
 		<div class="content-wrapper pt-3">

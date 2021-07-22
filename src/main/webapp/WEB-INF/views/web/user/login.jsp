@@ -34,6 +34,10 @@
 			<div style="text-align: center; color: green; font-weight: 900;"
 				class="alert alert-success">${msgsuccess}</div>
 		</c:if>
+		<c:if test="${not empty msg}">
+			<div style="text-align: center; color: red; font-weight: 900;"
+				class="alert alert-danger">${msg}</div>
+		</c:if>
 		<c:choose>
 			<c:when test="${regis == 1}">
 				<div class="container right-panel-active" id="container">

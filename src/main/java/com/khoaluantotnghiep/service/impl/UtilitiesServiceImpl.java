@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.khoaluantotnghiep.dao.UtilitiesDAO;
-import com.khoaluantotnghiep.entity.OptionsEntity;
+import com.khoaluantotnghiep.entity.UserEntity;
 import com.khoaluantotnghiep.entity.UtilitiesEntity;
 import com.khoaluantotnghiep.service.IUtilitiesService;
 
@@ -59,18 +59,18 @@ public class UtilitiesServiceImpl implements IUtilitiesService {
 	}
 
 	@Override
-	public void deltrash(int utilities_id) {
-		utilitiesDAO.deltrash(utilities_id);
+	public void deltrash(int utilities_id,UserEntity loginInfo) {
+		utilitiesDAO.deltrash(utilities_id, loginInfo);
 	}
 
 	@Override
-	public void retrash(int utilities_id) {
-		utilitiesDAO.retrash(utilities_id);
+	public void retrash(int utilities_id,UserEntity loginInfo) {
+		utilitiesDAO.retrash(utilities_id, loginInfo);
 	}
 
 	@Override
-	public void onOffTopic(int utilities_id) {
-		utilitiesDAO.onOffTopic(utilities_id);
+	public void onOffTopic(int utilities_id,UserEntity loginInfo) {
+		utilitiesDAO.onOffTopic(utilities_id, loginInfo);
 	}
 
 	@Override

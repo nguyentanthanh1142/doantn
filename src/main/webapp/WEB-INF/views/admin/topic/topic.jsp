@@ -57,7 +57,7 @@
 							<tr>
 								<th style="width: 20px;" class="text-center">ID</th>
 								<th>Chủ đề bài viết</th>
-								<th>Chức năng</th>
+								<th style="width: 10rem;">Chức năng</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -90,7 +90,7 @@
 							<tr>
 								<th style="width: 20px;" class="text-center">ID</th>
 								<th>Chủ đề bài viết</th>
-								<th>Chức năng</th>
+								<th style="width: 10rem;">Chức năng</th>
 							</tr>
 						</tfoot>
 					</table>

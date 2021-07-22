@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.khoaluantotnghiep.entity.TopicEntity;
+import com.khoaluantotnghiep.entity.UserEntity;
 import com.khoaluantotnghiep.mapper.TopicMapper;
 
 @Repository
@@ -76,19 +77,21 @@ public class TopicDAO extends BaseDAO {
 		return list;
 	}
 
-	public void deltrash(int topic_id) {
-		String sql = "UPDATE topic SET topic_status = 0 WHERE topic_id = " + topic_id;
+	public void deltrash(int topic_id, UserEntity loginInfo) {
+		String sql = "UPDATE topic SET topic_status = 0,updated_by = " + loginInfo.getUser_id()
+				+ ", updated_at = NOW() WHERE topic_id = " + topic_id;
 		jdbcTemplate.update(sql);
 	}
 
-	public void retrash(int topic_id) {
-		String sql = "UPDATE topic SET topic_status = 2 WHERE topic_id = " + topic_id;
+	public void retrash(int topic_id, UserEntity loginInfo) {
+		String sql = "UPDATE topic SET topic_status = 2,updated_by = " + loginInfo.getUser_id()
+				+ ", updated_at = NOW() WHERE topic_id = " + topic_id;
 		jdbcTemplate.update(sql);
 	}
 
-	public void onOffTopic(int topic_id) {
-		String sql = "UPDATE topic SET topic_status = case WHEN topic_status =1 then 2 when topic_status=2 then 1 end WHERE topic_id = "
-				+ topic_id;
+	public void onOffTopic(int topic_id, UserEntity loginInfo) {
+		String sql = "UPDATE topic SET topic_status = case WHEN topic_status =1 then 2 when topic_status=2 then 1 end,updated_by = "
+				+ loginInfo.getUser_id() + ", updated_at = NOW() WHERE topic_id = " + topic_id;
 		jdbcTemplate.update(sql);
 	}
 
@@ -125,6 +128,7 @@ public class TopicDAO extends BaseDAO {
 		}
 		return listTopicTrashs;
 	}
+
 	public boolean isNameExists(String name) {
 		int count = 0;
 		String sql = "SELECT count(*) FROM topic WHERE topic_name = ?";
@@ -132,32 +136,37 @@ public class TopicDAO extends BaseDAO {
 
 		return count > 0;
 	}
-	public boolean isNameExists(String name,int id) {
+
+	public boolean isNameExists(String name, int id) {
 		int count = 0;
 		String sql = "SELECT count(*) FROM topic WHERE topic_name = ? and topic_id <> ?";
-		count = jdbcTemplate.queryForObject(sql, new Object[] { name,id }, Integer.class);
+		count = jdbcTemplate.queryForObject(sql, new Object[] { name, id }, Integer.class);
 
 		return count > 0;
 	}
-	public boolean isSlugExists(String slug ) {
+
+	public boolean isSlugExists(String slug) {
 		int count = 0;
 		String sql = "SELECT count(*) FROM topic WHERE topic_slug = ?";
 		count = jdbcTemplate.queryForObject(sql, new Object[] { slug }, Integer.class);
 
 		return count > 0;
 	}
-	public boolean isSlugExists(String slug,int id) {
+
+	public boolean isSlugExists(String slug, int id) {
 		int count = 0;
 		String sql = "SELECT count(*) FROM topic WHERE topic_slug = ? and topic_id <> ?";
-		count = jdbcTemplate.queryForObject(sql, new Object[] { slug,id }, Integer.class);
+		count = jdbcTemplate.queryForObject(sql, new Object[] { slug, id }, Integer.class);
 
 		return count > 0;
 	}
+
 	public TopicEntity findTopicBySlug(String slug) {
 		String sql = "SELECT * FROM topic where topic_status = 1 and topic_slug = '" + slug + "'";
 		List<TopicEntity> result = jdbcTemplate.query(sql, new TopicMapper());
 		return result.isEmpty() ? null : result.get(0);
 	}
+
 	public List<TopicEntity> findAllTopicNoFooter() {
 		String sql = "SELECT * FROM topic where topic_status = 1 and showfooter = 0";
 		List<TopicEntity> list = jdbcTemplate.query(sql, new TopicMapper());

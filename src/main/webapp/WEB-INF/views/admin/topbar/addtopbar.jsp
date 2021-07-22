@@ -9,8 +9,8 @@
 </head>
 <body>
 <body>
-	<c:url var="save" value="/quan-tri/thanh-tren/save" />
-	<c:url var="list" value="/quan-tri/thanh-tren" />
+	<c:url var="save" value="/quan-tri/web/thanh-tren/save" />
+	<c:url var="list" value="/quan-tri/web/thanh-tren" />
 	<form:form modelAttribute="topbar" action="${save}"
 		enctype="multipart/form-data" method="POST">
 		<div class="content-wrapper pt-3">

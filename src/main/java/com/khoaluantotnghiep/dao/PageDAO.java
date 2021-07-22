@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.khoaluantotnghiep.entity.PageEntity;
+import com.khoaluantotnghiep.entity.UserEntity;
 import com.khoaluantotnghiep.mapper.PageMapper;
 
 @Repository
@@ -109,19 +110,21 @@ public class PageDAO extends BaseDAO {
 		return list;
 	}
 
-	public void onOffPage(int page_id) {
-		String sql = "UPDATE page SET page_status = case when  page_status =1 then 2 when  page_status =2 then 1 end where  page_id ="
-				+ page_id;
+	public void onOffPage(int page_id, UserEntity loginInfo) {
+		String sql = "UPDATE page SET page_status = case when  page_status =1 then 2 when  page_status =2 then 1 end,updated_by =  "
+				+ +loginInfo.getUser_id() + ", updated_at = NOW() where  page_id =" + page_id;
 		jdbcTemplate.update(sql);
 	}
 
-	public void delTrash(int page_id) {
-		String sql = "UPDATE page SET page_status = 0  where  page_id =" + page_id;
+	public void delTrash(int page_id, UserEntity loginInfo) {
+		String sql = "UPDATE page SET page_status = 0,updated_by = " + +loginInfo.getUser_id()
+				+ ", updated_at = NOW() where  page_id =" + page_id;
 		jdbcTemplate.update(sql);
 	}
 
-	public void reTrash(int page_id) {
-		String sql = "UPDATE page SET page_status = 2  where  page_id =" + page_id;
+	public void reTrash(int page_id, UserEntity loginInfo) {
+		String sql = "UPDATE page SET page_status = 2,updated_by = " + loginInfo.getUser_id()
+				+ ", updated_at = NOW() where  page_id =" + page_id;
 		jdbcTemplate.update(sql);
 	}
 
@@ -130,6 +133,7 @@ public class PageDAO extends BaseDAO {
 		List<PageEntity> list = jdbcTemplate.query(sql, new PageMapper());
 		return list;
 	}
+
 	public boolean isTitledExists(String title) {
 		int count = 0;
 		String sql = "SELECT count(*) FROM page WHERE page_title = ?";
@@ -161,6 +165,7 @@ public class PageDAO extends BaseDAO {
 
 		return count > 0;
 	}
+
 	public PageEntity findPageBySlug(String slug) {
 		String sql = "SELECT * FROM page WHERE page_slug = ?";
 		return jdbcTemplate.queryForObject(sql, new PageMapper(), slug);

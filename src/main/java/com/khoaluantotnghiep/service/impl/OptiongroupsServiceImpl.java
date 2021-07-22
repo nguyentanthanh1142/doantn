@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.khoaluantotnghiep.dao.OptiongroupsDAO;
 import com.khoaluantotnghiep.entity.OptiongroupsEntity;
+import com.khoaluantotnghiep.entity.UserEntity;
 import com.khoaluantotnghiep.service.IOptiongroupsService;
 
 @Service
@@ -62,18 +63,18 @@ public class OptiongroupsServiceImpl implements IOptiongroupsService {
 	}
 
 	@Override
-	public void deltrash(int optiongroups_id) {
-		optiongroupDAO.deltrash(optiongroups_id);
+	public void deltrash(int optiongroups_id,UserEntity loginInfo) {
+		optiongroupDAO.deltrash(optiongroups_id,loginInfo);
 	}
 
 	@Override
-	public void retrash(int optiongroups_id) {
-		optiongroupDAO.retrash(optiongroups_id);
+	public void retrash(int optiongroups_id,UserEntity loginInfo) {
+		optiongroupDAO.retrash(optiongroups_id,loginInfo);
 	}
 
 	@Override
-	public void onOff(int optiongroups_id) {
-		optiongroupDAO.onOff(optiongroups_id);
+	public void onOff(int optiongroups_id,UserEntity loginInfo) {
+		optiongroupDAO.onOff(optiongroups_id,loginInfo);
 	}
 
 	@Override

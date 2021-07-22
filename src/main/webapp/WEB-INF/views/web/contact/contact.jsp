@@ -48,33 +48,33 @@
 							<div class="form-group col-md-6">
 								<label>Họ và tên</label>
 								<form:input type="text" class="form-control" id="inputEmail4"
-									path="name" required="required" />
+									path="name" required="required" placeholder="Họ và tên" />
 							</div>
 							<div class="form-group col-md-6">
 								<label>Email</label>
 								<form:input type="email" class="form-control"
-									id="inputPassword4" path="email" required="required"/>
+									id="inputPassword4" path="email" required="required"  placeholder="Email"/>
 							</div>
 						</div>
 						<div class="form-group">
 							<label>Đia chỉ</label>
 							<form:input type="text" class="form-control" id="inputAddress"
-								path="address" required="required"/>
+								path="address" required="required"  placeholder="Địa chỉ"/>
 						</div>
 						<div class="form-group">
 							<label>Điện thoại</label>
 							<form:input type="text" class="form-control" id="inputPhone"
 								path="phone" pattern="(84|0[3|5|7|8|9])+([0-9]{8})\b"
-								title="Số điện thoại sai định dạng" required="required" />
+								title="Số điện thoại sai định dạng" required="required"  placeholder="Số điện thoại"/>
 						</div>
 						<div class="form-group">
 							<label>Tiêu đề</label>
-							<form:input type="text" class="form-control" path="subject" required="required"/>
+							<form:input type="text" class="form-control" path="subject" required="required"  placeholder="Tiêu đề"/>
 						</div>
 						<div class="form-group">
 							<label>Nội dung</label>
 							<form:textarea type="text" class="form-control" rows="3"
-								path="content" required="required"/>
+								path="content" required="required"  placeholder="Nội dung góp ý"/>
 						</div>
 						<button type="submit" class="btn btn-primary"
 							style="float: right;">Gửi tin nhắn</button>

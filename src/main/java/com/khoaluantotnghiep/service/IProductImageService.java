@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.khoaluantotnghiep.entity.ProductImageEntity;
+import com.khoaluantotnghiep.entity.UserEntity;
 
 @Service
 public interface IProductImageService {
@@ -20,13 +21,13 @@ public interface IProductImageService {
 
 	public List<ProductImageEntity> findTrashProductImage();
 
-	public void deltrashProductImage(int id);
+	public void deltrashProductImage(int id,UserEntity loginInfo);
 
-	public void retrashProductImage(int id);
+	public void retrashProductImage(int id,UserEntity loginInfo);
 
 	public void deleteProductImage(int id);
 
-	public void onOffProductImage(int id);
+	public void onOffProductImage(int id,UserEntity loginInfo);
 
 	public void add(ProductImageEntity prodimg);
 	

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.khoaluantotnghiep.entity.UserEntity;
 import com.khoaluantotnghiep.entity.UtilitiesEntity;
 
 @Service
@@ -24,11 +25,11 @@ public interface IUtilitiesService {
 
 	public List<UtilitiesEntity> GetDataUtilitiesTrashPaginate(int start, int totalPage);
 
-	public void deltrash(int utilities_id);
+	public void deltrash(int utilities_id,UserEntity loginInfo);
 
-	public void retrash(int utilities_id);
+	public void retrash(int utilities_id,UserEntity loginInfo);
 
-	public void onOffTopic(int utilities_id);
+	public void onOffTopic(int utilities_id,UserEntity loginInfo);
 	
 	public List<UtilitiesEntity> findAllTrashUtilities();
 

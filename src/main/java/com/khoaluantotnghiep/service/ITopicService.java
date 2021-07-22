@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 import org.springframework.stereotype.Service;
 import com.khoaluantotnghiep.entity.TopicEntity;
+import com.khoaluantotnghiep.entity.UserEntity;
 
 @Service
 public interface ITopicService {
@@ -19,13 +20,13 @@ public interface ITopicService {
 
 	public TopicEntity findTopicById(TopicEntity topic);
 
-	public void deltrash(int topic_id);
+	public void deltrash(int topic_id, UserEntity loginInfo);
 
-	public void retrash(int topic_id);
+	public void retrash(int topic_id, UserEntity loginInfo);
 
 	public List<TopicEntity> findTrashTopic();
 
-	public void onOffTopic(int topic_id);
+	public void onOffTopic(int topic_id, UserEntity loginInfo);
 
 	public List<TopicEntity> GetDataTopicPaginate(int start, int totalPage);
 

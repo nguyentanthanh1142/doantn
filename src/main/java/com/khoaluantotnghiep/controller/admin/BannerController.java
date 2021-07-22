@@ -20,8 +20,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.khoaluantotnghiep.dto.PaginateDTO;
 import com.khoaluantotnghiep.entity.BannerEntity;
+import com.khoaluantotnghiep.entity.NoteEntity;
 import com.khoaluantotnghiep.entity.UserEntity;
 import com.khoaluantotnghiep.service.impl.BannerServiceImpl;
+import com.khoaluantotnghiep.service.impl.NoteServiceImpl;
 import com.khoaluantotnghiep.service.impl.PaginatesServiceImpl;
 
 @Controller(value = "bannerControllerOfAdmin")
@@ -30,9 +32,11 @@ public class BannerController extends BaseController {
 	BannerServiceImpl bannerService;
 	@Autowired
 	PaginatesServiceImpl paginateService;
+	@Autowired
+	NoteServiceImpl noteService;
 	private int totalDataPage = 5;
 
-	@RequestMapping(value = "/quan-tri/anh-bia", method = RequestMethod.GET)
+	@RequestMapping(value = "/quan-tri/web/anh-bia", method = RequestMethod.GET)
 	public ModelAndView Banner(ModelMap modelMap) {
 		int totalData = bannerService.findAllBanner().size();
 		PaginateDTO paginateInfo = paginateService.GetInfoPaginates(totalData, totalDataPage, 1);
@@ -44,7 +48,7 @@ public class BannerController extends BaseController {
 		return _mvShare;
 	}
 
-	@GetMapping("/quan-tri/anh-bia/{currentPage}")
+	@GetMapping("/quan-tri/web/anh-bia/{currentPage}")
 	public ModelAndView BannerPage(@PathVariable String currentPage) {
 		int totalData = bannerService.findAllBanner().size();
 		PaginateDTO paginateInfo = paginateService.GetInfoPaginates(totalData, totalDataPage,
@@ -57,13 +61,13 @@ public class BannerController extends BaseController {
 		return _mvShare;
 	}
 
-	@RequestMapping(value = "/quan-tri/anh-bia/add", method = RequestMethod.GET)
+	@RequestMapping(value = "/quan-tri/web/anh-bia/add", method = RequestMethod.GET)
 	public ModelAndView addBanner(@ModelAttribute("banner") BannerEntity banner) {
 		_mvShare.setViewName("admin/banner/addbanner");
 		return _mvShare;
 	}
 
-	@RequestMapping(value = "/quan-tri/anh-bia/save", method = RequestMethod.POST, produces = "application/x-www-form-urlencoded;charset=UTF-8")
+	@RequestMapping(value = "/quan-tri/web/anh-bia/save", method = RequestMethod.POST, produces = "application/x-www-form-urlencoded;charset=UTF-8")
 	public String saveBanner(@ModelAttribute("banner") BannerEntity banner, HttpSession session, ModelMap modelMap,
 			@RequestParam(value = "image", required = false) MultipartFile photo,
 			final RedirectAttributes redirectAttributes) {
@@ -75,7 +79,7 @@ public class BannerController extends BaseController {
 		}
 		if (!check) {
 			redirectAttributes.addFlashAttribute("oldvalue", banner);
-			return "redirect:/quan-tri/anh-bia/add";
+			return "redirect:/quan-tri/web/anh-bia/add";
 		}
 		try {
 			banner.setBanner_img(saveFile(photo));
@@ -88,10 +92,15 @@ public class BannerController extends BaseController {
 		} catch (Exception e) {
 			redirectAttributes.addFlashAttribute("msgfail", "Thêm không thành công!");
 		}
-		return "redirect:/quan-tri/anh-bia";
+		NoteEntity noteEntity = new NoteEntity();
+		noteEntity.setContent("Admin đã thêm ảnh bìa " + banner.getBanner_name());
+		noteEntity.setCreated_at(new Date());
+		noteEntity.setCreated_by(loginInfo.getUser_id());
+		noteService.addNote(noteEntity);
+		return "redirect:/quan-tri/web/anh-bia";
 	}
 
-	@RequestMapping(value = "/quan-tri/anh-bia/edit/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/quan-tri/web/anh-bia/edit/{id}", method = RequestMethod.GET)
 	public ModelAndView editBanner(@ModelAttribute("banner") BannerEntity banner, @PathVariable int id) {
 		BannerEntity banneritem = bannerService.findBannerById(banner);
 		_mvShare.addObject("banneritem", banneritem);
@@ -99,7 +108,7 @@ public class BannerController extends BaseController {
 		return _mvShare;
 	}
 
-	@RequestMapping(value = "/quan-tri/anh-bia/thung-rac", method = RequestMethod.GET)
+	@RequestMapping(value = "/quan-tri/web/anh-bia/thung-rac", method = RequestMethod.GET)
 	public ModelAndView trashBanner(@ModelAttribute("banner") BannerEntity banner) {
 		int totalData = bannerService.findTrashBanner().size();
 		PaginateDTO paginateInfo = paginateService.GetInfoPaginates(totalData, totalDataPage, 1);
@@ -111,7 +120,7 @@ public class BannerController extends BaseController {
 		return _mvShare;
 	}
 
-	@GetMapping("/quan-tri/anh-bia/thung-rac/{currentPage}")
+	@GetMapping("/quan-tri/web/anh-bia/thung-rac/{currentPage}")
 	public ModelAndView trashBannerPage(@PathVariable String currentPage,
 			@ModelAttribute("banner") BannerEntity banner) {
 		int totalData = bannerService.findTrashBanner().size();
@@ -125,7 +134,7 @@ public class BannerController extends BaseController {
 		return _mvShare;
 	}
 
-	@RequestMapping(value = "/quan-tri/anh-bia/editsave", method = RequestMethod.POST, produces = "application/x-www-form-urlencoded;charset=UTF-8")
+	@RequestMapping(value = "/quan-tri/web/anh-bia/editsave", method = RequestMethod.POST, produces = "application/x-www-form-urlencoded;charset=UTF-8")
 	public String editsaveBanner(@ModelAttribute("banner") BannerEntity banner, HttpSession session, ModelMap modelMap,
 			@RequestParam(value = "image", required = false) MultipartFile photo,
 			final RedirectAttributes redirectAttributes) {
@@ -137,7 +146,7 @@ public class BannerController extends BaseController {
 		}
 		if (!check) {
 			redirectAttributes.addFlashAttribute("oldvalue", banner);
-			return "redirect:/quan-tri/anh-bia/edit/" + banner.getId();
+			return "redirect:/quan-tri/web/anh-bia/edit/" + banner.getId();
 		}
 		try {
 			banner.setBanner_img(saveFile(photo));
@@ -148,15 +157,26 @@ public class BannerController extends BaseController {
 		} catch (Exception e) {
 			redirectAttributes.addFlashAttribute("msgfail", "Cập nhật không thành công!");
 		}
-		return "redirect:/quan-tri/anh-bia";
+		NoteEntity noteEntity = new NoteEntity();
+		noteEntity.setContent("Admin chỉnh sửa ảnh bìa " + banner.getId());
+		noteEntity.setCreated_at(new Date());
+		noteEntity.setCreated_by(loginInfo.getUser_id());
+		noteService.addNote(noteEntity);
+		return "redirect:/quan-tri/web/anh-bia";
 	}
 
-	@RequestMapping(value = "/quan-tri/anh-bia/deletebanner/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/quan-tri/web/anh-bia/deletebanner/{id}", method = RequestMethod.GET)
 	public String deleteTopic(@PathVariable int id, ModelMap modelMap, final RedirectAttributes redirectAttributes,
-			HttpServletRequest request) {
+			HttpServletRequest request, HttpSession session) {
+		UserEntity loginInfo = (UserEntity) session.getAttribute("LoginInfo");
 		try {
 			bannerService.deleteBanner(id);
 			redirectAttributes.addFlashAttribute("msg", "Xóa thành công!");
+			NoteEntity noteEntity = new NoteEntity();
+			noteEntity.setContent("Admin xóa vĩnh viễn ảnh bìa " + id);
+			noteEntity.setCreated_at(new Date());
+			noteEntity.setCreated_by(loginInfo.getUser_id());
+			noteService.addNote(noteEntity);
 		} catch (Exception e) {
 			redirectAttributes.addFlashAttribute("msgfail", "Xóa không thành công!");
 		}
@@ -164,12 +184,18 @@ public class BannerController extends BaseController {
 		return "redirect:" + referer;
 	}
 
-	@RequestMapping(value = "/quan-tri/anh-bia/trash/{id}", method = RequestMethod.GET)
-	public String delBanner(@PathVariable int id, ModelMap modelMap, final RedirectAttributes redirectAttributes,
-			HttpServletRequest request) {
+	@RequestMapping(value = "/quan-tri/web/anh-bia/trash/{id}", method = RequestMethod.GET)
+	public String delBanner(@PathVariable int id, ModelMap modelMap, HttpSession session,
+			final RedirectAttributes redirectAttributes, HttpServletRequest request) {
 		try {
-			bannerService.deltrashBanner(id);
+			UserEntity loginInfo = (UserEntity) session.getAttribute("LoginInfo");
+			bannerService.deltrashBanner(id, loginInfo);
 			redirectAttributes.addFlashAttribute("msg", "Xóa vào thùng rác thành công!");
+			NoteEntity noteEntity = new NoteEntity();
+			noteEntity.setContent("Admin xóa tạm thời ảnh bìa " + id);
+			noteEntity.setCreated_at(new Date());
+			noteEntity.setCreated_by(loginInfo.getUser_id());
+			noteService.addNote(noteEntity);
 		} catch (Exception e) {
 			redirectAttributes.addFlashAttribute("msgfail", "Xóa vào thùng rác không thành công!");
 		}
@@ -177,12 +203,18 @@ public class BannerController extends BaseController {
 		return "redirect:" + referer;
 	}
 
-	@RequestMapping(value = "/quan-tri/anh-bia/retrash/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/quan-tri/web/anh-bia/retrash/{id}", method = RequestMethod.GET)
 	public String retrashBanner(@PathVariable int id, ModelMap modelMap, final RedirectAttributes redirectAttributes,
-			HttpServletRequest request) {
+			HttpServletRequest request, HttpSession session) {
 		try {
-			bannerService.retrashBanner(id);
+			UserEntity loginInfo = (UserEntity) session.getAttribute("LoginInfo");
+			bannerService.retrashBanner(id, loginInfo);
 			redirectAttributes.addFlashAttribute("msg", "Thao tác thành công!");
+			NoteEntity noteEntity = new NoteEntity();
+			noteEntity.setContent("Admin bỏ xóa tạm thời ảnh bìa " + id);
+			noteEntity.setCreated_at(new Date());
+			noteEntity.setCreated_by(loginInfo.getUser_id());
+			noteService.addNote(noteEntity);
 		} catch (Exception e) {
 			redirectAttributes.addFlashAttribute("msgfail", "Thao tác không thành công!");
 		}
@@ -190,12 +222,18 @@ public class BannerController extends BaseController {
 		return "redirect:" + referer;
 	}
 
-	@RequestMapping(value = "/quan-tri/anh-bia/status/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/quan-tri/web/anh-bia/status/{id}", method = RequestMethod.GET)
 	public String onOffBanner(@PathVariable int id, ModelMap modelMap, final RedirectAttributes redirectAttributes,
-			HttpServletRequest request) {
+			HttpServletRequest request, HttpSession session) {
 		try {
-			bannerService.onOffBanner(id);
+			UserEntity loginInfo = (UserEntity) session.getAttribute("LoginInfo");
+			bannerService.onOffBanner(id, loginInfo);
 			redirectAttributes.addFlashAttribute("msg", "Thao tác thành công!");
+			NoteEntity noteEntity = new NoteEntity();
+			noteEntity.setContent("Admin thay đổi trạng thái ảnh bìa " + id);
+			noteEntity.setCreated_at(new Date());
+			noteEntity.setCreated_by(loginInfo.getUser_id());
+			noteService.addNote(noteEntity);
 		} catch (Exception e) {
 			redirectAttributes.addFlashAttribute("msgfail", "Thao tác không thành công!");
 		}

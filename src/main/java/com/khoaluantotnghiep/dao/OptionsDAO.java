@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.khoaluantotnghiep.entity.OptionsEntity;
+import com.khoaluantotnghiep.entity.UserEntity;
 import com.khoaluantotnghiep.mapper.OptionsMapper;
 
 @Transactional
@@ -82,7 +83,7 @@ public class OptionsDAO extends BaseDAO {
 		List<OptionsEntity> result = jdbcTemplate.query(sql, new OptionsMapper());
 		return result.isEmpty() ? null : result.get(0);
 	}
-	
+
 	public OptionsEntity findOptionId(int options_id) {
 		String sql = "SELECT * FROM options WHERE options_id = " + options_id;
 		List<OptionsEntity> result = jdbcTemplate.query(sql, new OptionsMapper());
@@ -117,21 +118,24 @@ public class OptionsDAO extends BaseDAO {
 		jdbcTemplate.update(sql);
 	}
 
-	public void deltrash(int options_id) {
-		String sql = "UPDATE options SET status = 0 WHERE options_id  = " + options_id;
+	public void deltrash(int options_id, UserEntity loginInfo) {
+		String sql = "UPDATE options SET status = 0,updated_by =" + loginInfo.getUser_id()
+				+ ", updated_at = NOW() WHERE options_id  = " + options_id;
 		jdbcTemplate.update(sql);
 	}
 
-	public void retrash(int options_id) {
-		String sql = "UPDATE options SET status = 2 WHERE options_id  = " + options_id;
+	public void retrash(int options_id, UserEntity loginInfo) {
+		String sql = "UPDATE options SET status = 2,updated_by =" + loginInfo.getUser_id()
+				+ ", updated_at = NOW() WHERE options_id  = " + options_id;
 		jdbcTemplate.update(sql);
 	}
 
-	public void onOff(int options_id) {
-		String sql = "UPDATE options SET status = case WHEN status =1 then 2 when status=2 then 1 end WHERE options_id  = "
-				+ options_id;
+	public void onOff(int options_id, UserEntity loginInfo) {
+		String sql = "UPDATE options SET status = case WHEN status =1 then 2 when status=2 then 1 end,updated_by = "
+				+ loginInfo.getUser_id() + ", updated_at = NOW() WHERE options_id  = " + options_id;
 		jdbcTemplate.update(sql);
 	}
+
 	public OptionsEntity findOtherOptionByName(OptionsEntity option) {
 		String sql = "SELECT * FROM options WHERE optionname = '" + option.getOptionname() + "' AND optiongroup_id = "
 				+ option.getOptiongroup_id() + " and options_id <>" + option.getOptions_id();

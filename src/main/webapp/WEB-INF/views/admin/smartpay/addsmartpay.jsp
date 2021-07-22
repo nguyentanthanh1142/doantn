@@ -8,8 +8,8 @@
 <title>Thêm nhà thanh toán</title>
 </head>
 <body>
-	<c:url var="save" value="/quan-tri/nha-thanh-toan/save" />
-	<c:url var="list" value="/quan-tri/nha-thanh-toan" />
+	<c:url var="save" value="/quan-tri/web/nha-thanh-toan/save" />
+	<c:url var="list" value="/quan-tri/web/nha-thanh-toan" />
 	<form:form modelAttribute="smartpay" action="${save}"
 		enctype="multipart/form-data" method="POST">
 		<div class="content-wrapper pt-3">

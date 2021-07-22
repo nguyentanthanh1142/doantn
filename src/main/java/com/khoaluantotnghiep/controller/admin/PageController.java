@@ -18,8 +18,10 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.khoaluantotnghiep.dto.PaginateDTO;
+import com.khoaluantotnghiep.entity.NoteEntity;
 import com.khoaluantotnghiep.entity.PageEntity;
 import com.khoaluantotnghiep.entity.UserEntity;
+import com.khoaluantotnghiep.service.impl.NoteServiceImpl;
 import com.khoaluantotnghiep.service.impl.PageServiceImpl;
 import com.khoaluantotnghiep.service.impl.PaginatesServiceImpl;
 import com.khoaluantotnghiep.service.impl.TopicServiceImpl;
@@ -32,6 +34,8 @@ public class PageController extends BaseController {
 	PaginatesServiceImpl paginateService;
 	@Autowired
 	TopicServiceImpl topicService;
+	@Autowired
+	NoteServiceImpl noteService;
 
 	private int totalDataPage = 5;
 
@@ -95,6 +99,12 @@ public class PageController extends BaseController {
 			page.setUpdated_at(new Date());
 			pageService.addPage(page);
 			redirectAttributes.addFlashAttribute("msg", "Thêm thành công");
+			// them note de quan ly
+			NoteEntity noteEntity = new NoteEntity();
+			noteEntity.setContent("Admin đã thêm trang đơn " + page.getPage_title());
+			noteEntity.setCreated_at(new Date());
+			noteEntity.setCreated_by(loginInfo.getUser_id());
+			noteService.addNote(noteEntity);
 		} catch (Exception e) {
 			redirectAttributes.addFlashAttribute("msgfail", "Thêm không thành công");
 		}
@@ -146,6 +156,12 @@ public class PageController extends BaseController {
 			page.setUpdated_by(loginInfo.getUser_id());
 			pageService.updatePage(page);
 			redirectAttributes.addFlashAttribute("msg", "Cập nhật thành công");
+			// them note de quan ly
+			NoteEntity noteEntity = new NoteEntity();
+			noteEntity.setContent("Admin đã chỉnh sửa trang đơn " + page.getPage_id());
+			noteEntity.setCreated_at(new Date());
+			noteEntity.setCreated_by(loginInfo.getUser_id());
+			noteService.addNote(noteEntity);
 		} catch (Exception e) {
 			redirectAttributes.addFlashAttribute("msg", "Cập nhật Không thành công");
 		}
@@ -155,11 +171,17 @@ public class PageController extends BaseController {
 
 	@RequestMapping(value = "/quan-tri/trang-don/status/{page_id}", method = RequestMethod.GET)
 	public String onOffPage(@PathVariable int page_id, final RedirectAttributes redirectAttributes,
-			HttpServletRequest request) {
+			HttpServletRequest request, HttpSession session) {
 		try {
-			pageService.onOffPage(page_id);
+			UserEntity loginInfo = (UserEntity) session.getAttribute("LoginInfo");
+			pageService.onOffPage(page_id, loginInfo);
 			redirectAttributes.addFlashAttribute("msg", "Thao tác thành công");
-
+			// them note de quan ly
+			NoteEntity noteEntity = new NoteEntity();
+			noteEntity.setContent("Admin đã thay đổi trang đơn " + page_id);
+			noteEntity.setCreated_at(new Date());
+			noteEntity.setCreated_by(loginInfo.getUser_id());
+			noteService.addNote(noteEntity);
 		} catch (Exception e) {
 			redirectAttributes.addFlashAttribute("msg", "Không thành công");
 		}
@@ -169,10 +191,17 @@ public class PageController extends BaseController {
 
 	@RequestMapping(value = "/quan-tri/trang-don/trash/{page_id}", method = RequestMethod.GET)
 	public String delTrashPage(@PathVariable int page_id, HttpServletRequest request,
-			final RedirectAttributes redirectAttributes) {
+			final RedirectAttributes redirectAttributes, HttpSession session) {
 		try {
-			pageService.delTrash(page_id);
+			UserEntity loginInfo = (UserEntity) session.getAttribute("LoginInfo");
+			pageService.delTrash(page_id, loginInfo);
 			redirectAttributes.addFlashAttribute("msg", "Thao tác thành công");
+			// them note de quan ly
+			NoteEntity noteEntity = new NoteEntity();
+			noteEntity.setContent("Admin đã xóa tạm thời trang đơn " + page_id);
+			noteEntity.setCreated_at(new Date());
+			noteEntity.setCreated_by(loginInfo.getUser_id());
+			noteService.addNote(noteEntity);
 		} catch (Exception e) {
 			redirectAttributes.addFlashAttribute("msgfail", "Thao tác không thành công");
 		}
@@ -208,11 +237,18 @@ public class PageController extends BaseController {
 
 	@RequestMapping(value = "/quan-tri/trang-don/retrash/{page_id}", method = RequestMethod.GET)
 	public String reTrash(@PathVariable int page_id, HttpServletRequest request,
-			final RedirectAttributes redirectAttributes) {
+			final RedirectAttributes redirectAttributes, HttpSession session) {
 
 		try {
-			pageService.reTrash(page_id);
+			UserEntity loginInfo = (UserEntity) session.getAttribute("LoginInfo");
+			pageService.reTrash(page_id, loginInfo);
 			redirectAttributes.addFlashAttribute("msg", "Thao tác thành công");
+			// them note de quan ly
+			NoteEntity noteEntity = new NoteEntity();
+			noteEntity.setContent("Admin đã bỏ xóa tạm thời trang đơn " + page_id);
+			noteEntity.setCreated_at(new Date());
+			noteEntity.setCreated_by(loginInfo.getUser_id());
+			noteService.addNote(noteEntity);
 		} catch (Exception e) {
 			redirectAttributes.addFlashAttribute("msgfail", "Thao tác không thành công");
 		}
@@ -222,10 +258,17 @@ public class PageController extends BaseController {
 
 	@RequestMapping(value = "/quan-tri/trang-don/deletepage/{page_id}", method = RequestMethod.GET)
 	public String deletaPage(@PathVariable int page_id, HttpServletRequest request,
-			final RedirectAttributes redirectAttributes) {
+			final RedirectAttributes redirectAttributes, HttpSession session) {
 		try {
+			UserEntity loginInfo = (UserEntity) session.getAttribute("LoginInfo");
 			pageService.deletePage(page_id);
 			redirectAttributes.addFlashAttribute("msg", "Thao tác thành công");
+			// them note de quan ly
+			NoteEntity noteEntity = new NoteEntity();
+			noteEntity.setContent("Admin đã bỏ xóa tạm thời trang đơn " + page_id);
+			noteEntity.setCreated_at(new Date());
+			noteEntity.setCreated_by(loginInfo.getUser_id());
+			noteService.addNote(noteEntity);
 		} catch (Exception e) {
 			redirectAttributes.addFlashAttribute("msgfail", "Thao tác không thành công");
 		}

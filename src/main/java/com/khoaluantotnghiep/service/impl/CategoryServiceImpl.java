@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.khoaluantotnghiep.dao.CategoryDAO;
 import com.khoaluantotnghiep.entity.CategoryEntity;
+import com.khoaluantotnghiep.entity.UserEntity;
 import com.khoaluantotnghiep.service.ICategoryService;
 
 @Service
@@ -53,18 +54,18 @@ public class CategoryServiceImpl implements ICategoryService {
 	}
 
 	@Override
-	public void deltrash(int id) {
-		categoryDAO.deltrash(id);
+	public void deltrash(int id, UserEntity loginInfo) {
+		categoryDAO.deltrash(id,loginInfo);
 	}
 
 	@Override
-	public void retrash(int id) {
-		categoryDAO.retrash(id);
+	public void retrash(int id, UserEntity loginInfo) {
+		categoryDAO.retrash(id,loginInfo);
 	}
 
 	@Override
-	public void onOffCategory(int id) {
-		categoryDAO.onOffCategory(id);
+	public void onOffCategory(int id, UserEntity loginInfo) {
+		categoryDAO.onOffCategory(id,loginInfo);
 	}
 
 	@Override

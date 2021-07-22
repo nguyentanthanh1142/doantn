@@ -27,6 +27,8 @@
 <link
 	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700"
 	rel="stylesheet">
+<link rel="stylesheet"
+	href="<c:url value='/template/web/assets/css/bootstrap-steps.min.css'/>">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript"

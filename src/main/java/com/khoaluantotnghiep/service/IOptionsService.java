@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.stereotype.Service;
 
 import com.khoaluantotnghiep.entity.OptionsEntity;
+import com.khoaluantotnghiep.entity.UserEntity;
 
 @Service
 public interface IOptionsService {
@@ -27,11 +28,11 @@ public interface IOptionsService {
 
 	public void deleteOption(int options_id);
 
-	public void deltrash(int options_id);
+	public void deltrash(int options_id,UserEntity loginInfo);
 
-	public void retrash(int options_id);
+	public void retrash(int options_id,UserEntity loginInfo);
 
-	public void onOff(int options_id);
+	public void onOff(int options_id,UserEntity loginInfo);
 	
 	public OptionsEntity findOptionByName(OptionsEntity option);
 	

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.khoaluantotnghiep.dao.OptionsDAO;
 import com.khoaluantotnghiep.entity.OptionsEntity;
+import com.khoaluantotnghiep.entity.UserEntity;
 import com.khoaluantotnghiep.service.IOptionsService;
 
 @Service
@@ -62,18 +63,18 @@ public class OptionsServiceImpl implements IOptionsService {
 	}
 
 	@Override
-	public void deltrash(int options_id) {
-		optionsDAO.deltrash(options_id);
+	public void deltrash(int options_id,UserEntity loginInfo) {
+		optionsDAO.deltrash(options_id, loginInfo);
 	}
 
 	@Override
-	public void retrash(int options_id) {
-		optionsDAO.retrash(options_id);
+	public void retrash(int options_id,UserEntity loginInfo) {
+		optionsDAO.retrash(options_id, loginInfo);
 	}
 
 	@Override
-	public void onOff(int options_id) {
-		optionsDAO.onOff(options_id);
+	public void onOff(int options_id,UserEntity loginInfo) {
+		optionsDAO.onOff(options_id, loginInfo);
 	}
 
 	@Override

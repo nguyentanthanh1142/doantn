@@ -37,6 +37,8 @@
 								class="title-info">Đơn hàng của bạn</a></li>
 							<li><a href="<c:url value='/tai-khoan/doi-mat-khau'/>"
 								class="title-info">Đổi mật khẩu</a></li>
+							<li><a href="<c:url value='/dang-xuat'/>" class="title-info">Đăng
+									xuất</a></li>
 						</ul>
 					</div>
 				</div>
@@ -51,7 +53,7 @@
 										<th>Ngày</th>
 										<th>Địa chỉ</th>
 										<th>Giá trị đơn hàng</th>
-										<th>TT thanh toán</th>
+										<th>Tình trạng</th>
 										<th>TT vận chuyển</th>
 									</tr>
 								</thead>
@@ -65,12 +67,24 @@
 											<td><fmt:formatNumber value="${item.total}"
 													type="number" />đ</td>
 											<td><c:choose>
+													<c:when test="${item.status == -1}">
+												Đã hủy
+											</c:when>
 													<c:when test="${item.status == 0}">
-													Chưa thanh toán
-													</c:when>
-													<c:otherwise>
-													Đã thanh toán
-													</c:otherwise>
+												Đặt hàng
+											</c:when>
+													<c:when test="${item.status == 1}">
+												Đã xác nhận
+											</c:when>
+													<c:when test="${item.status ==2}">
+												Đã giao cho ĐVVC
+											</c:when>
+													<c:when test="${item.status ==3}">
+												Đang vận chuyển
+											</c:when>
+													<c:when test="${item.status ==4}">
+												Đã giao hàng
+											</c:when>
 												</c:choose></td>
 											<td><a
 												href="<c:url value="/tai-khoan/don-hang/chi-tiet-don-hang/${item.id}"/>">Chi

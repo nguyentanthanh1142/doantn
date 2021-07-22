@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.khoaluantotnghiep.entity.ProductOptionsEntity;
+import com.khoaluantotnghiep.entity.UserEntity;
 import com.khoaluantotnghiep.mapper.ProductOptionMapper;
 
 @Repository
@@ -107,19 +108,21 @@ public class ProductOptionDAO extends BaseDAO {
 		jdbcTemplate.update(sql);
 	}
 
-	public void deltrash(int productoptions_id) {
-		String sql = "UPDATE productoptions SET status = 0 WHERE productoptions_id = " + productoptions_id;
+	public void deltrash(int productoptions_id, UserEntity loginInfo) {
+		String sql = "UPDATE productoptions SET status = 0,updated_by = " + loginInfo.getUser_id()
+				+ ", updated_at = NOW() WHERE productoptions_id = " + productoptions_id;
 		jdbcTemplate.update(sql);
 	}
 
-	public void retrash(int productoptions_id) {
-		String sql = "UPDATE productoptions SET status = 2 WHERE productoptions_id = " + productoptions_id;
+	public void retrash(int productoptions_id, UserEntity loginInfo) {
+		String sql = "UPDATE productoptions SET status = 2,updated_by = " + loginInfo.getUser_id()
+				+ ", updated_at = NOW() WHERE productoptions_id = " + productoptions_id;
 		jdbcTemplate.update(sql);
 	}
 
-	public void onOffProdOption(int productoptions_id) {
-		String sql = "UPDATE productoptions SET status = case WHEN status =1 then 2 when status=2 then 1 end WHERE productoptions_id = "
-				+ productoptions_id;
+	public void onOffProdOption(int productoptions_id, UserEntity loginInfo) {
+		String sql = "UPDATE productoptions SET status = case WHEN status =1 then 2 when status=2 then 1 end,updated_by = "
+				+ loginInfo.getUser_id() + ", updated_at = NOW() WHERE productoptions_id = " + productoptions_id;
 		jdbcTemplate.update(sql);
 	}
 }

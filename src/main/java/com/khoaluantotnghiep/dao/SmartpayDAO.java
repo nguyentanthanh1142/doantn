@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.khoaluantotnghiep.entity.SmartpayEntity;
+import com.khoaluantotnghiep.entity.UserEntity;
 import com.khoaluantotnghiep.mapper.SmartpayMapper;
 
 @Repository
@@ -83,13 +84,15 @@ public class SmartpayDAO extends BaseDAO {
 		return list;
 	}
 
-	public void deltrashSmartpay(int id) {
-		String sql = "UPDATE smartpay SET status = 0 WHERE id = " + id;
+	public void deltrashSmartpay(int id,UserEntity loginInfo) {
+		String sql = "UPDATE smartpay SET status = 0,updated_by =" + loginInfo.getUser_id()
+				+ ", updated_at = NOW() WHERE id = " + id;
 		jdbcTemplate.update(sql);
 	}
 
-	public void retrashSmartpay(int id) {
-		String sql = "UPDATE smartpay SET status = 2 WHERE id = " + id;
+	public void retrashSmartpay(int id,UserEntity loginInfo) {
+		String sql = "UPDATE smartpay SET status = 2,updated_by =" + loginInfo.getUser_id()
+				+ ", updated_at = NOW() WHERE id = " + id;
 		jdbcTemplate.update(sql);
 	}
 
@@ -120,9 +123,9 @@ public class SmartpayDAO extends BaseDAO {
 		jdbcTemplate.update(sql);
 	}
 
-	public void onOffSmartpay(int id) {
-		String sql = "UPDATE smartpay SET status = case WHEN status =1 then 2 when status=2 then 1 end where id = "
-				+ id;
+	public void onOffSmartpay(int id,UserEntity loginInfo) {
+		String sql = "UPDATE smartpay SET status = case WHEN status =1 then 2 when status=2 then 1 end,updated_by ="
+				+ loginInfo.getUser_id() + ", updated_at = NOW() where id = " + id;
 		jdbcTemplate.update(sql);
 	}
 

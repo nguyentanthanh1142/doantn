@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.khoaluantotnghiep.entity.BannerEntity;
+import com.khoaluantotnghiep.entity.UserEntity;
 
 @Service
 public interface IBannerService {
@@ -16,9 +17,9 @@ public interface IBannerService {
 
 	public List<BannerEntity> findTrashBanner();
 
-	public void deltrashBanner(int id);
+	public void deltrashBanner(int id,UserEntity loginInfo);
 
-	public void retrashBanner(int id);
+	public void retrashBanner(int id,UserEntity loginInfo);
 
 	public void addBanner(BannerEntity banner);
 
@@ -26,7 +27,7 @@ public interface IBannerService {
 
 	public void deleteBanner(int id);
 
-	public void onOffBanner(int id);
+	public void onOffBanner(int id,UserEntity loginInfo);
 
 	public List<BannerEntity> GetDataBannerPaginate(int start, int totalPage);
 

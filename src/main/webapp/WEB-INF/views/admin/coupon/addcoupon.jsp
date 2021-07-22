@@ -8,8 +8,8 @@
 <title>Thêm mã khuyến mãi</title>
 </head>
 <body>
-	<c:url var="save" value="/quan-tri/ma-khuyen-mai/save" />
-	<c:url var="list" value="/quan-tri/ma-khuyen-mai" />
+	<c:url var="save" value="/quan-tri/web/ma-khuyen-mai/save" />
+	<c:url var="list" value="/quan-tri/web/ma-khuyen-mai" />
 	<form:form modelAttribute="coupon" action="${save}" method="POST">
 		<div class="content-wrapper pt-3">
 			<!-- Content Header (Page header) -->

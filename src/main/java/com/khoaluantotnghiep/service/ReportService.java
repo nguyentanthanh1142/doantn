@@ -12,5 +12,12 @@ public interface ReportService {
 	public List<ReportColumn> reportReceiptDay(Date date, int limit);
 
 	public List<ReportColumn> reportReceiptMonth(Date date, int limit);
-}
 
+	public int getNumberAccounts();
+
+	public double getTotalInMonth();
+	
+	public double getTotalLastMonth();
+
+	public int getNumberOfCancledBillsinMonth();
+}

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.khoaluantotnghiep.entity.SlideEntity;
+import com.khoaluantotnghiep.entity.UserEntity;
 import com.khoaluantotnghiep.mapper.SlideMapper;
 
 @Repository
@@ -107,21 +108,24 @@ public class SlideDAO extends BaseDAO {
 		return list;
 	}
 
-	public void deltrash(int slide_id) {
-		String sql = "UPDATE slide SET slide_status = 0 WHERE slide_id = " + slide_id;
+	public void deltrash(int slide_id,UserEntity loginInfo) {
+		String sql = "UPDATE slide SET slide_status = 0,updated_by =" + loginInfo.getUser_id()
+				+ ", updated_at = NOW() WHERE slide_id = " + slide_id;
 		jdbcTemplate.update(sql);
 	}
 
-	public void retrash(int slide_id) {
-		String sql = "UPDATE slide SET slide_status = 2 WHERE slide_id = " + slide_id;
+	public void retrash(int slide_id,UserEntity loginInfo) {
+		String sql = "UPDATE slide SET slide_status = 2,updated_by =" + loginInfo.getUser_id()
+				+ ", updated_at = NOW() WHERE slide_id = " + slide_id;
 		jdbcTemplate.update(sql);
 	}
 
-	public void onOffSlide(int slide_id) {
-		String sql = "UPDATE slide SET slide_status = case WHEN slide_status =1 then 2 when slide_status=2 then 1 end WHERE slide_id = "
-				+ slide_id;
+	public void onOffSlide(int slide_id,UserEntity loginInfo) {
+		String sql = "UPDATE slide SET slide_status = case WHEN slide_status =1 then 2 when slide_status=2 then 1 end,updated_by ="
+				+ loginInfo.getUser_id() + ", updated_at = NOW() WHERE slide_id = " + slide_id;
 		jdbcTemplate.update(sql);
 	}
+
 	public boolean isNameExists(String name) {
 		int count = 0;
 		String sql = "SELECT count(*) FROM slide WHERE slide_caption = ?";
@@ -129,10 +133,11 @@ public class SlideDAO extends BaseDAO {
 
 		return count > 0;
 	}
-	public boolean isNameExists(String name,int id) {
+
+	public boolean isNameExists(String name, int id) {
 		int count = 0;
 		String sql = "SELECT count(*) FROM slide WHERE slide_caption = ? and slide_id <> ?";
-		count = jdbcTemplate.queryForObject(sql, new Object[] { name,id }, Integer.class);
+		count = jdbcTemplate.queryForObject(sql, new Object[] { name, id }, Integer.class);
 
 		return count > 0;
 	}

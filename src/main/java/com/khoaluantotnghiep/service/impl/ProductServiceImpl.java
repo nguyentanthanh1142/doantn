@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.khoaluantotnghiep.dao.ProductDAO;
 import com.khoaluantotnghiep.entity.ProductEntity;
+import com.khoaluantotnghiep.entity.UserEntity;
 import com.khoaluantotnghiep.service.IProductService;
 
 @Service
@@ -73,8 +74,8 @@ public class ProductServiceImpl implements IProductService {
 	}
 
 	@Override
-	public void onOffProduct(int product_id) {
-		productDAO.onOffProduct(product_id);
+	public void onOffProduct(int product_id,UserEntity loginInfo) {
+		productDAO.onOffProduct(product_id, loginInfo);
 	}
 
 	@Override
@@ -83,13 +84,13 @@ public class ProductServiceImpl implements IProductService {
 	}
 
 	@Override
-	public void delTrash(int product_id) {
-		productDAO.delTrash(product_id);
+	public void delTrash(int product_id,UserEntity loginInfo) {
+		productDAO.delTrash(product_id, loginInfo);
 	}
 
 	@Override
-	public void reTrash(int product_id) {
-		productDAO.reTrash(product_id);
+	public void reTrash(int product_id,UserEntity loginInfo) {
+		productDAO.reTrash(product_id, loginInfo);
 	}
 
 	@Override

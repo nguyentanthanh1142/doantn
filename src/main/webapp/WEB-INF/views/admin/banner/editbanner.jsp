@@ -8,8 +8,8 @@
 <title>Cập nhật ảnh bìa</title>
 </head>
 <body>
-	<c:url var="editsave" value="/quan-tri/anh-bia/editsave" />
-	<c:url var="list" value="/quan-tri/anh-bia" />
+	<c:url var="editsave" value="/quan-tri/web/anh-bia/editsave" />
+	<c:url var="list" value="/quan-tri/web/anh-bia" />
 	<form:form modelAttribute="banner" action="${editsave}"
 		enctype="multipart/form-data" method="POST">
 		<div class="content-wrapper pt-3">

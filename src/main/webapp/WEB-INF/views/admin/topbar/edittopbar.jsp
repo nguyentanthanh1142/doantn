@@ -8,8 +8,8 @@
 <title>Chỉnh sửa banner quảng cáo (topbar)</title>
 </head>
 <body>
-	<c:url var="editsave" value="/quan-tri/thanh-tren/editsave" />
-	<c:url var="list" value="/quan-tri/thanh-tren" />
+	<c:url var="editsave" value="/quan-tri/web/thanh-tren/editsave" />
+	<c:url var="list" value="/quan-tri/web/thanh-tren" />
 	<form:form modelAttribute="topbar" action="${editsave}"
 		enctype="multipart/form-data" method="POST">
 		<div class="content-wrapper pt-3">

@@ -19,6 +19,8 @@
 	href="<c:url value='/template/web/assets/css/ft.css'/>">
 <link rel="stylesheet"
 	href="<c:url value='/template/web/assets/css/bootstrap.min.css'/>">
+<link rel="stylesheet"
+	href="<c:url value='/template/web/assets/css/bootstrap-steps.min.css'/>">
 <link rel="stylesheet" type="text/css"
 	href="<c:url value='/template/web/assets/owlcarousel/assets/owl.carousel.min.css'/> " />
 <link rel="stylesheet" type="text/css"

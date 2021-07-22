@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.stereotype.Service;
 
 import com.khoaluantotnghiep.entity.OptiongroupsEntity;
+import com.khoaluantotnghiep.entity.UserEntity;
 
 @Service
 public interface IOptiongroupsService {
@@ -27,11 +28,11 @@ public interface IOptiongroupsService {
 
 	public void deleteOptionGroup(int optiongroups_id);
 
-	public void deltrash(int optiongroups_id);
+	public void deltrash(int optiongroups_id,UserEntity loginInfo);
 
-	public void retrash(int optiongroups_id);
+	public void retrash(int optiongroups_id,UserEntity loginInfo);
 
-	public void onOff(int optiongroups_id);
+	public void onOff(int optiongroups_id,UserEntity loginInfo);
 
 	public OptiongroupsEntity findOptionGroupId(int optiongroups_id);
 

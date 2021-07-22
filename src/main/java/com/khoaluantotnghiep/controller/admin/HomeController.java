@@ -41,6 +41,10 @@ public class HomeController {
 		mav.addObject("listReceipt",listItem);
 		mav.addObject("mapCate",mapCate);
 		mav.addObject("rpCate",listRpCat);
+		mav.addObject("rpAccount",reportService.getNumberAccounts());
+		mav.addObject("rpTotalInMonth",reportService.getTotalInMonth());
+		mav.addObject("rpTotalLastMonth",reportService.getTotalLastMonth());
+		mav.addObject("rpCancelBill",reportService.getNumberOfCancledBillsinMonth());
 		return mav;
 	}
 }

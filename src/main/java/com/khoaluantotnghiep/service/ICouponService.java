@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.khoaluantotnghiep.entity.CouponEntity;
+import com.khoaluantotnghiep.entity.UserEntity;
 
 @Service
 public interface ICouponService {
@@ -22,11 +23,11 @@ public interface ICouponService {
 
 	public List<CouponEntity> findTrashCoupon();
 
-	public void deltrash(int id);
+	public void deltrash(int id, UserEntity loginInfo);
 
-	public void retrash(int id);
+	public void retrash(int id, UserEntity loginInfo);
 
-	public void onOffCoupon(int id);
+	public void onOffCoupon(int id, UserEntity loginInfo);
 
 	public List<CouponEntity> GetDataCouponPaginate(int start, int totalPage);
 
@@ -41,7 +42,7 @@ public interface ICouponService {
 	public CouponEntity checkAvailCode(String code);
 
 	public void subVailable(String code);
-	
+
 	public CouponEntity findCouponById(int id);
 
 }

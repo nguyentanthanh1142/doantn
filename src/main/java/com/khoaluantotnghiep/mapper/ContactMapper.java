@@ -20,7 +20,9 @@ public class ContactMapper implements RowMapper<ContactEntity> {
 		contact.setSubject(rs.getString("subject"));
 		contact.setContent(rs.getString("content"));
 		contact.setStatus(rs.getInt("status"));
+		contact.setUpdated_by(rs.getInt("updated_by"));
 		contact.setCreated_at(rs.getDate("created_at"));
+		contact.setUpdated_at(rs.getDate("updated_at"));
 		return contact;
 	}
 

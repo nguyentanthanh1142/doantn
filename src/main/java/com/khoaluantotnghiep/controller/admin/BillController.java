@@ -1,10 +1,12 @@
 package com.khoaluantotnghiep.controller.admin;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,8 +24,11 @@ import com.khoaluantotnghiep.dto.PaginateDTO;
 import com.khoaluantotnghiep.entity.BilldetailEntity;
 import com.khoaluantotnghiep.entity.BillsEntity;
 import com.khoaluantotnghiep.entity.CouponEntity;
+import com.khoaluantotnghiep.entity.NoteEntity;
+import com.khoaluantotnghiep.entity.UserEntity;
 import com.khoaluantotnghiep.service.impl.BillsServiceImpl;
 import com.khoaluantotnghiep.service.impl.CouponServiceImpl;
+import com.khoaluantotnghiep.service.impl.NoteServiceImpl;
 import com.khoaluantotnghiep.service.impl.PaginatesServiceImpl;
 import com.khoaluantotnghiep.ultis.ExportExcel;
 
@@ -36,6 +41,8 @@ public class BillController extends BaseController {
 	PaginatesServiceImpl paginateService;
 	@Autowired
 	CouponServiceImpl couponService;
+	@Autowired
+	NoteServiceImpl noteService;
 	private int totalProductPage = 8;
 
 	@RequestMapping(value = "/quan-tri/hoa-don", method = RequestMethod.GET)
@@ -80,11 +87,37 @@ public class BillController extends BaseController {
 
 	@RequestMapping(value = "/quan-tri/hoa-don/status/{id}", method = RequestMethod.GET)
 	public String changeStatus(@PathVariable int id, final RedirectAttributes redirectAttributes,
-			HttpServletRequest request) {
+			HttpServletRequest request, HttpSession session) {
 		try {
-			billsService.changeStatus(id);
+			UserEntity loginInfo = (UserEntity) session.getAttribute("LoginInfo");
+			billsService.changeStatus(id, loginInfo);
 			redirectAttributes.addFlashAttribute("msg", "Thao tác thành công");
+			// them note để quản lý
+			NoteEntity noteEntity = new NoteEntity();
+			noteEntity.setContent("Admin đã thay đổi trạng thái đơn hàng " + id);
+			noteEntity.setCreated_at(new Date());
+			noteEntity.setCreated_by(loginInfo.getUser_id());
+			noteService.addNote(noteEntity);
+		} catch (Exception e) {
+			redirectAttributes.addFlashAttribute("msg", "Không thành công");
+		}
+		String referer = request.getHeader("Referer");
+		return "redirect:" + referer;
+	}
 
+	@RequestMapping(value = "/quan-tri/hoa-don/cancel/{id}", method = RequestMethod.GET)
+	public String cancelBill(@PathVariable int id, final RedirectAttributes redirectAttributes,
+			HttpServletRequest request, HttpSession session) {
+		try {
+			UserEntity loginInfo = (UserEntity) session.getAttribute("LoginInfo");
+			billsService.cancelBill(id, loginInfo);
+			redirectAttributes.addFlashAttribute("msg", "Thao tác thành công");
+			// them note để quản lý
+			NoteEntity noteEntity = new NoteEntity();
+			noteEntity.setContent("Admin đã hủy đơn hàng đơn hàng " + id);
+			noteEntity.setCreated_at(new Date());
+			noteEntity.setCreated_by(loginInfo.getUser_id());
+			noteService.addNote(noteEntity);
 		} catch (Exception e) {
 			redirectAttributes.addFlashAttribute("msg", "Không thành công");
 		}
@@ -94,11 +127,17 @@ public class BillController extends BaseController {
 
 	@RequestMapping(value = "/quan-tri/hoa-don/delete/{id}", method = RequestMethod.GET)
 	public String deleteBill(@PathVariable int id, final RedirectAttributes redirectAttributes,
-			HttpServletRequest request) {
+			HttpServletRequest request, HttpSession session) {
 		try {
+			UserEntity loginInfo = (UserEntity) session.getAttribute("LoginInfo");
 			billsService.deleteBill(id);
 			redirectAttributes.addFlashAttribute("msg", "Thao tác thành công");
-
+			// them note để quản lý
+			NoteEntity noteEntity = new NoteEntity();
+			noteEntity.setContent("Admin đã xóa đơn hàng đơn hàng " + id);
+			noteEntity.setCreated_at(new Date());
+			noteEntity.setCreated_by(loginInfo.getUser_id());
+			noteService.addNote(noteEntity);
 		} catch (Exception e) {
 			redirectAttributes.addFlashAttribute("msgfail", "Không thành công");
 		}

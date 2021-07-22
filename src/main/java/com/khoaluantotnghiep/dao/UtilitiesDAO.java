@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.khoaluantotnghiep.entity.UserEntity;
 import com.khoaluantotnghiep.entity.UtilitiesEntity;
 import com.khoaluantotnghiep.mapper.UtilitiesMapper;
 
@@ -107,30 +108,34 @@ public class UtilitiesDAO extends BaseDAO {
 		jdbcTemplate.update(sql);
 	}
 
-	public void deltrash(int utilities_id) {
-		String sql = "UPDATE utilities SET status = 0 WHERE utilities_id = " + utilities_id;
+	public void deltrash(int utilities_id, UserEntity loginInfo) {
+		String sql = "UPDATE utilities SET status = 0,updated_by = " + loginInfo.getUser_id()
+				+ ", updated_at = NOW() WHERE utilities_id = " + utilities_id;
 		jdbcTemplate.update(sql);
 	}
 
-	public void retrash(int utilities_id) {
-		String sql = "UPDATE utilities SET status = 2 WHERE utilities_id = " + utilities_id;
+	public void retrash(int utilities_id, UserEntity loginInfo) {
+		String sql = "UPDATE utilities SET status = 2,updated_by = " + loginInfo.getUser_id()
+				+ ", updated_at = NOW() WHERE utilities_id = " + utilities_id;
 		jdbcTemplate.update(sql);
 	}
 
-	public void onOffTopic(int utilities_id) {
-		String sql = "UPDATE utilities SET status = case WHEN status =1 then 2 when status=2 then 1 end WHERE utilities_id = "
-				+ utilities_id;
+	public void onOffTopic(int utilities_id, UserEntity loginInfo) {
+		String sql = "UPDATE utilities SET status = case WHEN status =1 then 2 when status=2 then 1 end,updated_by = "
+				+ loginInfo.getUser_id() + ", updated_at = NOW() WHERE utilities_id = " + utilities_id;
 		jdbcTemplate.update(sql);
 	}
+
 	public UtilitiesEntity findUtilityByName(UtilitiesEntity utility) {
-		String sql = "SELECT * FROM utilities WHERE utilitiesname = '" + utility.getUtilitiesname() + "' AND product_id = "
-				+ utility.getProduct_id();
+		String sql = "SELECT * FROM utilities WHERE utilitiesname = '" + utility.getUtilitiesname()
+				+ "' AND product_id = " + utility.getProduct_id();
 		List<UtilitiesEntity> result = jdbcTemplate.query(sql, new UtilitiesMapper());
 		return result.isEmpty() ? null : result.get(0);
 	}
+
 	public UtilitiesEntity findOtherUtilityByName(UtilitiesEntity utility) {
-		String sql = "SELECT * FROM utilities options WHERE utilitiesname = '" +  utility.getUtilitiesname() + "' AND product_id = "
-				+ utility.getProduct_id() + " and utilities_id <>" + utility.getUtilities_id();
+		String sql = "SELECT * FROM utilities options WHERE utilitiesname = '" + utility.getUtilitiesname()
+				+ "' AND product_id = " + utility.getProduct_id() + " and utilities_id <>" + utility.getUtilities_id();
 		List<UtilitiesEntity> result = jdbcTemplate.query(sql, new UtilitiesMapper());
 		return result.isEmpty() ? null : result.get(0);
 	}

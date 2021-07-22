@@ -19,8 +19,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.khoaluantotnghiep.dto.PaginateDTO;
 import com.khoaluantotnghiep.entity.CategoryEntity;
+import com.khoaluantotnghiep.entity.NoteEntity;
 import com.khoaluantotnghiep.entity.UserEntity;
 import com.khoaluantotnghiep.service.impl.CategoryServiceImpl;
+import com.khoaluantotnghiep.service.impl.NoteServiceImpl;
 import com.khoaluantotnghiep.service.impl.PaginatesServiceImpl;
 
 @Controller(value = "cateControllerOfAdmin")
@@ -29,6 +31,8 @@ public class CategoryController extends BaseController {
 	CategoryServiceImpl categoryService;
 	@Autowired
 	PaginatesServiceImpl paginateService;
+	@Autowired
+	NoteServiceImpl noteService;
 	private int totalDataPage = 5;
 
 	@GetMapping("/quan-tri/danh-muc")
@@ -83,10 +87,17 @@ public class CategoryController extends BaseController {
 
 	@GetMapping(value = "/quan-tri/danh-muc/delete/{id}")
 	public String deleteCate(@PathVariable int id, ModelMap modelMap, final RedirectAttributes redirectAttributes,
-			HttpServletRequest request) {
+			HttpServletRequest request, HttpSession session) {
 		try {
+			UserEntity loginInfo = (UserEntity) session.getAttribute("LoginInfo");
 			categoryService.deleteCategory(id);
 			redirectAttributes.addFlashAttribute("msg", "Xóa thành công!");
+			// them note để quản lý
+			NoteEntity noteEntity = new NoteEntity();
+			noteEntity.setContent("Admin đã xóa vĩnh viễn danh mục " + id);
+			noteEntity.setCreated_at(new Date());
+			noteEntity.setCreated_by(loginInfo.getUser_id());
+			noteService.addNote(noteEntity);
 		} catch (Exception e) {
 			redirectAttributes.addFlashAttribute("msgfail", "Xóa không thành công!");
 		}
@@ -96,10 +107,17 @@ public class CategoryController extends BaseController {
 
 	@GetMapping(value = "/quan-tri/danh-muc/trash/{id}")
 	public String delCate(@PathVariable int id, ModelMap modelMap, final RedirectAttributes redirectAttributes,
-			HttpServletRequest request) {
+			HttpServletRequest request, HttpSession session) {
 		try {
-			categoryService.deltrash(id);
+			UserEntity loginInfo = (UserEntity) session.getAttribute("LoginInfo");
+			categoryService.deltrash(id, loginInfo);
 			redirectAttributes.addFlashAttribute("msg", "Xóa vào thùng rác thành công!");
+			// them note để quản lý
+			NoteEntity noteEntity = new NoteEntity();
+			noteEntity.setContent("Admin xóa tạm thời danh mục " + id);
+			noteEntity.setCreated_at(new Date());
+			noteEntity.setCreated_by(loginInfo.getUser_id());
+			noteService.addNote(noteEntity);
 		} catch (Exception e) {
 			redirectAttributes.addFlashAttribute("msgfail", "Xóa vào thùng rác không thành công!");
 		}
@@ -109,10 +127,17 @@ public class CategoryController extends BaseController {
 
 	@GetMapping(value = "/quan-tri/danh-muc/retrash/{id}")
 	public String retrashCate(@PathVariable int id, ModelMap modelMap, final RedirectAttributes redirectAttributes,
-			HttpServletRequest request) {
+			HttpServletRequest request, HttpSession session) {
 		try {
-			categoryService.retrash(id);
+			UserEntity loginInfo = (UserEntity) session.getAttribute("LoginInfo");
+			categoryService.retrash(id, loginInfo);
 			redirectAttributes.addFlashAttribute("msg", "Thao tác thành công!");
+			// them note để quản lý
+			NoteEntity noteEntity = new NoteEntity();
+			noteEntity.setContent("Admin bỏ xóa tạm thời danh mục " + id);
+			noteEntity.setCreated_at(new Date());
+			noteEntity.setCreated_by(loginInfo.getUser_id());
+			noteService.addNote(noteEntity);
 		} catch (Exception e) {
 			redirectAttributes.addFlashAttribute("msgfail", "Thao tác không thành công!");
 		}
@@ -122,10 +147,17 @@ public class CategoryController extends BaseController {
 
 	@GetMapping("/quan-tri/danh-muc/status/{id}")
 	public String onOffCate(@PathVariable int id, ModelMap modelMap, final RedirectAttributes redirectAttributes,
-			HttpServletRequest request) {
+			HttpServletRequest request, HttpSession session) {
 		try {
-			categoryService.onOffCategory(id);
+			UserEntity loginInfo = (UserEntity) session.getAttribute("LoginInfo");
+			categoryService.onOffCategory(id, loginInfo);
 			redirectAttributes.addFlashAttribute("msg", "Thao tác thành công!");
+			// them note để quản lý
+			NoteEntity noteEntity = new NoteEntity();
+			noteEntity.setContent("Admin thay đổi trạng thái danh mục " + id);
+			noteEntity.setCreated_at(new Date());
+			noteEntity.setCreated_by(loginInfo.getUser_id());
+			noteService.addNote(noteEntity);
 		} catch (Exception e) {
 			redirectAttributes.addFlashAttribute("msgfail", "Thao tác không thành công!");
 		}
@@ -167,6 +199,12 @@ public class CategoryController extends BaseController {
 			category.setMetadesc(request.getParameter("metadesc"));
 			categoryService.addCategory(category);
 			redirectAttributes.addFlashAttribute("msg", "Thêm thành công!");
+			// them note để quản lý
+			NoteEntity noteEntity = new NoteEntity();
+			noteEntity.setContent("Admin thêm danh mục mới: " + category.getName());
+			noteEntity.setCreated_at(new Date());
+			noteEntity.setCreated_by(loginInfo.getUser_id());
+			noteService.addNote(noteEntity);
 		} catch (Exception e) {
 			redirectAttributes.addFlashAttribute("msgfail", "Thêm không thành công!");
 		}
@@ -206,6 +244,12 @@ public class CategoryController extends BaseController {
 			category.setUpdated_by(loginInfo.getUser_id());
 			categoryService.updateCategory(category);
 			redirectAttributes.addFlashAttribute("msg", "Cập nhật thành công");
+			// them note để quản lý
+			NoteEntity noteEntity = new NoteEntity();
+			noteEntity.setContent("Admin chỉnh sửa danh mục " + category.getId());
+			noteEntity.setCreated_at(new Date());
+			noteEntity.setCreated_by(loginInfo.getUser_id());
+			noteService.addNote(noteEntity);
 		} catch (Exception e) {
 			redirectAttributes.addFlashAttribute("msgfail", "Cập nhật không thành công");
 		}

@@ -8,8 +8,8 @@
 <title>Chỉnh sửa tùy chọn</title>
 </head>
 <body>
-	<c:url var="editsave" value="/quan-tri/menu/editsave" />
-	<c:url var="list" value="/quan-tri/menu" />
+	<c:url var="editsave" value="/quan-tri/web/menu/editsave" />
+	<c:url var="list" value="/quan-tri/web/menu" />
 	<form:form modelAttribute="menu" action="${editsave}"
 		enctype="multipart/form-data" method="POST">
 		<div class="content-wrapper pt-3">
@@ -100,7 +100,7 @@
 		var orders =  ${menuitem.orders}
 		var parent = ${menuitem.parent_id}
 		$.ajax({
-		 	url: "http://localhost:8080/spring-web/quan-tri/menu/parent/" + id ,
+		 	url: "http://localhost:8080/spring-web/quan-tri/web/menu/parent/" + id ,
 
  	        method: "GET",
  	        dataType: 'json',
@@ -130,7 +130,7 @@
 				var pi = $("#parent_id").val();
 		    	 if($("#parent_id").val()!=""){
 		 	    	$.ajax({
-		    		 	url: "http://localhost:8080/spring-web/quan-tri/menu/parent/" + pi,
+		    		 	url: "http://localhost:8080/spring-web/quan-tri/web/menu/parent/" + pi,
 			
 			 	        method: "GET",
 			 	        dataType: 'json',

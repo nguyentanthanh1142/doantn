@@ -21,5 +21,10 @@ public class ConfigwebServiceImpl implements IConfigwebService {
 	public void update(ConfigwebEntity config) {
 		configDAO.update(config);
 	}
+	@Override
+	public void changeStatus(int id) {
+		configDAO.changeStatus(id);
+		
+	}
 
 }

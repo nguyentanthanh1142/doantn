@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.khoaluantotnghiep.dao.ManufacturerDAO;
 import com.khoaluantotnghiep.entity.ManufacturerEntity;
+import com.khoaluantotnghiep.entity.UserEntity;
 import com.khoaluantotnghiep.service.IManufacturerService;
 
 @Service
@@ -53,18 +54,18 @@ public class ManufacturerServiceImpl implements IManufacturerService {
 	}
 
 	@Override
-	public void deltrash(int manufacturer_id) {
-		manufacturerDAO.deltrash(manufacturer_id);
+	public void deltrash(int manufacturer_id,UserEntity loginInfo) {
+		manufacturerDAO.deltrash(manufacturer_id,loginInfo);
 	}
 
 	@Override
-	public void retrash(int manufacturer_id) {
-		manufacturerDAO.retrash(manufacturer_id);
+	public void retrash(int manufacturer_id, UserEntity loginInfo) {
+		manufacturerDAO.retrash(manufacturer_id,loginInfo);
 	}
 
 	@Override
-	public void onOffManufacturer(int manufacturer_id) {
-		manufacturerDAO.onOffManufacturer(manufacturer_id);
+	public void onOffManufacturer(int manufacturer_id, UserEntity loginInfo) {
+		manufacturerDAO.onOffManufacturer(manufacturer_id,loginInfo);
 	}
 
 	@Override

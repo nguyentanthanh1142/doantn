@@ -8,11 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.khoaluantotnghiep.dao.MenuDAO;
-import com.khoaluantotnghiep.entity.CategoryEntity;
 import com.khoaluantotnghiep.entity.MenuEntity;
-import com.khoaluantotnghiep.entity.OptionsEntity;
-import com.khoaluantotnghiep.entity.PostEntity;
-import com.khoaluantotnghiep.mapper.PostMapper;
+import com.khoaluantotnghiep.entity.UserEntity;
 import com.khoaluantotnghiep.service.IMenuService;
 
 @Service
@@ -79,8 +76,8 @@ public class MenuServiceImpl implements IMenuService {
 	}
 
 	@Override
-	public void onOffMenu(int post_id) {
-		menuDAO.onOffTPost(post_id);
+	public void onOffMenu(int post_id,UserEntity loginInfo) {
+		menuDAO.onOffTPost(post_id, loginInfo);
 	}
 
 	@Override
@@ -89,13 +86,13 @@ public class MenuServiceImpl implements IMenuService {
 	}
 
 	@Override
-	public void delTrash(int menu_id) {
-		menuDAO.delTrash(menu_id);
+	public void delTrash(int menu_id,UserEntity loginInfo) {
+		menuDAO.delTrash(menu_id, loginInfo);
 	}
 
 	@Override
-	public void reTrash(int menu_id) {
-		menuDAO.reTrash(menu_id);
+	public void reTrash(int menu_id,UserEntity loginInfo) {
+		menuDAO.reTrash(menu_id, loginInfo);
 	}
 
 	@Override

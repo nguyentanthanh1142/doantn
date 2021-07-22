@@ -31,6 +31,9 @@
 	<decorator name="libraries" page="">
 		<pattern>/libraries*</pattern>
 	</decorator>
+	<decorator name="baotri" page="">
+		<pattern>/bao-tri*</pattern>
+	</decorator>
 	<decorator name="checkout" page="checkout.jsp">
 		<pattern>/checkout</pattern>
 	</decorator>

@@ -21,8 +21,10 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.khoaluantotnghiep.dto.PaginateDTO;
+import com.khoaluantotnghiep.entity.NoteEntity;
 import com.khoaluantotnghiep.entity.ProductImageEntity;
 import com.khoaluantotnghiep.entity.UserEntity;
+import com.khoaluantotnghiep.service.impl.NoteServiceImpl;
 import com.khoaluantotnghiep.service.impl.PaginatesServiceImpl;
 import com.khoaluantotnghiep.service.impl.ProductImageServiceImpl;
 import com.khoaluantotnghiep.service.impl.ProductServiceImpl;
@@ -35,6 +37,8 @@ public class ProductImageController extends BaseController {
 	ProductServiceImpl prodService;
 	@Autowired
 	PaginatesServiceImpl paginateService;
+	@Autowired
+	NoteServiceImpl noteService;
 	private int totalDataPage = 5;
 
 	@GetMapping("/quan-tri/hinh-anh-san-pham")
@@ -116,6 +120,12 @@ public class ProductImageController extends BaseController {
 			prodimg.setUpdated_at(new Date());
 			prodImgService.add(prodimg);
 			redirectAttributes.addFlashAttribute("msg", "Thêm thành công");
+			// them note de quan ly
+			NoteEntity noteEntity = new NoteEntity();
+			noteEntity.setContent("Admin đã thêm hình ảnh sản phẩm cho sản phẩm" + prodimg.getProduct_id());
+			noteEntity.setCreated_at(new Date());
+			noteEntity.setCreated_by(loginInfo.getUser_id());
+			noteService.addNote(noteEntity);
 		} catch (Exception e) {
 			redirectAttributes.addFlashAttribute("msgfail", "Thêm không thành công");
 		}
@@ -123,10 +133,18 @@ public class ProductImageController extends BaseController {
 	}
 
 	@RequestMapping(value = "/quan-tri/hinh-anh-san-pham/status/{id}", method = RequestMethod.GET)
-	public String onOff(@PathVariable int id, final RedirectAttributes redirectAttributes) {
+	public String onOff(@PathVariable int id, final RedirectAttributes redirectAttributes, HttpSession session) {
 		try {
-			prodImgService.onOffProductImage(id);
+
+			UserEntity loginInfo = (UserEntity) session.getAttribute("LoginInfo");
+			prodImgService.onOffProductImage(id, loginInfo);
 			redirectAttributes.addFlashAttribute("msg", "Thao tác thành công");
+			// them note de quan ly
+			NoteEntity noteEntity = new NoteEntity();
+			noteEntity.setContent("Admin đã thay đổi trạng thái hình ảnh sản phẩm cho sản phẩm" + id);
+			noteEntity.setCreated_at(new Date());
+			noteEntity.setCreated_by(loginInfo.getUser_id());
+			noteService.addNote(noteEntity);
 		} catch (Exception e) {
 			redirectAttributes.addFlashAttribute("msgfail", "Thao tác không thành công");
 		}
@@ -134,10 +152,17 @@ public class ProductImageController extends BaseController {
 	}
 
 	@RequestMapping(value = "/quan-tri/hinh-anh-san-pham/trash/{id}", method = RequestMethod.GET)
-	public String delTrash(@PathVariable int id, final RedirectAttributes redirectAttributes) {
+	public String delTrash(@PathVariable int id, final RedirectAttributes redirectAttributes, HttpSession session) {
 		try {
-			prodImgService.deltrashProductImage(id);
+			UserEntity loginInfo = (UserEntity) session.getAttribute("LoginInfo");
+			prodImgService.deltrashProductImage(id, loginInfo);
 			redirectAttributes.addFlashAttribute("msg", "Thao tác thành công");
+			// them note de quan ly
+			NoteEntity noteEntity = new NoteEntity();
+			noteEntity.setContent("Admin đã xóa tạm thời hình ảnh sản phẩm " + id);
+			noteEntity.setCreated_at(new Date());
+			noteEntity.setCreated_by(loginInfo.getUser_id());
+			noteService.addNote(noteEntity);
 		} catch (Exception e) {
 			redirectAttributes.addFlashAttribute("msgfail", "Thao tác không thành công");
 		}
@@ -145,10 +170,17 @@ public class ProductImageController extends BaseController {
 	}
 
 	@RequestMapping(value = "/quan-tri/hinh-anh-san-pham/retrash/{id}", method = RequestMethod.GET)
-	public String reTrash(@PathVariable int id, final RedirectAttributes redirectAttributes) {
+	public String reTrash(@PathVariable int id, final RedirectAttributes redirectAttributes, HttpSession session) {
 		try {
-			prodImgService.retrashProductImage(id);
+			UserEntity loginInfo = (UserEntity) session.getAttribute("LoginInfo");
+			prodImgService.retrashProductImage(id, loginInfo);
 			redirectAttributes.addFlashAttribute("msg", "Thao tác thành công");
+			// them note de quan ly
+			NoteEntity noteEntity = new NoteEntity();
+			noteEntity.setContent("Admin đã bỏ xóa tạm thời hình ảnh sản phẩm " + id);
+			noteEntity.setCreated_at(new Date());
+			noteEntity.setCreated_by(loginInfo.getUser_id());
+			noteService.addNote(noteEntity);
 		} catch (Exception e) {
 			redirectAttributes.addFlashAttribute("msgfail", "Thao tác không thành công");
 		}
@@ -156,10 +188,17 @@ public class ProductImageController extends BaseController {
 	}
 
 	@RequestMapping(value = "/quan-tri/hinh-anh-san-pham/delete/{id}", method = RequestMethod.GET)
-	public String deleta(@PathVariable int id, final RedirectAttributes redirectAttributes) {
+	public String deleta(@PathVariable int id, final RedirectAttributes redirectAttributes, HttpSession session) {
 		try {
+			UserEntity loginInfo = (UserEntity) session.getAttribute("LoginInfo");
 			prodImgService.deleteProductImage(id);
 			redirectAttributes.addFlashAttribute("msg", "Xóa thành công");
+			// them note de quan ly
+			NoteEntity noteEntity = new NoteEntity();
+			noteEntity.setContent("Admin đã xóa vĩnh viễn hình ảnh sản phẩm " + id);
+			noteEntity.setCreated_at(new Date());
+			noteEntity.setCreated_by(loginInfo.getUser_id());
+			noteService.addNote(noteEntity);
 		} catch (Exception e) {
 			redirectAttributes.addFlashAttribute("msgfail", "Xóa không thành công");
 		}

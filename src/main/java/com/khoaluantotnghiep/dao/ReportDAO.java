@@ -78,4 +78,28 @@ public class ReportDAO extends BaseDAO {
 		DateFormat df = new SimpleDateFormat("yyy");
 		return Integer.parseInt(df.format(date));
 	}
+	public int getNumberAccounts() {
+		StringBuffer sql = new StringBuffer();
+		sql.append("SELECT count(user_id) FROM user ");
+		int rs = jdbcTemplate.queryForObject(sql.toString(), new Object[] {}, Integer.class);
+		return rs;
+	}
+	public double getTotalInMonth() {
+		StringBuffer sql = new StringBuffer();
+		sql.append("SELECT COALESCE(sum(total),0) FROM bills where status = 4 and MONTH(created_at) = MONTH(CURRENT_DATE()) and year(created_at)  = year(CURRENT_DATE())");
+		double rs = jdbcTemplate.queryForObject(sql.toString(), new Object[] {}, double.class);
+		return rs;
+	}
+	public double getTotalLastMonth() {
+		StringBuffer sql = new StringBuffer();	
+		sql.append("SELECT COALESCE(sum(total),0) FROM bills WHERE status = 4 and YEAR(created_at) = YEAR(CURRENT_DATE() - INTERVAL 1 MONTH) AND MONTH(created_at) = MONTH(created_at - INTERVAL 1 MONTH) ");
+		double rs = jdbcTemplate.queryForObject(sql.toString(), new Object[] {}, double.class);
+		return rs;
+	}
+	public int getNumberOfCancledBillsinMonth() {
+		StringBuffer sql = new StringBuffer();	
+		sql.append("SELECT count(id) FROM bills WHERE status = -1 and MONTH(created_at) = MONTH(CURRENT_DATE()) and year(created_at)  = year(CURRENT_DATE()) ");
+		int rs = jdbcTemplate.queryForObject(sql.toString(), new Object[] {}, Integer.class);
+		return rs;
+	}
 }

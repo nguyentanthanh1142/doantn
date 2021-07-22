@@ -27,5 +27,11 @@ public class ConfigwebDAO extends BaseDAO {
 		jdbcTemplate.update(sql,config.getNameweb(),config.getWeb_detail(),config.getHotline(),config.getEmail(),config.getAddress_store(),config.getId());
 	}
 
+	public void changeStatus(int id) {
+		String sql = "UPDATE configweb SET status = case when  status =0 then 1 when  status =1 then 0 end where  id =" +  id;
+		jdbcTemplate.update(sql);
+		
+	}
+
 }
 
